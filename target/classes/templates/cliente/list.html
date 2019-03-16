@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> 
+<head>
+   <title>Gestionar Clientes</title>
+   <meta charset="UTF-8" />
+   <link rel="stylesheet"     
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+   <h1>Lista de Clientes</h1>
+   <table class="table table-striped">
+     <thead>
+       <tr>
+         <th>Dni</th>
+         <th>Nombre</th>
+         <th>Correo</th>
+         <th>Fecha Nacimiento</th>
+         <th>Sexo</th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr th:each="cliente: ${clientes}"> 
+         <td th:text="${cliente.dni}"></td> 
+         <td th:text="${cliente.nombre}"></td>
+         <td th:text="${cliente.email}"></td>
+         <td th:text="${cliente.fechaNacimiento}"></td>
+         <td th:text="${cliente.sexo}"></td>
+        
+       </tr>
+     </tbody>
+   </table>
+</body>
+</html>
