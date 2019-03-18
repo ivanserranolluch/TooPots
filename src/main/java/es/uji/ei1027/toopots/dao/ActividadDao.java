@@ -14,11 +14,11 @@ import es.uji.ei1027.toopots.model.Actividad;
 public class ActividadDao {
 	
 	private final String ADD_ACT_SQL = "INSERT INTO Actividad VALUES "
-			+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
 	private final String GET_ALL_ACT_SQL = "SELECT id_actividad, nombre, descripcion, duracionDias, fecha,"
 			+ " precio, minAsistentes, maxAsistentes, lugar, puntoEncuentro, horaEncuentro, textoCliente,"
-			+ " estado FROM Actividad";
+			+ " estado FROM Actividad;";
 	
 	private JdbcTemplate jdbcTemplate;
 	

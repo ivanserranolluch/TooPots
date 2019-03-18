@@ -18,7 +18,7 @@ public class ImgActDao {
 	
 	private final String ADD_ACT_SQL = SqlGenerator.generateAddSql(TABLE_NAME, NUM_PARAMS);
 	
-	private final String GET_ALL_ACT_SQL = "SELECT id_imagen, id_actividad, url, FROM " 
+	private final String GET_ALL_ACT_SQL = "SELECT id_imagen, id_actividad, url FROM " 
 	+ TABLE_NAME + ";";
 	
 	private JdbcTemplate jdbcTemplate;
