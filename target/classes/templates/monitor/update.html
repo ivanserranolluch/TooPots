@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Modifica el monitor</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h2>Update monitor</h2>
+<form action="#" th:action="@{/monitor/update/{id}(id=${monitor.id})}"
+      th:object="${monitor}" method="post">
+    <table>
+        <tr>
+            <td><label>Nombre</label></td>
+            <td><input type="text" th:field="*{nombre}" maxlength="60"/></td>
+        </tr>
+        <tr>
+            <td><label>Domicilio</label></td>
+            <td><input type="text" th:field="*{domicilio}" maxlength="60"/></td>
+        </tr>
+        <tr>
+            <td><label>Email</label></td>
+            <td><input type="text" th:field="*{email}"  maxlength="100"/></td>
+        </tr>
+        <tr>
+            <td><label>Iban</label></td>
+            <td><input type="text" th:field="*{iban}" maxlength="50"/></td>
+        </tr>
+        <tr>
+            <td><label>Estado</label></td>
+            <td><select class="form_control" type="text" th:field="*{estado}" >
+                <option value="aceptada">Aceptada</option>
+                <option value="rechazada">Rechazada</option>
+                <option value="pendiente">Pendiente</option>
+            </select>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Modifica nadador" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

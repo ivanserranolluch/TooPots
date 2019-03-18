@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Añade un monitor</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h2>Nuevo monitor</h2>
+<form action="#" th:action="@{/monitor/add}"
+      th:object="${monitor}" method="post">
+    <table>
+        <tr>
+            <td><label>DNI</label></td>
+            <td><input type="text" th:field="*{id}" maxlength="10"/></td>
+        </tr>
+        <tr>
+            <td><label>Nombre</label></td>
+            <td><input type="text" th:field="*{nombre}" maxlength="60"/></td>
+        </tr>
+        <tr>
+            <td><label>Email</label></td>
+            <td><input type="text" th:field="*{email}" maxlength="100"/></td>
+        </tr>
+        <tr>
+            <td><label>Iban</label></td>
+            <td><input type="text" th:field="*{iban}" maxlength="50"/></td>
+        </tr>
+        <tr>
+            <td><label>Estado</label></td>
+            <td><select th:field="*{estado}">
+                <option th:value="'aceptada'" th:text="Aceptada"></option>
+                <option th:value="'rechazada'" th:text="Rechazada"></option>
+                <option th:value="'pendiente'" th:text="Pendiente"></option>
+            </select></td>
+        </tr>
+        <tr>
+            <td><label>Domicilio</label></td>
+            <td><input type="text" th:field="*{domicilio}" maxlength="60"/></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Añade monitor" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

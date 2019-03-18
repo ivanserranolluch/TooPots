@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestionar Monitores</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h1>Lista de monitores</h1>
+<div th:if="${#lists.isEmpty(monitores)}">
+    No hay monitores en la base de datos
+</div>
+<table th:unless="${#lists.isEmpty(monitores)}" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Domicilio</th>
+        <th>Email</th>
+        <th>Iban</th>
+        <th>Estado</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="monitor: ${monitores}">
+        <td th:text="${monitor.id}"></td>
+        <td th:text="${monitor.nombre}"></td>
+        <td th:text="${monitor.domicilio}"></td>
+        <td th:text="${monitor.email}"></td>
+        <td th:text="${monitor.iban}"></td>
+        <td th:text="${monitor.estado}"></td>
+        <td><a class="btn btn-info" th:href="@{/monitor/update/{id}(id=${monitor.id})}"
+                                                          style="color:white;">Editar</a></td>
+        <td><a class="btn btn-danger" th:href="@{/monitor/delete/{id}(id=${monitor.id})}"
+                                                            style="color:white;">Borrar</a></td>
+    </tr>
+    </tbody>
+</table>
+<a class="btn btn-success" href="add" style="color:white;">Añade monitor</a>
+</body>
+</html>
