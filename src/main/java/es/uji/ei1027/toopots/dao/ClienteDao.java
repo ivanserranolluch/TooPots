@@ -26,7 +26,7 @@ public class ClienteDao {
 	
 	/* Afegeix el nadador a la base de dades */
     public void addCliente(Cliente cliente) {
-        jdbcTemplate.update("INSERT INTO Nadador VALUES(?, ?, ?, ?, ?)",
+        jdbcTemplate.update("INSERT INTO Cliente VALUES(?, ?, ?, ?, ?)",
                 cliente.getDni(),cliente.getNombre(),cliente.getEmail(),
                 cliente.getFechaNacimiento(),cliente.getSexo());
     }
