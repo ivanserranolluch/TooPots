@@ -11,8 +11,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import es.uji.ei1027.toopots.model.CertificacionesTipoActividad;
-import es.uji.ei1027.toopots.model.Reserva;
-import es.uji.ei1027.toopots.model.TipoActividad;
 @Repository
 public class CertificacionesTipoActividadDao {
 	private JdbcTemplate jdbcTemplate;
