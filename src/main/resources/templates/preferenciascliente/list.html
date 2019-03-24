@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestionar Preferencias del Cliente</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h1>Lista de preferencias</h1>
+<div th:if="${#lists.isEmpty(preferenciasCliente)}">
+    No hay preferencias en la base de datos
+</div>
+<table th:unless="${#lists.isEmpty(preferenciasCliente)}" class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID_Actividad</th>
+        <th>DNI</th>
+        <th>Fecha</th>
+       
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="preferencia: ${preferenciasCliente}">
+        <td th:text="${preferencia.id_actividad}"></td>
+        <td th:text="${preferencia.dni}"></td>
+        <td th:text="${preferencia.fecha}"></td>
+        
+        <td><a class="btn btn-info" th:href="@{/preferenciascliente/update/{dni}(dni=${preferencia.dni})}"
+                                                          style="color:white;">Editar</a></td>
+        <td><a class="btn btn-danger" th:href="@{/preferenciascliente/delete/{dni}(dni=${preferencia.dni})}"
+                                                            style="color:white;">Borrar</a></td>
+    </tr>
+    </tbody>
+</table>
+<a class="btn btn-success" href="add" style="color:white;">Añade preferencia</a>
+</body>
+</html>

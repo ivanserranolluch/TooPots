@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Añade una certificacion del tipo de actividad</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h2>Nueva Certificación de la actividad</h2>
+<form th:action="@{/certificacionestipoactividad/add}"
+      th:object="${certificacionActividad}" method="post">
+    <table>
+        <tr>
+            <td><label>ID_certificación</label></td>
+            <td><input type="number" th:field="*{id_certificacion}" maxlength="10"/></td>
+        </tr>
+        <tr>
+            <td><label>ID_tipoActividad</label></td>
+            <td><input type="number" th:field="*{id_tipoActividad}" maxlength="60"/></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Añade certificacion de la actividad" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

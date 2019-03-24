@@ -8,9 +8,11 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import es.uji.ei1027.toopots.model.Reserva;
 
+@Repository
 public class ReservaDao {
 	private JdbcTemplate jdbcTemplate;
 
@@ -20,17 +22,39 @@ public class ReservaDao {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	/* Añade las certificaciones de los tipos de actividades a la base de datos */
+	/* Añade las reservas a la base de datos */
 	public void addReserva(Reserva reserva) {
-		jdbcTemplate.update("INSERT INTO Reserva VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
+		jdbcTemplate.update("INSERT INTO reserva VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
 				reserva.getId_reserva(),reserva.getEstadoPago(),reserva.getFecha(),reserva.getNumAsistentes(), 
-				reserva.getPrecioPersona(), reserva.getNumAsistentes(),
+				reserva.getPrecioPersona(), reserva.getNumTransacciones(),
 				reserva.getId_actividad(), reserva.getDni());
 		
 	}
+	
+	/* Actualiza las reservas a la base de datos */
+	public void updateReserva(Reserva reserva) {
+        jdbcTemplate.update("UPDATE reserva SET estadoPago=?, fecha=?, numAsistentes=?, precioPersona=?,"
+        		+ "numTransacciones=?, id_actividad=?, dni=?  WHERE id_reserva=?",
+        		reserva.getEstadoPago(), reserva.getFecha(), reserva.getNumAsistentes(), reserva.getPrecioPersona(),
+        			reserva.getNumTransacciones(), reserva.getId_actividad(), reserva.getDni(), reserva.getId_reserva());
+    }
+	
+	/* Borra las reservas a la base de datos */
+	public void deleteReserva(String id) {
+        jdbcTemplate.update("DELETE FROM Reserva WHERE id_reserva=?", id);
+    }
+	
+	/* Obtiene una reserva de la base de datos */
+	public Reserva getReserva(String id) {
+        try{
+            return jdbcTemplate.queryForObject("SELECT * FROM reserva WHERE id_reserva=?", new ReservaRowMapper(), id);
+        }catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
 
 	/* Obtiene todas las certificaciones de los tipos de actividad. Devuelve una lista vacia si no encuentra ninguno */
-	public List<Reserva> getReserva() {
+	public List<Reserva> getReservas() {
 		try {
 			return jdbcTemplate.query("SELECT * from Reserva",
 					new ReservaRowMapper());

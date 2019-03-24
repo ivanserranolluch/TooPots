@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestionar Certificaciones de las actividades</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h1>Lista de certifiaciones de las actividades</h1>
+<div th:if="${#lists.isEmpty(certificacionestipoactividad)}">
+    No hay certificaciones de las atividades en la base de datos
+</div>
+<table th:unless="${#lists.isEmpty(certificacionestipoactividad)}" class="table table-striped">
+    <thead>
+    <tr>
+   		<th>ID_certificacion</th>
+        <th>ID_tipoActividad</th>
+        
+       
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="certificacionActividad: ${certificacionActividades}">
+        <td th:text="${certificacionActividad.id_certificacion}"></td>
+        <td th:text="${certificacionActividad.id_tipoActividad}"></td>
+        
+        <td><a class="btn btn-info" th:href="@{/certificacionestipoactividad/update/{id}(id=${certificacionActividad.id_tipoActividad})}"
+                                                          style="color:white;">Editar</a></td>
+        <td><a class="btn btn-danger" th:href="@{/certificacionestipoactividad/delete/{id}(id=${certificacionActividad.id_tipoActividad})}"
+                                                            style="color:white;">Borrar</a></td>
+    </tr>
+    </tbody>
+</table>
+<a class="btn btn-success" href="add" style="color:white;">Añade certificacion en la actividad</a>
+</body>
+</html>

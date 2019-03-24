@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Añade una preferencia del cliente</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h2>Nueva Preferencia</h2>
+<form th:action="@{/preferenciascliente/add}"
+      th:object="${preferenciasCliente}" method="post">
+    <table>
+        <tr>
+            <td><label>ID_Actividad</label></td>
+            <td><input type="number" th:field="*{id_tipoActividad}" maxlength="10"/></td>
+        </tr>
+        <tr>
+            <td><label>DNI</label></td>
+            <td><input type="text" th:field="*{dni}" maxlength="60"/></td>
+        </tr>
+        <tr>
+            <td><label>Fecha</label></td>
+            <td><input type="date" th:field="*{fecha}" maxlength="100"/></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Añade preferencia" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

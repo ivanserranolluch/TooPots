@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import es.uji.ei1027.toopots.model.PreferenciasCliente;
 
 public final class PreferenciasClienteRowMapper implements RowMapper<PreferenciasCliente> {
-public PreferenciasCliente mapRow (ResultSet rs, int rowNum) throws SQLException {
+	public PreferenciasCliente mapRow (ResultSet rs, int rowNum) throws SQLException {
 		
 	    PreferenciasCliente preferenciasCliente = new PreferenciasCliente();
 	    preferenciasCliente.setDni(rs.getString("dni"));
