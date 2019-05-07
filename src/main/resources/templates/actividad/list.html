@@ -7,6 +7,7 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
+<div th:replace="/common/navbar" >...</div>
 <h1>Lista de actividades</h1>
 <div th:if="${#lists.isEmpty(actividades)}">
     No hay actividades disponibles en estos momentos
@@ -32,9 +33,9 @@
         <td> <a th:text="${actividad.precio}"> </a> € </td>
         <td><a class="btn btn-info" th:href="@{/actividad/{id}(id=${actividad.id_actividad})}"
                                                           style="color:white;">Ver</a></td>
-        <td th:if="${#user!=null}"><a class="btn btn-info" th:href="@{/reserva/add})}"
+        <td th:if="${session.user!=null}"><a class="btn btn-info" th:href="@{/reserva/add})}"
                                                           style="color:white;">Reservar</a></td>
-        <td th:if="${#user==null}"><a class="btn btn-info" th:href="@{/login}"
+        <td th:if="${session.user==null}"><a class="btn btn-info" th:href="@{/login}"
                                                           style="color:white;">Reservar</a></td>
     </tr>
     </tbody>
