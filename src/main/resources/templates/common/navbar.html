@@ -18,7 +18,7 @@
 
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top" th:if="${session.user!=null}">
-		<a class="navbar-brand" href="#">Aula virtual</a>
+		<a class="navbar-brand" href="/">Home</a>
 	
 		<!-- Toggler/collapsibe Button -->
 		<button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -27,12 +27,10 @@
 		
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 	        <ul class="navbar-nav">
-	            <li class="nav-item my-2" ><a class="nav-link my-2" href="/pantallas/ccd" th:href="@{/pantallas/ccd}"><b>Home</b></a></li>
-	            <li class="nav-item my-2" ><a class="nav-link my-2" href="/proyectoEstancia/listAll" th:href="@{/proyectoEstancia/listAll}"><b>Mirar Ofertas</b></a></li>
-	            <li class="nav-item my-2" ><a class="nav-link my-2" href="/preferencia/listVeryAll" th:href="@{/preferencia/listVeryAll}"><b>Listar preferencias</b></a></li>
-	            <li class="nav-item my-2" ><a class="nav-link my-2" href="/preferencia/listPorEstudiante" th:href="@{/preferencia/listPorEstudiante}"><b>Listar preferencias estudiante</b></a></li>
-	            <li class="nav-item my-2" ><a class="nav-link my-2" href="/asignacion/list" th:href="@{/asignacion/list}"><b>Listar Asignaciones</b></a></li>
-	            <li class="nav-item my-2" ><a class="nav-link my-2" href="/empresa/list" th:href="@{/empresa/list}"><b>Listar empresas</b></a></li>
+	            <li class="nav-item my-2" th:each="link : ${session.links}">
+	            	<a class="nav-link my-2" th:href="@{/{linkn}(linkn=${link.name})}" th:text="${link.name}"><b>Home</b>
+	            	</a>
+	            </li>
 	        </ul>
 		</div>
 </nav>

@@ -1,5 +1,8 @@
 package es.uji.ei1027.toopots.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import es.uji.ei1027.toopots.dao.UsuariosRegistradosDao;
+import es.uji.ei1027.toopots.model.NavbarLink;
 import es.uji.ei1027.toopots.model.User;
 
 @Controller
@@ -51,8 +55,15 @@ public class SessionController {
         // Autenticats correctament. 
         // Guardem les dades de l'usuari autenticat a la sessió
         session.setAttribute("user", user); 
+        
+        // Introducir los links de la navbar
+        session.setAttribute("links", getLinks(user.getTipoUsuario()));
 
 		return "common/succes";
+	}
+	
+	private List<NavbarLink> getLinks(String tipoUsuario){
+		return new ArrayList<NavbarLink>();
 	}
 
 }
