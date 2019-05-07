@@ -14,11 +14,11 @@ import es.uji.ei1027.toopots.model.Actividad;
 public class ActividadDao {
 	
 	private final String ADD_ACT_SQL = "INSERT INTO Actividad VALUES "
-			+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
 	private final String GET_ALL_ACT_SQL = "SELECT id_actividad, nombre, descripcion, duracionDias, fecha,"
-			+ " precio, minAsistentes, maxAsistentes, lugar, puntoEncuentro, horaEncuentro, textoCliente,"
-			+ " estado FROM Actividad;";
+			+ " precio, minAsistentes, maxAsistentes, lugar, puntoEncuento, horaEncuentro, textoCliente,"
+			+ " estado, id_tipoactividad FROM Actividad;";
 	
 	private JdbcTemplate jdbcTemplate;
 	
@@ -38,7 +38,7 @@ public class ActividadDao {
 		jdbcTemplate.update(sql, act.getId_actividad(), act.getNombre(), act.getDescripcion(),
 				act.getDuracionDias(), act.getFecha(), act.getPrecio(), act.getMinAsistentes(),
 				act.getMaxAsistentes(), act.getLugar(), act.getPuntoEncuentro(), act.getHoraEncuentro(),
-				act.getTextoCliente(), act.getEstado());
+				act.getTextoCliente(), act.getEstado(), act.getId_actividad());
 	}
 	
     /* Obté totes les activitats. Torna una llista buida si no n'hi ha cap. */

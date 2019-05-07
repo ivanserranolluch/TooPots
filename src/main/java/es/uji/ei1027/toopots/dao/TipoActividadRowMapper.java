@@ -12,7 +12,6 @@ public final class TipoActividadRowMapper implements RowMapper<TipoActividad> {
         tAct.setId(rs.getInt("id_tipoActividad"));
         tAct.setNombre(rs.getString("nombre"));
         tAct.setNivel(rs.getString("nivel"));
-        tAct.setIdActividad(rs.getInt("id_actividad"));
         return tAct;
     }
 }

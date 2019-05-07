@@ -21,13 +21,13 @@ public class TipoActividadDao {
     }
 
     public void addTipoActividad(TipoActividad tAct) {
-        jdbcTemplate.update("INSERT INTO tipoactividad VALUES(?, ?, ?, ?)",
-                tAct.getId(), tAct.getNombre(), tAct.getNivel(), tAct.getIdActividad());
+        jdbcTemplate.update("INSERT INTO tipoactividad VALUES(?, ?, ?)",
+                tAct.getId(), tAct.getNombre(), tAct.getNivel());
     }
 
     public void updateTipoActividad(TipoActividad tAct) {
-        jdbcTemplate.update("UPDATE tipoactividad SET nombre=?, nivel=?, id_actividad=? WHERE id_tipoActividad=?",
-                tAct.getNombre(), tAct.getNivel(), tAct.getIdActividad(), tAct.getId());
+        jdbcTemplate.update("UPDATE tipoactividad SET nombre=?, nivel=? WHERE id_tipoActividad=?",
+                tAct.getNombre(), tAct.getNivel(), tAct.getId());
     }
 
     public void deleteTipoActividad(String id) {

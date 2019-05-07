@@ -21,10 +21,11 @@ public final class ActividadRowMapper implements RowMapper<Actividad> {
 		dev.setMinAsistentes(rs.getInt("minAsistentes"));
 		dev.setMaxAsistentes(rs.getInt("maxAsistentes"));
 		dev.setLugar(rs.getString("lugar"));
-		dev.setPuntoEncuentro(rs.getString("puntoEncuentro"));
-		dev.setHoraEncuentro(rs.getInt("horaEncuentro"));
+		dev.setPuntoEncuentro(rs.getString("puntoEncuento"));
+		dev.setHoraEncuentro(rs.getTime("horaEncuentro"));
 		dev.setTextoCliente(rs.getString("textoCliente"));
 		dev.setEstado(rs.getString("estado"));
+		dev.setId_tipoActividad(rs.getInt("id_tipoActividad"));
 		return dev;
 	}
 
