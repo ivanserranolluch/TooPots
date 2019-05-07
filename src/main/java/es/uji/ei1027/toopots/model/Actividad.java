@@ -1,6 +1,7 @@
 package es.uji.ei1027.toopots.model;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class Actividad {
 	private int id_actividad;
@@ -13,9 +14,10 @@ public class Actividad {
 	private int maxAsistentes;
 	private String lugar;
 	private String puntoEncuentro;
-	private int horaEncuentro;
+	private Time horaEncuentro;
 	private String textoCliente;
 	private String estado;
+	private int id_tipoActividad;
 	public int getId_actividad() {
 		return id_actividad;
 	}
@@ -76,10 +78,10 @@ public class Actividad {
 	public void setPuntoEncuentro(String puntoEncuentro) {
 		this.puntoEncuentro = puntoEncuentro;
 	}
-	public int getHoraEncuentro() {
+	public Time getHoraEncuentro() {
 		return horaEncuentro;
 	}
-	public void setHoraEncuentro(int horaEncuentro) {
+	public void setHoraEncuentro(Time horaEncuentro) {
 		this.horaEncuentro = horaEncuentro;
 	}
 	public String getTextoCliente() {
@@ -93,5 +95,11 @@ public class Actividad {
 	}
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+	public int getId_tipoActividad() {
+		return id_tipoActividad;
+	}
+	public void setId_tipoActividad(int id_tipoActividad) {
+		this.id_tipoActividad = id_tipoActividad;
 	}
 }

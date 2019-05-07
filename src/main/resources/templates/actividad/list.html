@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Actividades</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h1>Lista de actividades</h1>
+<div th:if="${#lists.isEmpty(actividades)}">
+    No hay actividades disponibles en estos momentos
+</div>
+<table th:unless="${#lists.isEmpty(actividades)}" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Fecha</th>
+        <th>Duración</th>
+        <th>Lugar</th>
+        <th>Precio</th>
+        <th> </th>
+        <th> </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="actividad : ${actividades}">
+        <td th:text="${actividad.nombre}"></td>
+        <td th:text="${actividad.fecha}"></td>
+        <td> <a th:text="${actividad.duracionDias}"> </a> Dias</td>
+        <td th:text="${actividad.lugar}"></td>
+        <td> <a th:text="${actividad.precio}"> </a> € </td>
+        <td><a class="btn btn-info" th:href="@{/actividad/{id}(id=${actividad.id_actividad})}"
+                                                          style="color:white;">Ver</a></td>
+        <td th:if="${#user!=null}"><a class="btn btn-info" th:href="@{/reserva/add})}"
+                                                          style="color:white;">Reservar</a></td>
+        <td th:if="${#user==null}"><a class="btn btn-info" th:href="@{/login}"
+                                                          style="color:white;">Reservar</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
