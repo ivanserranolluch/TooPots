@@ -30,5 +30,11 @@ public class CommonController {
 		}
 		return route;
 	}
+	
+	@RequestMapping(value="/singup", method=RequestMethod.GET)
+	public String singUp(){
+		
+		return "common/singup";
+	}
 
 }
