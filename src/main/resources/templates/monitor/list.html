@@ -33,7 +33,12 @@
 	        <td th:text="${monitor.email}"></td>
 	        <td th:text="${monitor.iban}"></td>
 	        <td th:text="${monitor.estado}"></td>
-	        <td><a class="btn btn-info" th:href="@{/monitor/update/{id}(id=${monitor.id})}"
+
+
+			<td><a class="btn btn-info" th:href="@{/monitor/pdf/{id}(id=${monitor.id})}"
+				   style="color:white;">Ver pdf</a></td>
+
+			<td><a class="btn btn-info" th:href="@{/monitor/update/{id}(id=${monitor.id})}"
 	                                                          style="color:white;">Editar</a></td>
 	        <td><a class="btn btn-danger" th:href="@{/monitor/delete/{id}(id=${monitor.id})}"
 	                                                            style="color:white;">Borrar</a></td>

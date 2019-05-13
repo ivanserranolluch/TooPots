@@ -58,7 +58,6 @@ public class MonitorController {
         if (bindingResult.hasErrors())
             return "monitor/add";
         
-        System.out.println(uploadDirectory);
         try {
             // Obtener el fichero y guardarlo
             byte[] bytes = file.getBytes();
@@ -72,6 +71,12 @@ public class MonitorController {
         
         monitorDao.addMonitor(monitor);
         return "redirect:list";
+    }
+    
+    @RequestMapping(value="/pdf/{id}", method=RequestMethod.GET)
+    public String pdfMonitor(Model model, @PathVariable String id) {
+        model.addAttribute("monitor", monitorDao.getMonitor(id));
+        return "monitor/pdf";
     }
 
 
