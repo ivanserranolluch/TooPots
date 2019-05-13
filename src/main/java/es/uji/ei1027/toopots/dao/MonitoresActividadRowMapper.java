@@ -13,7 +13,7 @@ public class MonitoresActividadRowMapper implements RowMapper<MonitoresActividad
 	public MonitoresActividad mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MonitoresActividad dev = new MonitoresActividad();
 		dev.setId_actividad(rs.getInt("id_actividad"));
-		dev.setId_monitor(rs.getInt("id_monitor"));
+		dev.setId_monitor(rs.getString("id_monitor"));
 		return dev;
 	}
 

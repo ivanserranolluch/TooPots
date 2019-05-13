@@ -2,6 +2,8 @@ package es.uji.ei1027.toopots.controller;
 
 import es.uji.ei1027.toopots.dao.MonitorDao;
 import es.uji.ei1027.toopots.model.Monitor;
+import es.uji.ei1027.toopots.service.MailService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +18,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class MonitorController {
 
     private MonitorDao monitorDao;
+    private MailService mailService;
 
     @Autowired
     public void setMonitorDao(MonitorDao monitorDao) {
         this.monitorDao=monitorDao;
+    }
+    
+    @Autowired
+    public void setMailService(MailService mailService) {
+        this.mailService=mailService;
     }
 
     @RequestMapping(value="/add")
@@ -51,6 +59,11 @@ public class MonitorController {
         if (bindingResult.hasErrors())
             return "monitor/update";
         monitorDao.updateMonitor(monitor);
+        
+        if (monitor.getEstado().equals("aceptada")) {
+       	mailService.sendMail("al342376@uji.es", monitor.getEmail(), "Aceptado como Monitor", "Su solicitud como monitor, ha sido aceptada.");
+        	
+		}
         return "redirect:../list";
     }
 
@@ -66,4 +79,18 @@ public class MonitorController {
         model.addAttribute("monitores", monitorDao.getMonitores());
         return "monitor/list";
     }
+    
+    @RequestMapping("/listSolicitudes")
+    public String listSolicitudes(Model model) {
+        model.addAttribute("monitores", monitorDao.getMonitores());
+        return "monitor/list";
+    }
+    
+    @RequestMapping("/lobby")
+    public String lobby(Model model) {
+        return "monitor/lobby";
+    }
+    
+    
+    
 }

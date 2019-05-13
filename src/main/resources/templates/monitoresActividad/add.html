@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Asignar actividades a los monitores</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div th:replace="/common/navbar" >...</div>
+<form action="#" th:action="@{/monitorActividad/add}"
+      th:object="${monitorActividad}" method="post">
+    <div class= container>
+    <h2>Asignar actividades a los monitores</h2>
+	    <table class="table table-striped">
+	        <tr>
+	            <td><label>ID_monitor</label></td>
+	            <td><input  class="form-control" type="text" th:field="*{id_monitor}" /></td>
+	        </tr>
+	        <tr>
+	            <td><label>ID_actividad</label></td>
+	            <td><input  class="form-control" type="number" th:field="*{id_actividad}" /></td>
+	        </tr>
+	        <tr>
+	            <td colspan="2"><input type="submit" value="Asignar actividad" /></td>
+	        </tr>
+	    </table>
+     </div>
+</form>
+</body>
+</html>

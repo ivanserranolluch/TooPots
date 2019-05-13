@@ -20,6 +20,9 @@ public class ActividadDao {
 			+ " precio, minAsistentes, maxAsistentes, lugar, puntoEncuento, horaEncuentro, textoCliente,"
 			+ " estado, id_tipoactividad FROM Actividad;";
 	
+			
+	
+	
 	private JdbcTemplate jdbcTemplate;
 	
 	// Obté el jdbcTemplate a partir del Data Source
@@ -40,6 +43,14 @@ public class ActividadDao {
 				act.getMaxAsistentes(), act.getLugar(), act.getPuntoEncuentro(), act.getHoraEncuentro(),
 				act.getTextoCliente(), act.getEstado(), act.getId_actividad());
 	}
+	
+	public Actividad getActividad(int id) {
+        try{
+            return jdbcTemplate.queryForObject("SELECT * FROM actividad WHERE id_actividad=?", new ActividadRowMapper(), id);
+        }catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
 	
     /* Obté totes les activitats. Torna una llista buida si no n'hi ha cap. */
     public List<Actividad> getActividad() {

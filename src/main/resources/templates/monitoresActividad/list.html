@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestionar actividad de los monitores</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div th:replace="/common/navbar" >...</div>
+
+<div class="container">
+	<h1>Lista de actividades y monitores</h1>
+
+	<div th:if="${#lists.isEmpty(monitoresActividad)}">
+	    No hay monitores en la base de datos
+	</div>
+	<table th:unless="${#lists.isEmpty(monitoresActividad)}" class="table table-striped">
+	    <thead>
+	    <tr>
+	        <th>Monitor</th>
+	        <th>Actividad</th>
+	        
+	    </tr>
+	    </thead>
+	    <tbody>
+	    <tr th:each="monitorActividad: ${monitoresActividad}" >
+	        <td th:text="${monitorActividad.estado}"></td>
+	        <td th:text="${monitorActividad.descripcion}"></td>
+	       
+	        <!-- <td><a class="btn btn-info" th:href="@{/monitor/update/{id}(id=${monitor.id})}"
+	                                                          style="color:white;">Editar</a></td>  -->
+	    </tr>
+	    </tbody>
+	</table>
+	<!-- <a class="btn btn-success" href="add" style="color:white;">Añade monitor</a> -->
+</div>
+</body>
+</html>
