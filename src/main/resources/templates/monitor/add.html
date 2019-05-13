@@ -2,68 +2,67 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Añade un monitor</title>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
-<div th:replace="/common/navbar" >...</div>
+<div th:replace="/common/navbar">...</div>
 <div class="container">
-	<h2>Nuevo monitor</h2>
-	<form action="#" th:action="@{/monitor/add}"
-	      th:object="${monitor}" method="post">
-	       
-	    	<div class="input-group mb-3">
-		        <label class="col-sm-1 col-form-label">DNI</label>
-		        <div class="col-sm-11">
-		         	<input class="form-control" type="text" th:field="*{id}" minlength="9" maxlength="9" required/>
-		        </div>
-	        </div>
-	        
-	        <div class="input-group mb-3">
-		        <label class="col-sm-1 col-form-label" >Nombre</label>
-		        <div class="col-sm-11">
-		        	<input class="form-control" type="text" th:field="*{nombre}" maxlength="25" required/>
-		       </div>
-		    </div>
-	        
-	         <div class="input-group mb-3">
-		        <label class="col-sm-1 col-form-label">Email</label>
-		        <div class="col-sm-11">
-		        	<input class="form-control" type="email" th:field="*{email}" required />
-		        </div>
-		     </div>
-	        
-	        <div class="input-group mb-3">
-		        <label class="col-sm-1 col-form-label">Iban</label>
-		        <div class="col-sm-11">
-		        	<input class="form-control" type="text" th:field="*{iban}" maxlength="50" required/>
-		        </div>
-		     </div>
-	        
-	         <div class="input-group mb-3">
-		        <label class="col-sm-1 col-form-label">Estado</label>
-		        <div class="col-sm-11">
-		        	<select class="form-control" th:field="*{estado}" required>
-		                <option th:value="'aceptada'" th:text="Aceptada"></option>
-		                <option th:value="'rechazada'" th:text="Rechazada"></option>
-		                <option th:value="'pendiente'" th:text="Pendiente"></option>
-		            </select>
-	       		</div>
-	       	</div>
-	        
-	        <div class="input-group mb-3">
-		        <label class="col-sm-1 col-form-label">Domicilio</label>
-		        <div class="col-sm-11">
-		        	<input class="form-control" type="text" th:field="*{domicilio}" maxlength="60" required/>
-		        </div>
-	        </div>
-	        
-	        
-	        <input type="submit" class=" btn btn-success" value="Añadir monitor" />
-	        
-	       	
-	</form>
+    <h2>Nuevo monitor</h2>
+    <form action="#" th:action="@{/monitor/add}"
+          th:object="${monitor}" method="post" enctype="multipart/form-data">
+
+        <div class="input-group mb-3">
+            <label class="col-sm-1 col-form-label">DNI</label>
+            <div class="col-sm-11">
+                <input class="form-control" type="text" th:field="*{id}" minlength="9" maxlength="9" required/>
+            </div>
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="col-sm-1 col-form-label">Nombre</label>
+            <div class="col-sm-11">
+                <input class="form-control" type="text" th:field="*{nombre}" maxlength="25" required/>
+            </div>
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="col-sm-1 col-form-label">Email</label>
+            <div class="col-sm-11">
+                <input class="form-control" type="email" th:field="*{email}" required/>
+            </div>
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="col-sm-1 col-form-label">Iban</label>
+            <div class="col-sm-11">
+                <input class="form-control" type="text" th:field="*{iban}" maxlength="50" required/>
+            </div>
+        </div>
+
+        <div class="input-group mb-3">
+            <input class="form-control" name="estado" value="pendiente" hidden/>
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="col-sm-1 col-form-label">Domicilio</label>
+            <div class="col-sm-11">
+                <input class="form-control" type="text" th:field="*{domicilio}" maxlength="60" required/>
+            </div>
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="col-sm-1 col-form-label">Curriculum</label>
+            <div class="col-sm-11">
+                <input type="file" name="file" id="file" required/>
+            </div>
+        </div>
+
+        <input type="submit" class=" btn btn-success" value="Añadir monitor"/>
+
+
+    </form>
 </div>
 </body>
 </html>

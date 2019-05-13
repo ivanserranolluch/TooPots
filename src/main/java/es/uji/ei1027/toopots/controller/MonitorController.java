@@ -1,10 +1,13 @@
 package es.uji.ei1027.toopots.controller;
 
-import es.uji.ei1027.toopots.dao.MonitorDao;
-import es.uji.ei1027.toopots.model.Monitor;
-import es.uji.ei1027.toopots.service.MailService;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +15,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import es.uji.ei1027.toopots.dao.MonitorDao;
+import es.uji.ei1027.toopots.model.Monitor;
+import es.uji.ei1027.toopots.service.MailService;
 
 @Controller
 @RequestMapping("/monitor")
@@ -19,6 +28,10 @@ public class MonitorController {
 
     private MonitorDao monitorDao;
     private MailService mailService;
+    
+    @Value("${upload.file.directory}")
+    private String uploadDirectory;
+
 
     @Autowired
     public void setMonitorDao(MonitorDao monitorDao) {
@@ -37,12 +50,33 @@ public class MonitorController {
     }
 
     @RequestMapping(value="/add", method=RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("monitor") Monitor monitor,
-                                   BindingResult bindingResult) {
+    public String processAddSubmit(@ModelAttribute("monitor") Monitor monitor, 
+    								@RequestParam("file") MultipartFile file,
+    								BindingResult bindingResult) {
+    	
+    	
         if (bindingResult.hasErrors())
             return "monitor/add";
+        
+        try {
+            // Obtener el fichero y guardarlo
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(uploadDirectory + "pdfs/" 
+                                          + monitor.getId());
+            Files.write(path, bytes);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
         monitorDao.addMonitor(monitor);
         return "redirect:list";
+    }
+    
+    @RequestMapping(value="/pdf/{id}", method=RequestMethod.GET)
+    public String pdfMonitor(Model model, @PathVariable String id) {
+        model.addAttribute("monitor", monitorDao.getMonitor(id));
+        return "monitor/pdf";
     }
 
 
