@@ -3,9 +3,12 @@ package es.uji.ei1027.toopots.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import es.uji.ei1027.toopots.model.Cliente;
+import es.uji.ei1027.toopots.model.Monitor;
 import es.uji.ei1027.toopots.model.User;
 
 @Controller
@@ -32,8 +35,10 @@ public class CommonController {
 	}
 	
 	@RequestMapping(value="/singup", method=RequestMethod.GET)
-	public String singUp(){
-		
+	public String singUp(Model model){
+		model.addAttribute("rol", "None");
+		model.addAttribute("monitor", new Monitor());
+		model.addAttribute("cliente", new Cliente());
 		return "common/singup";
 	}
 
