@@ -9,7 +9,7 @@
 <body>
 	<div th:replace="/common/navbar" >...</div>
 	
-	<div class="input-group">
+	<div class="input-group mb-5">
 		<div class="col-sm-3"></div>
      	<label class="col-sm-1 col-form-label">Rol:</label>
      	<div class="col-sm-5">
@@ -19,13 +19,7 @@
 			</select>
     	</div>
     	<div class="col-sm-3"></div>
-    </div>
-	
-	<div class="input-group mb-3 " id="noneSelected">
-       	<div class="col-sm-3"></div>
-       	<a class=" btn btn-danger col-sm-1 mt-4" href="/"> Cancelar </a>
-    </div>
-	
+    </div>	
 	
 	<script>
 		var selector = document.getElementById("rolSelector");
@@ -33,14 +27,16 @@
 	
 		function changeFunc($i) {
 			var monitorForm = document.getElementById("MonitorForm");
-			var none = document.getElementById("noneSelected");
-			console.log($i);
-			if($i == "monitor"){
-				monitorForm.style.visibility = "visible";
-				none.style.visibility = "hidden";
+			var clientForm = document.getElementById("ClientForm");
+			if($i == "monitor") {
+				monitorForm.style.display = "block";
+				clientForm.style.display = "none";
+			}else if ($i == "cliente") {
+				monitorForm.style.display = "none";
+				clientForm.style.display = "block";
 			}else{
-				monitorForm.style.visibility = "hidden";
-				none.style.visibility = "visible";
+				monitorForm.style.display = "none";
+				clientForm.style.display = "none";
 			}
 	   }
 	</script>
@@ -49,7 +45,7 @@
 	<form action="#" th:action="@{/monitor/add}"
 	      th:object="${monitor}" method="post"
 	      th:if="${rol=='None'}" id="MonitorForm"
-	      style="visibility: hidden;">
+	      style="display: none;">
 	       
 	    	<div class="input-group mb-3">
 	    		<div class="col-sm-3"></div>
@@ -87,19 +83,6 @@
 		        <div class="col-sm-3"></div>
 		     </div>
 	        
-	         <div class="input-group mb-3">
-	         	<div class="col-sm-3"></div>
-		        <label class="col-sm-1 col-form-label">Estado</label>
-		        <div class="col-sm-5">
-		        	<select class="form-control" th:field="*{estado}" required>
-		                <option th:value="'aceptada'" th:text="Aceptada"></option>
-		                <option th:value="'rechazada'" th:text="Rechazada"></option>
-		                <option th:value="'pendiente'" th:text="Pendiente"></option>
-		            </select>
-	       		</div>
-	       		<div class="col-sm-3"></div>
-	       	</div>
-	        
 	        <div class="input-group mb-3">
 	        	<div class="col-sm-3"></div>
 		        <label class="col-sm-1 col-form-label">Domicilio</label>
@@ -117,6 +100,68 @@
 	        </div>
 	       	
 	</form>
+	
+	
+	<form action="#" th:action="@{/cliente/add}"
+	      th:object="${cliente}" method="post"
+	      th:if="${rol=='None'}" id="ClientForm">
+	       
+	    	<div class="input-group mb-3">
+	    		<div class="col-sm-3"></div>
+		        <label class="col-sm-1 col-form-label">DNI</label>
+		        <div class="col-sm-5">
+		         	<input class="form-control" type="text" th:field="*{dni}" minlength="9" maxlength="9" required/>
+		        </div>
+		        <div class="col-sm-3"></div>
+	        </div>
+	        
+	        <div class="input-group mb-3">
+	        	<div class="col-sm-3"></div>
+		        <label class="col-sm-1 col-form-label" >Nombre</label>
+		        <div class="col-sm-5">
+		        	<input class="form-control" type="text" th:field="*{nombre}" maxlength="25" required/>
+		       </div>
+		       <div class="col-sm-3"></div>
+		    </div>
+	        
+	         <div class="input-group mb-3">
+	         	<div class="col-sm-3"></div>
+		        <label class="col-sm-1 col-form-label">Email</label>
+		        <div class="col-sm-5">
+		        	<input class="form-control" type="email" th:field="*{email}" required />
+		        </div>
+		        <div class="col-sm-3"></div>
+		     </div>
+	        
+	        <div class="input-group mb-3">
+	        	<div class="col-sm-3"></div>
+		        <label class="col-sm-1 col-form-label">Nacimiento</label>
+		        <div class="col-sm-5">
+		        	<input class="form-control" type="date" th:field="*{strFechaNacimiento}" required/>
+		        </div>
+		        <div class="col-sm-3"></div>
+		     </div>
+	        
+	         <div class="input-group mb-3">
+	         	<div class="col-sm-3"></div>
+		        <label class="col-sm-1 col-form-label">Genero</label>
+		        <div class="col-sm-5">
+		        	<select class="form-control" th:field="*{sexo}" required>
+		                <option th:value="'M'" th:text="Hombre"></option>
+		                <option th:value="'F'" th:text="Mujer"></option>
+		            </select>
+	       		</div>
+	       		<div class="col-sm-3"></div>
+	       	</div>
+	       	
+	       	<div class="input-group mb-3">
+	        	<div class="col-sm-3"></div>
+	        	<a class=" btn btn-danger col-sm-1" href="/"> Cancelar </a>
+	        	<div class="col-sm-4"></div>
+	        	<input type="submit" class=" btn btn-success col-sm-1" value="Añadir cliente" />
+	        </div>
+       	</form>
+	
 </body>
 
 </html>

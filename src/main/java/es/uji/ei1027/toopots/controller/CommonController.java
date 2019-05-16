@@ -39,6 +39,7 @@ public class CommonController {
 		model.addAttribute("rol", "None");
 		model.addAttribute("monitor", new Monitor());
 		model.addAttribute("cliente", new Cliente());
+		
 		return "common/singup";
 	}
 
