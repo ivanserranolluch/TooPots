@@ -8,21 +8,39 @@
 </head>
 <body>
 	<div th:replace="/common/navbar" >...</div>
-	<select th:field="*{rol}" onchange="changeFunc(value);">
-		<option th:value="None" th:text="Seleccionar_rol" selected></option>
-	    <option th:value="cliente" th:text="Cliente"></option>
-	    <option th:value="monitor" th:text="Monitor"></option>
-	</select>
+	
+	<div class="input-group">
+		<div class="col-sm-3"></div>
+     	<label class="col-sm-1 col-form-label">Rol:</label>
+     	<div class="col-sm-5">
+    		<select th:field="*{rol}" onchange="changeFunc(value);" class="form-control" id="rolSelector">
+			    <option th:value="cliente" th:text="Cliente" selected></option>
+			    <option th:value="monitor" th:text="Monitor"></option>
+			</select>
+    	</div>
+    	<div class="col-sm-3"></div>
+    </div>
+	
+	<div class="input-group mb-3 " id="noneSelected">
+       	<div class="col-sm-3"></div>
+       	<a class=" btn btn-danger col-sm-1 mt-4" href="/"> Cancelar </a>
+    </div>
+	
 	
 	<script>
-		
+		var selector = document.getElementById("rolSelector");
+		selector.value = "cliente";
+	
 		function changeFunc($i) {
 			var monitorForm = document.getElementById("MonitorForm");
+			var none = document.getElementById("noneSelected");
 			console.log($i);
 			if($i == "monitor"){
 				monitorForm.style.visibility = "visible";
+				none.style.visibility = "hidden";
 			}else{
 				monitorForm.style.visibility = "hidden";
+				none.style.visibility = "visible";
 			}
 	   }
 	</script>
@@ -30,57 +48,73 @@
 	
 	<form action="#" th:action="@{/monitor/add}"
 	      th:object="${monitor}" method="post"
-	      th:if="${rol=='None'}" id="MonitorForm">
+	      th:if="${rol=='None'}" id="MonitorForm"
+	      style="visibility: hidden;">
 	       
 	    	<div class="input-group mb-3">
+	    		<div class="col-sm-3"></div>
 		        <label class="col-sm-1 col-form-label">DNI</label>
-		        <div class="col-sm-11">
+		        <div class="col-sm-5">
 		         	<input class="form-control" type="text" th:field="*{id}" minlength="9" maxlength="9" required/>
 		        </div>
+		        <div class="col-sm-3"></div>
 	        </div>
 	        
 	        <div class="input-group mb-3">
+	        	<div class="col-sm-3"></div>
 		        <label class="col-sm-1 col-form-label" >Nombre</label>
-		        <div class="col-sm-11">
+		        <div class="col-sm-5">
 		        	<input class="form-control" type="text" th:field="*{nombre}" maxlength="25" required/>
 		       </div>
+		       <div class="col-sm-3"></div>
 		    </div>
 	        
 	         <div class="input-group mb-3">
+	         	<div class="col-sm-3"></div>
 		        <label class="col-sm-1 col-form-label">Email</label>
-		        <div class="col-sm-11">
+		        <div class="col-sm-5">
 		        	<input class="form-control" type="email" th:field="*{email}" required />
 		        </div>
+		        <div class="col-sm-3"></div>
 		     </div>
 	        
 	        <div class="input-group mb-3">
+	        	<div class="col-sm-3"></div>
 		        <label class="col-sm-1 col-form-label">Iban</label>
-		        <div class="col-sm-11">
+		        <div class="col-sm-5">
 		        	<input class="form-control" type="text" th:field="*{iban}" maxlength="50" required/>
 		        </div>
+		        <div class="col-sm-3"></div>
 		     </div>
 	        
 	         <div class="input-group mb-3">
+	         	<div class="col-sm-3"></div>
 		        <label class="col-sm-1 col-form-label">Estado</label>
-		        <div class="col-sm-11">
+		        <div class="col-sm-5">
 		        	<select class="form-control" th:field="*{estado}" required>
 		                <option th:value="'aceptada'" th:text="Aceptada"></option>
 		                <option th:value="'rechazada'" th:text="Rechazada"></option>
 		                <option th:value="'pendiente'" th:text="Pendiente"></option>
 		            </select>
 	       		</div>
+	       		<div class="col-sm-3"></div>
 	       	</div>
 	        
 	        <div class="input-group mb-3">
+	        	<div class="col-sm-3"></div>
 		        <label class="col-sm-1 col-form-label">Domicilio</label>
-		        <div class="col-sm-11">
+		        <div class="col-sm-5">
 		        	<input class="form-control" type="text" th:field="*{domicilio}" maxlength="60" required/>
 		        </div>
+		        <div class="col-sm-3"></div>
 	        </div>
 	        
-	        
-	        <input type="submit" class=" btn btn-success" value="Añadir monitor" />
-	        
+	        <div class="input-group mb-3">
+	        	<div class="col-sm-3"></div>
+	        	<a class=" btn btn-danger col-sm-1" href="/"> Cancelar </a>
+	        	<div class="col-sm-4"></div>
+	        	<input type="submit" class=" btn btn-success col-sm-1" value="Añadir monitor" />
+	        </div>
 	       	
 	</form>
 </body>
