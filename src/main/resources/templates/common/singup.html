@@ -45,7 +45,25 @@
 	<form action="#" th:action="@{/monitor/add}"
 	      th:object="${monitor}" method="post"
 	      th:if="${rol=='None'}" id="MonitorForm"
-	      style="display: none;">
+	      style="display: none;" enctype="multipart/form-data">
+	      
+	      	<div class="input-group mb-3">
+	         	<div class="col-sm-3"></div>
+		        <label class="col-sm-1 col-form-label">Email</label>
+		        <div class="col-sm-5">
+		        	<input class="form-control" type="email" th:field="*{email}" required />
+		        </div>
+		        <div class="col-sm-3"></div>
+		     </div>
+		     
+		     <div class="input-group mb-3">
+	         	<div class="col-sm-3"></div>
+		        <label class="col-sm-1 col-form-label">Contraseña</label>
+		        <div class="col-sm-5">
+		        	<input class="form-control" type="password" th:field="*{passwd}" required />
+		        </div>
+		        <div class="col-sm-3"></div>
+		     </div>
 	       
 	    	<div class="input-group mb-3">
 	    		<div class="col-sm-3"></div>
@@ -64,15 +82,6 @@
 		       </div>
 		       <div class="col-sm-3"></div>
 		    </div>
-	        
-	         <div class="input-group mb-3">
-	         	<div class="col-sm-3"></div>
-		        <label class="col-sm-1 col-form-label">Email</label>
-		        <div class="col-sm-5">
-		        	<input class="form-control" type="email" th:field="*{email}" required />
-		        </div>
-		        <div class="col-sm-3"></div>
-		     </div>
 	        
 	        <div class="input-group mb-3">
 	        	<div class="col-sm-3"></div>
@@ -94,6 +103,15 @@
 	        
 	        <div class="input-group mb-3">
 	        	<div class="col-sm-3"></div>
+            	<label class="col-sm-1 col-form-label">Curriculum</label>
+            	<div class="col-sm-5">
+                	<input type="file" name="file" id="file" required/>
+            	</div>
+            	<div class="col-sm-3"></div>
+			</div>
+	        
+	        <div class="input-group mb-3">
+	        	<div class="col-sm-3"></div>
 	        	<a class=" btn btn-danger col-sm-1" href="/"> Cancelar </a>
 	        	<div class="col-sm-4"></div>
 	        	<input type="submit" class=" btn btn-success col-sm-1" value="Añadir monitor" />
@@ -105,6 +123,24 @@
 	<form action="#" th:action="@{/cliente/add}"
 	      th:object="${cliente}" method="post"
 	      th:if="${rol=='None'}" id="ClientForm">
+	       
+	         <div class="input-group mb-3">
+	         	<div class="col-sm-3"></div>
+		        <label class="col-sm-1 col-form-label">Email</label>
+		        <div class="col-sm-5">
+		        	<input class="form-control" type="email" th:field="*{email}" required />
+		        </div>
+		        <div class="col-sm-3"></div>
+		     </div>
+	       
+	       	 <div class="input-group mb-3">
+	         	<div class="col-sm-3"></div>
+		        <label class="col-sm-1 col-form-label">Contraseña</label>
+		        <div class="col-sm-5">
+		        	<input class="form-control" type="password" th:field="*{passwd}" required />
+		        </div>
+		        <div class="col-sm-3"></div>
+		     </div>
 	       
 	    	<div class="input-group mb-3">
 	    		<div class="col-sm-3"></div>
@@ -123,24 +159,6 @@
 		       </div>
 		       <div class="col-sm-3"></div>
 		    </div>
-	        
-	         <div class="input-group mb-3">
-	         	<div class="col-sm-3"></div>
-		        <label class="col-sm-1 col-form-label">Email</label>
-		        <div class="col-sm-5">
-		        	<input class="form-control" type="email" th:field="*{email}" required />
-		        </div>
-		        <div class="col-sm-3"></div>
-		     </div>
-		     
-		     <div class="input-group mb-3">
-	         	<div class="col-sm-3"></div>
-		        <label class="col-sm-1 col-form-label">Contraseña</label>
-		        <div class="col-sm-5">
-		        	<input class="form-control" type="password" th:field="*{passwd}" required />
-		        </div>
-		        <div class="col-sm-3"></div>
-		     </div>
 	        
 	        <div class="input-group mb-3">
 	        	<div class="col-sm-3"></div>
