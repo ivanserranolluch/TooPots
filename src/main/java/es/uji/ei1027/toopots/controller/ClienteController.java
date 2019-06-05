@@ -1,5 +1,6 @@
 package es.uji.ei1027.toopots.controller;
 
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import es.uji.ei1027.toopots.model.User;
 public class ClienteController {
 	private ClienteDao clienteDao;
 	private UsuariosRegistradosDao userDao;
+	private BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor(); 
 	
 	@Autowired
 	public void setClienteDao(ClienteDao clienteDao) {
@@ -47,7 +49,7 @@ public class ClienteController {
 		
 		User user = new User();
 		user.setEmail(cliente.getEmail());
-		user.setPassword(cliente.getPasswd());
+		user.setPassword(passwordEncryptor.encryptPassword(cliente.getPasswd()));
 		user.setTipoUsuario("cliente");
 		
         clienteDao.addCliente(cliente);

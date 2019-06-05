@@ -36,6 +36,7 @@ public class UsuariosRegistradosDao {
 		User user = knownUsers.get(username);
 
 		if (user == null) {
+			System.out.println("Correo malo");
 			return null; // Usuario no encontrado
 		}    
 		// Contraseña
@@ -45,6 +46,8 @@ public class UsuariosRegistradosDao {
 			return user; 
 		} 
 		else {
+			System.out.println("Contraseña mala");
+			
 			return null; // bad login!
 		}
 	}

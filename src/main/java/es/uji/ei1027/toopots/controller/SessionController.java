@@ -23,7 +23,7 @@ public class SessionController {
 	
 	private final String LOGIN_ROUTE = "common/login";
 	
-	private UsuariosRegistradosDao usuariosRegistradosDao;
+	private UsuariosRegistradosDao usuariosRegistradosDao; 
     
     @Autowired
     public void setUserDao(UsuariosRegistradosDao usuariosRegistradosDao) {
@@ -59,7 +59,7 @@ public class SessionController {
         // Introducir los links de la navbar
         session.setAttribute("links", getLinks(user.getTipoUsuario()));
 
-		return "common/succes";
+		return "redirect:/";
 	}
 	
 	private List<NavbarLink> getLinks(String tipoUsuario){

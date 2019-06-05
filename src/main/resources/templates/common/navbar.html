@@ -17,8 +17,8 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top" th:if="${session.user!=null}">
-		<a class="navbar-brand" href="/">Home</a>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top justify-content-between" th:if="${session.user!=null}">
+		<a href="/" class="btn btn-outline-success my-2 my-sm-0 btn-primary ml-4">Home</a>
 	
 		<!-- Toggler/collapsibe Button -->
 		<button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
