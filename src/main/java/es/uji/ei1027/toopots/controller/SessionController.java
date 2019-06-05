@@ -23,7 +23,7 @@ public class SessionController {
 	
 	private final String LOGIN_ROUTE = "common/login";
 	
-	private UsuariosRegistradosDao usuariosRegistradosDao;
+	private UsuariosRegistradosDao usuariosRegistradosDao; 
     
     @Autowired
     public void setUserDao(UsuariosRegistradosDao usuariosRegistradosDao) {
@@ -59,11 +59,29 @@ public class SessionController {
         // Introducir los links de la navbar
         session.setAttribute("links", getLinks(user.getTipoUsuario()));
 
-		return "common/succes";
+		return "redirect:/";
 	}
 	
 	private List<NavbarLink> getLinks(String tipoUsuario){
-		return new ArrayList<NavbarLink>();
+		
+		List<NavbarLink> links = new ArrayList<NavbarLink>();
+		
+		switch (tipoUsuario) {
+		
+		case "cliente":
+			links.add(makeLink("Actividades", "/actividad/list"));
+			break;
+		}
+		
+		return links;
+		
+	}
+	
+	private NavbarLink makeLink(String name, String url){
+		NavbarLink link = new NavbarLink();
+		link.setLink(url);
+		link.setName(name);
+		return link;
 	}
 
 }
