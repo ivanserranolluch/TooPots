@@ -63,7 +63,25 @@ public class SessionController {
 	}
 	
 	private List<NavbarLink> getLinks(String tipoUsuario){
-		return new ArrayList<NavbarLink>();
+		
+		List<NavbarLink> links = new ArrayList<NavbarLink>();
+		
+		switch (tipoUsuario) {
+		
+		case "cliente":
+			links.add(makeLink("Actividades", "/actividad/list"));
+			break;
+		}
+		
+		return links;
+		
+	}
+	
+	private NavbarLink makeLink(String name, String url){
+		NavbarLink link = new NavbarLink();
+		link.setLink(url);
+		link.setName(name);
+		return link;
 	}
 
 }

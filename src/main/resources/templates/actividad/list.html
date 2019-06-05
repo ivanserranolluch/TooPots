@@ -33,7 +33,7 @@
         <td> <a th:text="${actividad.precio}"> </a> € </td>
         <td><a class="btn btn-info" th:href="@{/actividad/{id}(id=${actividad.id_actividad})}"
                                                           style="color:white;">Ver</a></td>
-        <td th:if="${session.user!=null}"><a class="btn btn-info" th:href="@{/reserva/add})}"
+        <td th:if="${session.user!=null}"><a class="btn btn-info" th:href="@{/reserva/add}"
                                                           style="color:white;">Reservar</a></td>
         <td th:if="${session.user==null}"><a class="btn btn-info" th:href="@{/login}"
                                                           style="color:white;">Reservar</a></td>

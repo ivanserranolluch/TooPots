@@ -28,7 +28,7 @@
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 	        <ul class="navbar-nav">
 	            <li class="nav-item my-2" th:each="link : ${session.links}">
-	            	<a class="nav-link my-2" th:href="@{/{linkn}(linkn=${link.name})}" th:text="${link.name}"><b>Home</b>
+	            	<a class="nav-link my-2" th:href="@{{linkn}(linkn=${link.link})}" th:text="${link.name}"><b>Home</b>
 	            	</a>
 	            </li>
 	        </ul>
