@@ -1,12 +1,9 @@
 package es.uji.ei1027.toopots.controller;
 
 import es.uji.ei1027.toopots.dao.MonitorDao;
-import es.uji.ei1027.toopots.dao.UsuariosRegistradosDao;
 import es.uji.ei1027.toopots.model.Monitor;
-import es.uji.ei1027.toopots.model.User;
 import es.uji.ei1027.toopots.service.MailService;
 
-import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,19 +19,11 @@ public class MonitorController {
 
     private MonitorDao monitorDao;
     private MailService mailService;
-    
-    private UsuariosRegistradosDao userDao;
-	private BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
 
     @Autowired
     public void setMonitorDao(MonitorDao monitorDao) {
         this.monitorDao=monitorDao;
     }
-
-	@Autowired
-	public void setUsuariosRegistradosDao(UsuariosRegistradosDao userDao) {
-		this.userDao=userDao;
-	}
     
     @Autowired
     public void setMailService(MailService mailService) {
@@ -49,22 +38,11 @@ public class MonitorController {
 
     @RequestMapping(value="/add", method=RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("monitor") Monitor monitor,
-                                   BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()){
-			return "redirect:/singup";
-        }
-        
-        User user = new User();
-		user.setEmail(monitor.getEmail());
-		user.setPassword(passwordEncryptor.encryptPassword(monitor.getPasswd()));
-		user.setTipoUsuario("monitor");
-		
-		monitor.setEstado("pendiente");
-        	
+                                   BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "monitor/add";
         monitorDao.addMonitor(monitor);
-        userDao.addUsuario(user);
-        
-        return "common/success";
+        return "redirect:list";
     }
 
 
