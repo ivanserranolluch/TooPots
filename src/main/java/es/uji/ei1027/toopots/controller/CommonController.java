@@ -42,5 +42,10 @@ public class CommonController {
 		
 		return "common/singup";
 	}
-
+	
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public String logout(HttpSession session){
+		session.setAttribute("user", null);
+		return "redirect:/";
+	}
 }
