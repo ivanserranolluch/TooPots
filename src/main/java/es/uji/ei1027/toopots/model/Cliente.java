@@ -1,7 +1,6 @@
 package es.uji.ei1027.toopots.model;
 
 import java.util.Date;
-import java.util.List;
 
 public class Cliente {
 	private String dni;
@@ -10,6 +9,7 @@ public class Cliente {
 	private Date fechaNacimiento;
 	private String strFechaNacimiento;
 	private String sexo;
+	private String passwd;
 	
 	public String getDni() {
 		return dni;
@@ -44,12 +44,19 @@ public class Cliente {
 	public String getStrFechaNacimiento() {
 		return strFechaNacimiento;
 	}
+	@SuppressWarnings("deprecation")
 	public void setStrFechaNacimiento(String strFechaNacimiento) {
 		this.strFechaNacimiento = strFechaNacimiento;
 		String[] date = strFechaNacimiento.split("-");
 		this.fechaNacimiento = new Date(Integer.valueOf(date[0]), 
 				Integer.valueOf(date[1]), 
 				Integer.valueOf(date[2]));
+	}
+	public String getPasswd() {
+		return passwd;
+	}
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
 	}
 	
 }

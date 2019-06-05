@@ -8,17 +8,25 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import es.uji.ei1027.toopots.dao.ClienteDao;
+import es.uji.ei1027.toopots.dao.UsuariosRegistradosDao;
 import es.uji.ei1027.toopots.model.Cliente;
 import es.uji.ei1027.toopots.model.Monitor;
+import es.uji.ei1027.toopots.model.User;
 
 @Controller
 @RequestMapping("/cliente")
 public class ClienteController {
 	private ClienteDao clienteDao;
+	private UsuariosRegistradosDao userDao;
 	
 	@Autowired
 	public void setClienteDao(ClienteDao clienteDao) {
 		this.clienteDao=clienteDao;
+	}
+	
+	@Autowired
+	public void setUsuariosRegistradosDao(UsuariosRegistradosDao userDao) {
+		this.userDao=userDao;
 	}
 	
 	@RequestMapping("/list")
@@ -36,7 +44,15 @@ public class ClienteController {
 			System.out.println(bindingResult);
 			return "common/singup";
 		}
+		
+		User user = new User();
+		user.setEmail(cliente.getEmail());
+		user.setPassword(cliente.getPasswd());
+		user.setTipoUsuario("cliente");
+		
         clienteDao.addCliente(cliente);
+        userDao.addUsuario(user);
+        
 		return "common/success";
 	}
 }
