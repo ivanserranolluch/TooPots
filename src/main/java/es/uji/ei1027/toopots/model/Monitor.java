@@ -7,6 +7,7 @@ public class Monitor {
     private String email;
     private String iban;
     private String estado;
+    private String passwd;
 
     public String getId() {
         return id;
@@ -67,4 +68,11 @@ public class Monitor {
                 ", estado='" + estado + '\'' +
                 '}';
     }
+    
+    public String getPasswd() {
+		return passwd;
+	}
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
+	}
 }
