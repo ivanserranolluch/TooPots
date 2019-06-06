@@ -64,4 +64,28 @@ public class ReservaDao {
 		}
 	}
 
+	public Integer getNumReservas() {
+		try{
+			return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM reserva", Integer.class);
+		}catch(EmptyResultDataAccessException e) {
+			return 0;
+		}
+	}
+
+	public Integer getNumClientes() {
+		try{
+			return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM cliente", Integer.class);
+		}catch(EmptyResultDataAccessException e) {
+			return 0;
+		}
+	}
+
+	public Integer getNumActividades() {
+		try{
+			return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM actividad", Integer.class);
+		}catch(EmptyResultDataAccessException e) {
+			return 0;
+		}
+	}
+
 }

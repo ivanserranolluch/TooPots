@@ -51,4 +51,36 @@ public class MonitorDao {
             return new ArrayList<Monitor>();
         }
     }
+
+    public List<Monitor> getMonitoresPendientes() {
+        try{
+            return jdbcTemplate.query("SELECT * FROM monitor WHERE LOWER(estado)='pendiente'", new MonitorRowMapper());
+        }catch (EmptyResultDataAccessException e) {
+            return new ArrayList<Monitor>();
+        }
+    }
+
+    public List<Monitor> getMonitoresRegistrados() {
+        try{
+            return jdbcTemplate.query("SELECT * FROM monitor WHERE LOWER(estado) <> 'pendiente'", new MonitorRowMapper());
+        }catch (EmptyResultDataAccessException e) {
+            return new ArrayList<Monitor>();
+        }
+    }
+
+    public Integer getNumPendientes() {
+        try{
+            return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM monitor WHERE LOWER(estado)='pendiente'", Integer.class);
+        }catch(EmptyResultDataAccessException e) {
+            return 0;
+        }
+    }
+
+    public Integer getNumMonitores() {
+        try{
+            return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM monitor WHERE LOWER(estado) <> 'pendiente'", Integer.class);
+        }catch(EmptyResultDataAccessException e) {
+            return 0;
+        }
+    }
 }
