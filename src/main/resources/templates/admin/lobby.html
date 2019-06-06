@@ -1,20 +1,94 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet"     
-     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+<head>
+	<title>TooPots</title>
+	<meta charset="UTF-8"/>
+	<link rel="stylesheet"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
-	<div th:replace="/admin/navbar" >...</div>
-	<div class="jumbotron jumbotron-fluid">
-	 <div class="container">
-	    <h1>Administrador</h1>      
-	    <p>Acaba de entrar como administrador, aquí puede hacer: </p>
-	    <p>  - Revisar i acceptar o rebutjar sol·licituds de registre de monitors. TooPots haurà de generar una ordre per al servidor de correu per a que aquest envie un mail al monitor informant-li  si la seua sol·licitud ha sigut aceptada o no.</p>	
-		<p> - Consultar els documents que els monitors adjunten en les sol·licituds per a acreditar les seues capacitats. Els alumnes han de pensar la manera que els monitors puguen enllaçar els documents (que estan en format pdf o imatge) y han d'avaluar i proposar una solució adequada.  </p>	
-		<p>	- Gestionar informació del tipus d’activitats i nivells que es poden oferir.</p>	
-		<p>	- Assignar els tipus d’activitats a cada monitor tenint en compte les certificacions aportades. </p>	
-		<p>	- Consultar informació sobre monitors donats d’alta, clients i activitats reservades i contractades, activitats més o menys demandades, etc. </p>	
-	  </div>
+<div th:replace="/admin/navbar" >...</div>
+<h1>Bienvenido</h1>
+<div class="container" style="min-height:150px;">
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="card-title">
+						<a href="/reserva/list">Numero de reservas</a></h4>
+					<p class="description" th:text="${'Tenemos un total de ' + numReservas + ' reservas'}"></p>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4 col-5">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="card-title">
+						<a href="/cliente/list">Numero de clientes</a></h4>
+					<p class="description" th:text="${'Tenemos un total de ' + numClientes + ' clientes registrados'}"></p>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="card-title">
+						<a href="/actividad/list">Numero de actividades</a></h4>
+					<p class="description" th:text="${'Tenemos un total de ' + numActividades + ' actividades registradas'}"></p>
+				</div>
+			</div>
+		</div>
 	</div>
-</body>
+</div>
+<div class="container" style="min-height:150px;">
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="card-title">
+						<a href="/monitor/list?pen=1">Nuevas solicitudes de monitores</a></h4>
+					<p class="description" th:text="${'Tienes un total de ' + numPendientes + ' solicitudes para ser monitor pendientes. '}"></p>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4 col-5">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="card-title">
+						<a href="/monitor/list">Gestionar monitores</a></h4>
+					<p class="description" th:text="${'Tenemos un total de ' + numMonitores + ' monitores registrados. '}"></p>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="card-title">
+						<a href="/actividad/list">Administrar tipos y niveles </a></h4>
+					<p class="description">Inserte algo</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container" style="min-height:150px;">
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="card-title">
+						<a href="/actividad/list">Actividades mas demandas</a></h4>
+					<p class="description">Listado top 3 mas demandas</p>
+				</div>
+			</div>
+		</div>
 
+		<div class="col-sm-4 col-5">
+
+		</div>
+		<div class="col-sm-4">
+		</div>
+	</div>
+</div>
+</body>
 </html>

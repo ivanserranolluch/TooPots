@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/monitor")
@@ -106,9 +107,16 @@ public class MonitorController {
     @RequestMapping(value="/update/{id}", method = RequestMethod.POST)
     public String processUpdateSubmit(@PathVariable String id,
                                       @ModelAttribute("monitor") Monitor monitor,
-                                      BindingResult bindingResult) {
+                                      BindingResult bindingResult,
+                                      @RequestParam(value="action", required=true) String action) {
         if (bindingResult.hasErrors())
             return "monitor/update";
+
+        if (action.equals("aceptada"))
+            monitor.setEstado("aceptada");
+        else if (action.equals("rechazada"))
+            monitor.setEstado("rechazada");
+
         monitorDao.updateMonitor(monitor);
         
         if (monitor.getEstado().equals("aceptada")) {
@@ -126,14 +134,12 @@ public class MonitorController {
     }
 
     @RequestMapping("/list")
-    public String listMonitores(Model model) {
-        model.addAttribute("monitores", monitorDao.getMonitores());
-        return "monitor/list";
-    }
-    
-    @RequestMapping("/listSolicitudes")
-    public String listSolicitudes(Model model) {
-        model.addAttribute("monitores", monitorDao.getMonitores());
+    public String listMonitores(Model model, @RequestParam("pen") Optional<Integer> pen) {
+        if(pen.orElse(0) == 0) {
+            model.addAttribute("monitores", monitorDao.getMonitoresRegistrados());
+        }else{
+            model.addAttribute("monitores", monitorDao.getMonitoresPendientes());
+        }
         return "monitor/list";
     }
     

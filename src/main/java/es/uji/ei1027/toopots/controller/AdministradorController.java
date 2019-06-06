@@ -1,14 +1,10 @@
 package es.uji.ei1027.toopots.controller;
 
+import es.uji.ei1027.toopots.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import es.uji.ei1027.toopots.dao.ActividadDao;
-import es.uji.ei1027.toopots.dao.ClienteDao;
-import es.uji.ei1027.toopots.dao.MonitorDao;
-import es.uji.ei1027.toopots.dao.TipoActividadDao;
 
 @Controller
 @RequestMapping("/administrador")
@@ -18,6 +14,7 @@ public class AdministradorController {
 	private ActividadDao actividadDao;
 	private TipoActividadDao tipoActividadDao;
 	private ClienteDao clienteDao;
+	private ReservaDao reservaDao;
 
     @Autowired
     public void setMonitorDao(MonitorDao monitorDao) {
@@ -38,10 +35,19 @@ public class AdministradorController {
 	public void setClienteDao(ClienteDao clienteDao) {
 		this.clienteDao=clienteDao;
 	}
-	
-	
+
+	@Autowired
+    public void serReservaDao(ReservaDao reservaDao) {
+        this.reservaDao=reservaDao;
+    }
+
 	@RequestMapping("/lobby")
 	public String administrador(Model model) {
+        model.addAttribute("numReservas", reservaDao.getNumReservas());
+        model.addAttribute("numClientes", reservaDao.getNumClientes());
+        model.addAttribute("numActividades", reservaDao.getNumActividades());
+        model.addAttribute( "numPendientes", monitorDao.getNumPendientes());
+        model.addAttribute("numMonitores", monitorDao.getNumMonitores());
 		return "admin/lobby";
 	}
 	
