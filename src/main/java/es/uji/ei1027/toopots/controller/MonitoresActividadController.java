@@ -1,6 +1,5 @@
 package es.uji.ei1027.toopots.controller;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -104,7 +104,11 @@
         	<div class="col-sm-3"></div>
         	<a class=" btn btn-danger col-sm-1" href="/actividad/list"> Volver </a>
         	<div class="col-sm-4"></div>
-        	<a class="btn btn-success col-sm-1" href="/reserva/add"> Reservar </a>
+        	<a th:if="${session.user!=null}"class="btn btn-success col-sm-1" th:href="@{/reserva/add}"
+                                                          style="color:white;">Reservar</a></td>
+        <a th:if="${session.user==null}" class="btn btn-success col-sm-1" th:href="@{/login}"
+                                                          style="color:white;">Reservar</a></td>
+        	
         </div>
 	
 </body>
