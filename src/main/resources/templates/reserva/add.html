@@ -8,46 +8,72 @@
 </head>
 <body>
 <div th:replace="/common/navbar" >...</div>
+<div class="container">
 <h2>Nueva reserva</h2>
 <form th:action="@{/reserva/add}"
       th:object="${reserva}" method="post">
-    <table>
-        <tr>
-            <td><label>ID_Reserva</label></td>
-            <td><input type="number" th:field="*{id_reserva}" maxlength="10"/></td>
-        </tr>
-        <tr>
-            <td><label>Pagado</label></td>
-            <td><input type="text" th:field="*{estadoPago}" maxlength="9"/></td>
-        </tr>
-        <tr>
-            <td><label>Fecha</label></td>
-            <td><input type="date" th:field="*{fecha}"/></td>
-        </tr>
-        <tr>
-            <td><label>Numero de asistentes</label></td>
-            <td><input type="number" th:field="*{numAsistentes}" /></td>
-        </tr>
-        <tr>
-            <td><label>Precio por persona</label></td>
-            <td><input type="number" th:field="*{precioPersona}" /></td>
-        </tr>
-        <tr>
-            <td><label>Numero de Transacciones</label></td>
-            <td><input type="number" th:field="*{numTransacciones}" /></td>
-        </tr>
-         <tr>
-            <td><label>ID_Actividad</label></td>
-            <td><input type="number" th:field="*{id_actividad}" /></td>
-        </tr>
-         <tr>
-            <td><label>DNI</label></td>
-            <td><input type="text" th:field="*{dni}" maxlength="9"/></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="Añade reserva" /></td>
-        </tr>
-    </table>
+    
+       		<div class="input-group mb-3">
+            <label class="col-sm-1 col-form-label">ID_Reserva</label>
+            <div class="col-sm-11">
+            <input class="form-control" type="number" th:field="*{id_reserva}" maxlength="10"/>
+        		</div>
+        		</div>
+        		
+        		<div class="input-group mb-3">
+            <label class="col-sm-1 col-form-label">Pagado</label></td>
+             <div class="col-sm-11">
+            <input class="form-control" type="text" th:field="*{estadoPago}" maxlength="9"/>
+        		</div>
+        		</div>
+        
+        		<div class="input-group mb-3">
+            <label class="col-sm-1 col-form-label">Fecha</label>
+             <div class="col-sm-11">
+            <input class="form-control" type="date" th:field="*{fecha}"/>
+        		</div>
+        		</div>
+        		
+        		<div class="input-group mb-3">
+           	<label class="col-sm-1 col-form-label">Numero de asistentes</label>
+           	 <div class="col-sm-11">
+            <input class="form-control" type="number" th:field="*{numAsistentes}" />
+            </div>
+        		</div>
+        
+        		<div class="input-group mb-3">
+            <label class="col-sm-1 col-form-label">Precio por persona</label>
+             <div class="col-sm-11">
+            <input class="form-control" type="number" th:field="*{precioPersona}" />
+            </div>
+        		</div>
+        
+        		<div class="input-group mb-3">
+            <label class="col-sm-1 col-form-label">Numero de Transacciones</label>
+             <div class="col-sm-11">
+            <input class="form-control" type="number" th:field="*{numTransacciones}" />
+            </div>
+        		</div>
+        
+         	<div class="input-group mb-3">
+            <label class="col-sm-1 col-form-label">ID_Actividad</label>
+             <div class="col-sm-11">
+            <input class="form-control" type="number" th:field="*{id_actividad}" />
+            </div>
+        		</div>
+        
+         	<div class="input-group mb-3">
+            <label class="col-sm-1 col-form-label">DNI</label>
+             <div class="col-sm-11">
+            <input class="form-control" type="text" th:field="*{dni}" maxlength="9"/>
+            </div>
+        		</div>
+        
+        
+            <input type="submit" class=" btn btn-success"  value="Añade reserva" />
+        
+   
 </form>
+</div>
 </body>
 </html>

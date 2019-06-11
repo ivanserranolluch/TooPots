@@ -13,11 +13,11 @@ public final class ReservaRowMapper implements RowMapper<Reserva> {
 		
 		Reserva reserva = new Reserva();
         reserva.setId_reserva(rs.getInt("id_reserva"));
-        reserva.setEstadoPago(rs.getString("estadoPagado"));
+        reserva.setEstadoPago(rs.getString("estadoPago"));
         reserva.setFecha(rs.getDate("fecha"));
         reserva.setNumAsistentes(rs.getInt("numAsistentes"));
         reserva.setPrecioPersona(rs.getInt("precioPersona"));
-        reserva.setNumTransacciones(rs.getInt("numTransacciones"));
+        reserva.setNumTransacciones(rs.getInt("numTransaccion"));
         reserva.setId_actividad(rs.getInt("id_actividad"));
         reserva.setDni(rs.getString("dni"));
         

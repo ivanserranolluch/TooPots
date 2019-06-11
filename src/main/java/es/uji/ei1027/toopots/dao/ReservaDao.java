@@ -41,7 +41,7 @@ public class ReservaDao {
 	
 	/* Borra las reservas a la base de datos */
 	public void deleteReserva(String id) {
-        jdbcTemplate.update("DELETE FROM Reserva WHERE id_reserva=?", id);
+        jdbcTemplate.update("DELETE FROM Reserva WHERE id_reserva=?", Integer.valueOf(id));
     }
 	
 	/* Obtiene una reserva de la base de datos */
