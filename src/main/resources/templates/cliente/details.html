@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Actividad</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+	<div th:replace="/common/navbar" >...</div>
+
+<h2  class="input-group mb-3 d-flex justify-content-center text-center">Datos Personales</h2>
+        <br><br>
+        <div class="input-group mb-3 d-flex justify-content-center text-center">
+         	<div class="col-sm-3"></div>
+	        <label class="col-sm-2 col-form-label text-left">Nombre</label>
+	        <div class="col-sm-4 text-left">
+	        	<label class="col-form-label" th:text="${cliente.nombre}"></label>
+	        </div>
+	        <div class="col-sm-3"></div>
+		</div>
+	
+		
+		<div class="input-group mb-3 d-flex justify-content-center text-center">
+         	<div class="col-sm-3"></div>
+	        <label class="col-sm-2 col-form-label text-left">Fecha Nacimiento</label>
+	        <div class="col-sm-4 text-left">
+	        	<label class="col-form-label" th:text="${cliente.fechaNacimiento}"></label>
+	        </div>
+	        <div class="col-sm-3"></div>
+		</div>
+	
+	
+		<div class="input-group mb-3 d-flex justify-content-center text-center">
+         	<div class="col-sm-3"></div>
+	        <label class="col-sm-2 col-form-label text-left">Sexo</label>
+	        <div class="col-sm-4 text-left">
+	        	<label class="col-form-label" th:text="${cliente.sexo}"></label>
+	        </div>
+	        <div class="col-sm-3"></div>
+		</div>
+	
+		
+		<div class="input-group mb-3 d-flex text-center">
+         	<div class="col-sm-3"></div>
+	        <label class="col-sm-2 col-form-label text-left">Email</label>
+	        <div class="col-sm-4 text-left ">
+	        	<label class="col-form-label" th:text="${cliente.email}"></label>
+	        </div>
+	        <div class="col-sm-3"></div>
+		</div>
+		
+		<div class="input-group mb-3 d-flex text-center">
+         	<div class="col-sm-3"></div>
+	        <label class="col-sm-2 col-form-label text-left">DNI</label>
+	        <div class="col-sm-4 text-left ">
+	        	<label class="col-form-label" th:text="${cliente.dni}"></label>
+	        </div>
+	        <div class="col-sm-3"></div>
+		</div>
+		<br><br>
+		<div class="input-group mb-3">
+        	<div class="col-sm-3"></div>
+        	<a class=" btn btn-danger col-sm-1" href="/"> Volver </a>
+        	<div class="col-sm-4"></div>
+        	<a th:if="${session.user!=null}"class="btn btn-success col-sm-1" th:href="@{/cliente/update/{email}(email=${session.user.email})}"
+                                                          style="color:white;">Modificar datos</a></td>
+        
+        	
+        </div>
+	
+</body>
+
+</html>

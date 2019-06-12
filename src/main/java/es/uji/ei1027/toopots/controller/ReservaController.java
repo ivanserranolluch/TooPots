@@ -65,6 +65,14 @@ public class ReservaController {
 			return "reserva/list"; 
 		}
 
+	@RequestMapping(value="/liste/{dni}")
+	public String listPreferenciasEstudiante(Model model, @PathVariable String dni) {
+		System.out.println(dni+"4");
+		
+		model.addAttribute("revervas", reservaDao.getReservasDNI(dni));
+		System.out.println("entro en la lista de reservas del cliente");
+		return "reservas/liste";
+	}
 
 
 }

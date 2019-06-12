@@ -1,6 +1,7 @@
 package es.uji.ei1027.toopots.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -11,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import es.uji.ei1027.toopots.model.Cliente;
+import es.uji.ei1027.toopots.model.Monitor;
 
 
 @Repository
@@ -39,6 +41,18 @@ public class ClienteDao {
         }
         catch(EmptyResultDataAccessException e) {
             return new ArrayList<Cliente>();
+        }
+    }
+    
+    public void updateCliente(Cliente cliente) {
+        jdbcTemplate.update("UPDATE cliente SET nombre=?, sexo=? ,fechanacimiento=? WHERE dni=?",
+                cliente.getNombre(),cliente.getSexo(),new Date(),cliente.getDni() );
+    }
+    public Cliente getCliente(String email) {
+        try{
+            return jdbcTemplate.queryForObject("SELECT * FROM cliente WHERE email=?", new ClienteRowMapper(), email);
+        }catch (EmptyResultDataAccessException e){
+            return null;
         }
     }
 }

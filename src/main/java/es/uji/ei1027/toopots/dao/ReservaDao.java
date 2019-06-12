@@ -34,9 +34,15 @@ public class ReservaDao {
 	/* Actualiza las reservas a la base de datos */
 	public void updateReserva(Reserva reserva) {
         jdbcTemplate.update("UPDATE reserva SET estadoPago=?, fecha=?, numAsistentes=?, precioPersona=?,"
-        		+ "numTransacciones=?, id_actividad=?, dni=?  WHERE id_reserva=?",
+        		+ "numTransaccion=?, id_actividad=?, dni=?  WHERE id_reserva=?",
         		reserva.getEstadoPago(), reserva.getFecha(), reserva.getNumAsistentes(), reserva.getPrecioPersona(),
         			reserva.getNumTransacciones(), reserva.getId_actividad(), reserva.getDni(), reserva.getId_reserva());
+    }
+	
+	public void updateReservaCliente(Reserva reserva) {
+        jdbcTemplate.update("UPDATE reserva SET  fecha=?, numAsistentes=?"
+        		+ " WHERE id_reserva=?",
+        		reserva.getFecha(), reserva.getNumAsistentes(), reserva.getId_reserva());
     }
 	
 	/* Borra las reservas a la base de datos */
@@ -47,7 +53,7 @@ public class ReservaDao {
 	/* Obtiene una reserva de la base de datos */
 	public Reserva getReserva(String id) {
         try{
-            return jdbcTemplate.queryForObject("SELECT * FROM reserva WHERE id_reserva=?", new ReservaRowMapper(), id);
+            return jdbcTemplate.queryForObject("SELECT * FROM reserva WHERE id_reserva=?", new ReservaRowMapper(), Integer.parseInt(id));
         }catch (EmptyResultDataAccessException e){
             return null;
         }
@@ -57,6 +63,24 @@ public class ReservaDao {
 	public List<Reserva> getReservas() {
 		try {
 			return jdbcTemplate.query("SELECT * from Reserva",
+					new ReservaRowMapper());
+		}
+		catch(EmptyResultDataAccessException e) {
+			return new ArrayList<Reserva>();
+		}
+	}
+	public List<Reserva> getReservasDNI(String dni) {
+		try {
+			return jdbcTemplate.query("SELECT * from Reserva where dni="+dni,
+					new ReservaRowMapper());
+		}
+		catch(EmptyResultDataAccessException e) {
+			return new ArrayList<Reserva>();
+		}
+	}
+	public List<Reserva> getReservasEmail(String email) {
+		try {
+			return jdbcTemplate.query("SELECT * from Reserva where dni= (Select dni from cliente where email='"+email+"')",
 					new ReservaRowMapper());
 		}
 		catch(EmptyResultDataAccessException e) {

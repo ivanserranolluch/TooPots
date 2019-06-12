@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Modifica el Cliente</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div th:replace="/common/navbar" >...</div>
+<div class="container">
+	<h2>Modificar Cliente</h2>
+	<form action="#" th:action="@{/cliente/update/{dni}(dni=${cliente.dni})}"
+	      th:object="${cliente}" method="post">
+	      
+	      <div class="input-group mb-3">
+			        <label class="col-sm-1 col-form-label" >Nombre</label>
+			        <div class="col-sm-11">
+			        	<input class="form-control" type="text" th:field="*{nombre}" maxlength="25" required/>
+			       </div>
+			    </div>
+		        
+		         
+			     <div class="input-group mb-3">
+			        <label class="col-sm-1 col-form-label" >Sexo</label>
+			        <div class="col-sm-11">
+			        	<input class="form-control" type="text" th:field="*{sexo}" maxlength="25" required/>
+			       </div>
+			    </div>
+			    
+			    <div class="input-group mb-3">
+            <label class="col-sm-1 col-form-label">Fecha Nacimiento</label>
+             <div class="col-sm-11">
+            <input class="form-control" type="date" th:field="*{fechaNacimiento}"/>
+        		</div>
+        		</div>
+		      
+	      <div class="col-sm-3"></div>
+        	<a class=" btn btn-danger col-sm-1" th:href="@{/cliente/{email}(email=${session.user.email})}"> Volver </a>
+        	<div class="col-sm-4"></div>
+        	<input type="submit" class="btn btn-success" value="Modificar" />
+	</form>
+	
+
+</div>
+</body>
+</html>
