@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import es.uji.ei1027.toopots.dao.ClienteDao;
 import es.uji.ei1027.toopots.dao.UsuariosRegistradosDao;
@@ -37,16 +38,26 @@ public class ClienteController {
 		return "cliente/list";
 	}
 	
-	@RequestMapping("/add")
+	@RequestMapping(value="/add")
+	public String addCliente(Model model) {
+		model.addAttribute("cliente", new Cliente());
+	    return "cliente/add";
+	}
+	
+	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String addCliente(@ModelAttribute("cliente") Cliente cliente,
             BindingResult bindingResult, Model model){
+		
+		//ESTO PARA QUE SIRVE
+		//###########################
 		if (bindingResult.hasErrors()){
 			model.addAttribute("rol", "None");
 			model.addAttribute("monitor", new Monitor());
 			System.out.println(bindingResult);
 			return "common/singup";
 		}
-		
+		//###########################
+
 		User user = new User();
 		user.setEmail(cliente.getEmail());
 		user.setPassword(passwordEncryptor.encryptPassword(cliente.getPasswd()));
@@ -55,6 +66,22 @@ public class ClienteController {
         clienteDao.addCliente(cliente);
         userDao.addUsuario(user);
         
-		return "common/success";
+		return "cliente/success";
 	}
+	
+	@RequestMapping(value="/lobby")
+	public String lobbyCliente(Model model) {
+	    return "cliente/lobby";
+	}
+	
+	@RequestMapping(value="/success")
+	public String registrado(Model model) {
+	    return "cliente/success";
+	}
+	
+	
+	
+	
+	
+	
 }

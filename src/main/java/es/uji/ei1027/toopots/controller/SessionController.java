@@ -71,6 +71,14 @@ public class SessionController {
 		case "cliente":
 			links.add(makeLink("Actividades", "/actividad/list"));
 			break;
+			
+		case "monitor":
+			
+			break;
+		
+		case "administrador":
+			
+			break;
 		}
 		
 		return links;

@@ -88,7 +88,7 @@ public class MonitorController {
         monitorDao.addMonitor(monitor);
         userDao.addUsuario(user);
         
-        return "common/success";
+        return "monitor/success";
     }
     
     @RequestMapping(value="/pdf/{id}", method=RequestMethod.GET)
@@ -108,7 +108,7 @@ public class MonitorController {
     public String processUpdateSubmit(@PathVariable String id,
                                       @ModelAttribute("monitor") Monitor monitor,
                                       BindingResult bindingResult,
-                                      @RequestParam(value="action", required=true) String action) {
+                                      @RequestParam(value="estado", required=true) String action) {
         if (bindingResult.hasErrors())
             return "monitor/update";
 
@@ -134,18 +134,46 @@ public class MonitorController {
     }
 
     @RequestMapping("/list")
-    public String listMonitores(Model model, @RequestParam("pen") Optional<Integer> pen) {
+    public String listMonitores(Model model, @RequestParam("pen") Optional<Integer> pen, @RequestParam("busca") Optional<String> busca) {
+
+    	String buscar = busca.orElse("None");
+    	
+    	if (!buscar.isEmpty()) {
+    		model.addAttribute("busca", buscar);
+    	} else {
+    		//No se como NO COLOREAR si se pone vacio
+    		model.addAttribute("busca", "|");
+    	}
+    	
         if(pen.orElse(0) == 0) {
             model.addAttribute("monitores", monitorDao.getMonitoresRegistrados());
-        }else{
+            model.addAttribute("pen", "1");
+            
+        }else if(pen.orElse(1) == 1) {
             model.addAttribute("monitores", monitorDao.getMonitoresPendientes());
+            model.addAttribute("pen", "1");
+            
+        }else if(pen.orElse(2) == 2) {
+        	model.addAttribute("pen", "2");
+            model.addAttribute("monitores", monitorDao.getMonitoresRechazados());
         }
+        
         return "monitor/list";
     }
     
     @RequestMapping("/lobby")
     public String lobby(Model model) {
         return "monitor/lobby";
+    }
+    
+    @RequestMapping("/perfil")
+    public String perfil(Model model) {
+        return "monitor/perfil";
+    }
+    
+    @RequestMapping("/success")
+    public String suscribirse(Model model) {
+        return "monitor/success";
     }
     
     

@@ -19,10 +19,8 @@ public class ActividadDao {
 	private final String GET_ALL_ACT_SQL = "SELECT id_actividad, nombre, descripcion, duracionDias, fecha,"
 			+ " precio, minAsistentes, maxAsistentes, lugar, puntoEncuento, horaEncuentro, textoCliente,"
 			+ " estado, id_tipoactividad FROM Actividad;";
-	
-			
-	
-	
+		
+		
 	private JdbcTemplate jdbcTemplate;
 	
 	// Obté el jdbcTemplate a partir del Data Source
@@ -35,6 +33,8 @@ public class ActividadDao {
 	public void addActividad(Actividad act){
 		update(ADD_ACT_SQL, act);
 	}
+	
+	
 	
 	// Realiza operaciones con un objeto actividad
 	private void update(String sql, Actividad act){

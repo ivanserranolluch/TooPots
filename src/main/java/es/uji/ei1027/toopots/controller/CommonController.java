@@ -22,13 +22,13 @@ public class CommonController {
 		if (user != null){
 			switch(user.getTipoUsuario()){
 			case "cliente":
-				route = "cliente/lobby";
+				route = "redirect:cliente/lobby";
 				break;
 			case "monitor":
-				route = "monitor/lobby";
+				route = "redirect:monitor/lobby";
 				break;
 			case "admin":
-				route = "admin/lobby";
+				route = "redirect:/administrador/lobby";
 			};
 		}
 		return route;
@@ -48,4 +48,13 @@ public class CommonController {
 		session.setAttribute("user", null);
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value="/success")
+	public String success(Model model){
+		return "common/success";
+	}
+	
+	
+	
+	
 }

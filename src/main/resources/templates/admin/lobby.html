@@ -5,90 +5,117 @@
 	<meta charset="UTF-8"/>
 	<link rel="stylesheet"
 		  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		  
 </head>
+<style>
+p{
+	color: orange;
+}
+
+
+</style>
 <body>
-<div th:replace="/admin/navbar" >...</div>
-<h1>Bienvenido</h1>
-<div class="container" style="min-height:150px;">
-	<div class="row">
+
+<div th:replace="/common/navbar" >...</div>
+
+<div class="w3-container" style="min-height:150px;">
+	<div class="w3-container w3-padding-64" id="projects">
+    	<h1 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center w3-wide">Bienvenido</h1> 
+   	</div>
+	
+	<div class="row w3-margin-left w3-margin-right">
 		<div class="col-sm-4">
-			<div class="card">
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="/reserva/list">Numero de reservas</a></h4>
-					<p class="description" th:text="${'Tenemos un total de ' + numReservas + ' reservas'}"></p>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-4 col-5">
-			<div class="card">
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="/cliente/list">Numero de clientes</a></h4>
-					<p class="description" th:text="${'Tenemos un total de ' + numClientes + ' clientes registrados'}"></p>
-				</div>
+			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
+				<a style="text-decoration:none" href="/reserva/list">
+					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
+						<h4 class="card-title"> Numero de reservas </h4>
+						<p class="description" th:text="${'Tenemos un total de ' + 0 + ' reservas'}"></p>
+					</div>
+				</a>
 			</div>
 		</div>
 		<div class="col-sm-4">
-			<div class="card">
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="/actividad/list">Numero de actividades</a></h4>
-					<p class="description" th:text="${'Tenemos un total de ' + numActividades + ' actividades registradas'}"></p>
-				</div>
+			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
+				<a style="text-decoration:none" href="/cliente/list">
+					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
+						<h4 class="card-title"> Numero de clientes</h4>
+						<p class="description" th:text="${'Tenemos un total de ' + numClientes + ' clientes registrados'}"></p>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
+				<a style="text-decoration:none" href="/actividad/list">
+					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
+						<h4 class="card-title"> Numero de actividades </h4>
+						<p class="description" th:text="${'Tenemos un total de ' + numActividades + ' actividades registradas'}"></p>
+					</div>
+				</a>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="container" style="min-height:150px;">
-	<div class="row">
+<div class="w3-container w3-padding-32" style="min-height:150px;">
+	<div class="row w3-margin-left w3-margin-right">
 		<div class="col-sm-4">
-			<div class="card">
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="/monitor/list?pen=1">Nuevas solicitudes de monitores</a></h4>
-					<p class="description" th:text="${'Tienes un total de ' + numPendientes + ' solicitudes para ser monitor pendientes. '}"></p>
-				</div>
+			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
+				<a style="text-decoration:none"  th:href="@{/monitor/list?pen=1} ">
+					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
+						<h4 class="card-title"> Nuevas solicitudes de monitores </h4>
+						<p class="description" th:text="${'Tienes un total de ' + numPendientes + ' solicitudes para ser monitor pendientes. '}"></p>
+					</div>
+				</a>
 			</div>
 		</div>
-		<div class="col-sm-4 col-5">
-			<div class="card">
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="/monitor/list">Gestionar monitores</a></h4>
-					<p class="description" th:text="${'Tenemos un total de ' + numMonitores + ' monitores registrados. '}"></p>
-				</div>
+		<div class="col-sm-4 ">
+			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
+				<a style="text-decoration:none"  href="/monitor/list?pen=1">
+					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
+						<h4 class="card-title"> Gestionar monitores activos </h4>
+						<p class="description" th:text="${'Tenemos un total de ' + numMonitores + ' monitores registrados. '}"></p>
+					</div>
+				</a>
 			</div>
 		</div>
-		<div class="col-sm-4">
-			<div class="card">
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="/actividad/list">Administrar tipos y niveles </a></h4>
-					<p class="description">Inserte algo</p>
-				</div>
+		<div class="col-sm-4 ">
+			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
+				<a style="text-decoration:none"  href="/monitor/list?pen=2">
+					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
+						<h4 class="card-title"> Gestionar monitores rechazados </h4>
+						<p class="description" th:text="${'Tenemos un total de ' + numRechazados + ' monitores rechazados. '}"></p>
+					</div>
+				</a>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="container" style="min-height:150px;">
-	<div class="row">
+<div class="w3-container w3-padding-16" style="min-height:150px;">
+	<div class="row w3-margin-left w3-margin-right">
 		<div class="col-sm-4">
-			<div class="card">
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="/actividad/list">Actividades mas demandas</a></h4>
-					<p class="description">Listado top 3 mas demandas</p>
-				</div>
+			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
+				<a style="text-decoration:none"  href="/actividad/list">
+					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
+						<h4 class="card-title"> Administrar tipos y niveles </h4>
+						<p class="description">Listado top 3 mas demandas</p>
+					</div>
+				</a>
+			</div>
+		</div>
+		
+		<div class="col-sm-4">
+			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
+				<a style="text-decoration:none"  href="/actividad/list">
+					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
+						<h4 class="card-title"> Administrar tipos y niveles </h4>
+						<p class="description">Inserte algo</p>
+					</div>
+				</a>
 			</div>
 		</div>
 
-		<div class="col-sm-4 col-5">
-
-		</div>
-		<div class="col-sm-4">
 		</div>
 	</div>
-</div>
 </body>
 </html>

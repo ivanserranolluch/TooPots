@@ -62,11 +62,20 @@ public class MonitorDao {
 
     public List<Monitor> getMonitoresRegistrados() {
         try{
-            return jdbcTemplate.query("SELECT * FROM monitor WHERE LOWER(estado) <> 'pendiente'", new MonitorRowMapper());
+            return jdbcTemplate.query("SELECT * FROM monitor WHERE LOWER(estado) = 'aceptada'", new MonitorRowMapper());
         }catch (EmptyResultDataAccessException e) {
             return new ArrayList<Monitor>();
         }
     }
+    
+    public List<Monitor> getMonitoresRechazados() {
+        try{
+            return jdbcTemplate.query("SELECT * FROM monitor WHERE LOWER(estado) = 'rechazada'", new MonitorRowMapper());
+        }catch (EmptyResultDataAccessException e) {
+            return new ArrayList<Monitor>();
+        }
+    }
+
 
     public Integer getNumPendientes() {
         try{
@@ -76,11 +85,23 @@ public class MonitorDao {
         }
     }
 
-    public Integer getNumMonitores() {
+    public Integer getNumMonitores() { // son los aceptados
         try{
-            return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM monitor WHERE LOWER(estado) <> 'pendiente'", Integer.class);
+            return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM monitor WHERE LOWER(estado) = 'aceptada'", Integer.class);
         }catch(EmptyResultDataAccessException e) {
             return 0;
         }
     }
+    
+    public Integer getNumRechazados() {
+        try{
+            return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM monitor WHERE LOWER(estado) = 'rechazada'", Integer.class);
+        }catch(EmptyResultDataAccessException e) {
+            return 0;
+        }
+    }
+    
+    
+    
+    
 }

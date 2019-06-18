@@ -5,32 +5,39 @@
    <meta charset="UTF-8" />
    <link rel="stylesheet"     
     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <div th:replace="/common/navbar" >...</div>
-	<div class="container">
-	   <h1>Lista de Clientes</h1>
-	   <table class="table table-striped">
-	     <thead>
-	       <tr>
-	         <th>Dni</th>
-	         <th>Nombre</th>
-	         <th>Correo</th>
-	         <th>Fecha Nacimiento</th>
-	         <th>Sexo</th>
-	       </tr>
-	     </thead>
-	     <tbody>
-	       <tr th:each="cliente: ${clientes}"> 
-	         <td th:text="${cliente.dni}"></td> 
-	         <td th:text="${cliente.nombre}"></td>
-	         <td th:text="${cliente.email}"></td>
-	         <td th:text="${cliente.fechaNacimiento}"></td>
-	         <td th:text="${cliente.sexo}"></td>
-	        
-	       </tr>
-	     </tbody>
+	<div class="w3-container" style="margin-left:5%;margin-right: 5%">
+		<div class="w3-container w3-padding-64" id="projects">
+    		<h1 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center w3-wide">Listado de clientes</h1>
+  		</div>	  
+	  	<table class="table table-striped">
+		     <thead>
+		       <tr>
+		         <th>Dni</th>
+		         <th>Nombre</th>
+		         <th>Correo</th>
+		         <th>Fecha Nacimiento</th>
+		         <th>Sexo</th>
+		       </tr>
+		     </thead>
+		     <tbody>
+		       <tr th:each="cliente: ${clientes}"> 
+		         <td th:text="${cliente.dni}"></td> 
+		         <td th:text="${cliente.nombre}"></td>
+		         <td th:text="${cliente.email}"></td>
+		         <td th:text="${cliente.fechaNacimiento}"></td>
+		         <td th:text="${cliente.sexo}"></td>
+		        
+		       </tr>
+		     </tbody>
 	   </table>
+	   
+	   <a href="/administrador/lobby" class="w3-button w3-block w3-black w3-wide w3-margin-top" style="width:30%;margin-bottom: 5%">Volver</a>
+	   
    </div>
 </body>
 </html>

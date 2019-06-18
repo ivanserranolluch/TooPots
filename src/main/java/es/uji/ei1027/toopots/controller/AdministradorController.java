@@ -20,9 +20,8 @@ public class AdministradorController {
         this.monitorDao=monitorDao;
     }
     
-
 	@Autowired
-    public void serReservaDao(ReservaDao reservaDao) {
+    public void setReservaDao(ReservaDao reservaDao) {
         this.reservaDao=reservaDao;
     }
 
@@ -32,7 +31,9 @@ public class AdministradorController {
         model.addAttribute("numClientes", reservaDao.getNumClientes());
         model.addAttribute("numActividades", reservaDao.getNumActividades());
         model.addAttribute( "numPendientes", monitorDao.getNumPendientes());
+        model.addAttribute( "numRechazados", monitorDao.getNumRechazados());
         model.addAttribute("numMonitores", monitorDao.getNumMonitores());
+                
 		return "admin/lobby";
 	}
 	

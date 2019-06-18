@@ -5,49 +5,52 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
 <div th:replace="/common/navbar" >...</div>
 <h2>Nueva reserva</h2>
 <form th:action="@{/reserva/add}"
       th:object="${reserva}" method="post">
-    <table>
-        <tr>
-            <td><label>ID_Reserva</label></td>
-            <td><input type="number" th:field="*{id_reserva}" maxlength="10"/></td>
-        </tr>
-        <tr>
-            <td><label>Pagado</label></td>
-            <td><input type="text" th:field="*{estadoPago}" maxlength="9"/></td>
-        </tr>
-        <tr>
-            <td><label>Fecha</label></td>
-            <td><input type="date" th:field="*{fecha}"/></td>
-        </tr>
-        <tr>
-            <td><label>Numero de asistentes</label></td>
-            <td><input type="number" th:field="*{numAsistentes}" /></td>
-        </tr>
-        <tr>
-            <td><label>Precio por persona</label></td>
-            <td><input type="number" th:field="*{precioPersona}" /></td>
-        </tr>
-        <tr>
-            <td><label>Numero de Transacciones</label></td>
-            <td><input type="number" th:field="*{numTransacciones}" /></td>
-        </tr>
-         <tr>
-            <td><label>ID_Actividad</label></td>
-            <td><input type="number" th:field="*{id_actividad}" /></td>
-        </tr>
-         <tr>
-            <td><label>DNI</label></td>
-            <td><input type="text" th:field="*{dni}" maxlength="9"/></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="Añade reserva" /></td>
-        </tr>
-    </table>
+      
+     <div class="container ">
+            <div class="w3-container">
+          		<h1 class="w3-border-bottom w3-border-light-grey w3-padding-32 w3-margin-top">Reservar</h1>
+      		</div>
+      		
+             <div class="w3-container">
+                <label for="city">DNI de la persona solicitante</label>
+                <input class="w3-input w3-section w3-border"  type="text" th:field="*{dni}" maxlength="50" placeholder="Ejemplo: 12345678L" required>
+            </div>
+            
+
+            <div class="w3-container">
+                <label for="asistentes">Numero de asistentes</label>
+                <input class="w3-input w3-section w3-border" type="number" th:field="*{numAsistentes}" required>
+
+            </div>
+
+            <div class="w3-container">
+                <label for="nombre">Precio por persona</label>
+                <input class="w3-input w3-section w3-border" type="number" th:field="*{precioPersona}" disabled="disabled">
+
+            </div>
+
+            <div class="w3-container">
+                <label for="transacción">Numero de Transaccion</label>
+                <input class="w3-input w3-section w3-border" type="number" th:field="*{numTransacciones}" placeholder="Ejemplo: ES12345678900987654321" required>
+            </div>
+
+           
+          
+            <div class="w3-container">
+                <input type="submit" class="w3-btn w3-pale-green w3-margin-top w3-margin-bottom w3-margin-right w3-hover-green" value="Reservar"/>
+                <a href="../login" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black w3-hover-red"> Volver</a>
+        
+            </div>
+        </div>
 </form>
 </body>
 </html>

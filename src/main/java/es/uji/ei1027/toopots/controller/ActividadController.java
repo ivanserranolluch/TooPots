@@ -74,5 +74,42 @@ public class ActividadController {
 		actividadDao.addActividad(act);
 		return "common/succes";
 	}
-
+	
+	@RequestMapping(value="/kayak") 
+	public String pageKayak(Model model) {
+		return "actividad/kayak"; 
+	}
+	
+	@RequestMapping(value="/rutasCaballo") 
+	public String pageRutaCaballos(Model model) {
+		return "actividad/rutasCaballo"; 
+	}
+	
+	@RequestMapping(value="/paracaidismo") 
+	public String pageParacaidismo(Model model) {
+		return "actividad/paracaidismo"; 
+	}
+	
+	@RequestMapping(value="/senderismo") 
+	public String pageSenderismo(Model model) {
+		return "actividad/senderismo"; 
+	}
+	
+	@RequestMapping(value="/actividades") 
+	public String pageActividades(Model model) {
+		return "actividad/actividades"; 
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
