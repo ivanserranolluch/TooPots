@@ -97,7 +97,7 @@ public class MonitorController {
         return "monitor/pdf";
     }
 
-
+    
     @RequestMapping(value="/update/{id}", method=RequestMethod.GET)
     public String updateMonitor(Model model, @PathVariable String id) {
         model.addAttribute("monitor", monitorDao.getMonitor(id));
@@ -120,13 +120,37 @@ public class MonitorController {
         monitorDao.updateMonitor(monitor);
         
         if (monitor.getEstado().equals("aceptada")) {
-       	mailService.sendMail("al342376@uji.es", monitor.getEmail(), "Aceptado como Monitor", "Su solicitud como monitor, ha sido aceptada.");
+       	//mailService.sendMail("al342376@uji.es", monitor.getEmail(), "Aceptado como Monitor", "Su solicitud como monitor, ha sido aceptada.");
+        	System.out.println("Su solicitud como monitor, ha sido aceptada.");
         	
 		}
         return "redirect:../list";
     }
+	
 
+    @RequestMapping(value="/perfil/{email}", method=RequestMethod.GET)
+    public String updateMonitorEmail(Model model, @PathVariable String email) {
+        model.addAttribute("monitor", monitorDao.getMonitorEmail(email));
+        return "monitor/perfil";
+    }
 
+    @RequestMapping(value="/perfil/{email}", method = RequestMethod.POST)
+    public String processUpdateSubmit(@PathVariable String email,
+                                      @ModelAttribute("monitor") Monitor monitor,
+                                      BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "monitor/perfil";
+
+      
+        monitorDao.updateMonitor(monitor);
+        
+        /*if (monitor.getEstado().equals("aceptada")) {
+       	mailService.sendMail("al342376@uji.es", monitor.getEmail(), "Aceptado como Monitor", "Su solicitud como monitor, ha sido aceptada.");
+        	
+		}*/
+        return "monitor/lobby";
+    }
+    
     @RequestMapping(value="/delete/{id}")
     public String deleteMonitor(Model model, @PathVariable String id) {
         monitorDao.deleteMonitor(id);

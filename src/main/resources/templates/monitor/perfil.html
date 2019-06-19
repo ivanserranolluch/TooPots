@@ -1,18 +1,70 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-	<link rel="stylesheet"     
-     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>Perfil</title>
+    <title>Modifica el monitor</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
 <div th:replace="/common/navbar" >...</div>
+<div class="container">
+	<div th:replace="/common/navbar" >...</div>
 
+	<form action="#" th:action="@{/monitor/perfil/{email}(email=${session.user.email})}"
+	      th:object="${monitor}" method="post" enctype="multipart/form-data">
+	  <div class="container">  
+	  
+	  		<div class="w3-container">
+    			<h2 class="w3-border-bottom w3-border-light-grey w3-padding-64 w3-margin-top"> Modifica monitor </h2>
+    		</div>
+    
+			<div class="w3-container">
+                <label for="dni">DNI</label>
+                <input class="w3-input w3-section w3-border" type="text" th:field="*{id}" minlength="9" maxlength="9"  placeholder="645362728H" readonly="readonly">
+            </div>
+            
+            <div class="w3-container">
+                <label for="nombre">Nombre</label>
+                <input class="w3-input w3-section w3-border" type="text" th:field="*{nombre}" maxlength="25" placeholder="John M. Doe" required>
 
+            </div>
+            
+            <div class="w3-container">
+                <label for="adr">Email</label>
+                <input class="w3-input w3-section w3-border"  type="email" th:field="*{email}" placeholder="john@gmail.com" required>
 
+            </div>
+            
+            <div class="w3-container">
+                <label for="city">Iban</label>
+                <input class="w3-input w3-section w3-border"  type="text" th:field="*{iban}" maxlength="50" placeholder="ESxxxxxxxxxxxx" readonly="readonly">
+            </div>
+            
+            <div class="w3-container w3-margin-bottom">
+                <label for="city">Estado</label>
+                <select class="form-control" th:field="*{estado}" required>
+			        <option th:value="'aceptada'" th:text="Aceptada"></option>
+			        <option th:value="'rechazada'" th:text="Rechazada"></option>
+			    	<option th:value="'pendiente'" th:text="Pendiente"></option>
+			    </select>
+            </div>
+            
+            <div class="w3-container">
+                <label for="city">Domicilio</label>
+                <input class="w3-input w3-section w3-border" type="text" th:field="*{domicilio}" maxlength="60" placeholder="Avenida xxxxx" required>
+            </div>
+            
+            <div class="w3-container">
+                <input type="submit" class=" w3-btn w3-pale-green w3-margin-top w3-margin-bottom w3-margin-right" value="Modificar monitor"/>
+                <a href="/monitor/lobby" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black"> Volver</a>
+            </div>
+            
+		</div>
+	</form>
 
+</div>
+
+</body>
 </body>
 </html>
