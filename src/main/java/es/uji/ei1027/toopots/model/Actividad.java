@@ -5,9 +5,6 @@ import java.sql.Time;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import es.uji.ei1027.toopots.dao.MonitorDao;
-import es.uji.ei1027.toopots.dao.ReservaDao;
-
 public class Actividad {
 	private int id_actividad;
 	private String nombre;

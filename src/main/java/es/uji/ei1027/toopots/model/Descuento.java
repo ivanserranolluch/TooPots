@@ -1,5 +1,8 @@
 package es.uji.ei1027.toopots.model;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 public class Descuento {
 	
 	private String field;
@@ -18,7 +21,9 @@ public class Descuento {
 	}
 	
 	private boolean isValidDiscount(Cliente cliente){
-		return true;
+		Method method = getMethod(cliente, field);
+		String clientValue = invokeMethod(cliente, method);
+		return value.equals(clientValue);
 	}
 
 	public String getField() {
@@ -53,6 +58,33 @@ public class Descuento {
 		this.anotherDiscount = anotherDiscount;
 	}
 	
+	
+	private Method getMethod(Cliente cliente, String methodName){
+		Method method = null;
+		methodName = "get" + methodName;
+		try {
+		  method = cliente.getClass().getMethod(methodName);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+		return method;
+	}
+	
+	private String invokeMethod(Cliente cliente, Method method){
+		String s = null;
+		try {
+			  s = method.invoke(cliente).toString();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) { 
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
 	
 
 }

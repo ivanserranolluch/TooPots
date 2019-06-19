@@ -5,7 +5,7 @@ public class DescuentoManager {
 	private Descuento discount;
 	
 	public float getPriceWithDiscount(Cliente cliente, float price){
-		if (discount != null){
+		if (cliente != null && discount != null){
 			price = discount.getPriceWithDiscount(cliente, price);
 		}
 		return price;
