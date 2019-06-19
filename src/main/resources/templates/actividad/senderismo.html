@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Pagina kayak</title>
+</head>
+<body>
+
+<div th:replace="/common/navbar" >...</div>
+<div class="w3-row w3-padding-64" id="about">
+   <div class="w3-col m6 w3-padding-large w3-hide-small" style="margin-left:12%; margin-top:4%">
+     <img src="/images/toopots6.jpg" class="w3-round w3-image" width="1200" height="750">
+     
+     <h4><b>Preparado para realizar senderismo?</b></h4>
+     
+     <p>Realizar senderismo es una oportunidad para disfrutar del tiempo libre con la naturaleza y conociendo paisajes. Los recorridos son con monitor para disfrutar de una magnífica 
+     ruta .Además, puede ser un plan perfecto para disfrutar de tus vacaciones en familia o de un fin de semana con niños.</p>
+     
+      <p> Precio por persona: <b>15€ IVA incluido.</b></p>
+   </div>
+
+   <div class="w3-col m4 w3-padding-small" style="position: sticky;top: 0;">
+   	<div class="w3-card-4 w3-fixed" style="margin-top: 15%">
+        <header class="w3-container">
+          <h5 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-wide w3-center">Elige tu experiencia</h5>
+        </header>
+        
+         <div class="w3-container">
+            <label class="w3-margin-top w3-wide">Fecha</label>
+            <input type="date"  class="form-control input_user w3-input w3-section w3-border" >
+            
+        </div>
+        
+        <div class="w3-container">
+            <label class="w3-margin-top w3-wide" >Duración</label> 
+            <input type="number" class="form-control input_pass w3-input w3-section w3-border" placeholder="1 hora">
+        </div>
+        
+        <div class="w3-container">
+            <label class="w3-margin-top w3-wide" >Asistentes</label> <!-- Poner texto de minimo y maximo de asistentes -->
+            <input type="number" class="form-control input_pass w3-input w3-section w3-border" placeholder="Máximo 6 personas">
+        </div>
+        
+        <div class="w3-container" style="margin-top: 6%">
+            <input type="submit"  value="Reservar" class="w3-button w3-block w3-light-grey w3-margin-bottom w3-wide w3-padding-large">
+            <a href="/" class="w3-btn w3-block w3-pale-green w3-margin-bottom w3-wide w3-padding-large"> Volver </a>
+            
+        </div>
+      </div>
+  	</div>
+ </div>
+
+
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-16 " style="width: 100%;">
+  <p>Powered by Universistat Jaume I</p>
+</footer>
+      
+       
+</body>

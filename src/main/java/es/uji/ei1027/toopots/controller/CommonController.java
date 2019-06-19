@@ -22,13 +22,13 @@ public class CommonController {
 		if (user != null){
 			switch(user.getTipoUsuario()){
 			case "cliente":
-				route = "cliente/lobby";
+				route = "redirect:cliente/lobby";
 				break;
 			case "monitor":
-				route = "monitor/lobby";
+				route = "redirect:monitor/lobby";
 				break;
 			case "admin":
-				route = "admin/lobby";
+				route = "redirect:/administrador/lobby";
 			};
 		}
 		return route;
@@ -37,15 +37,43 @@ public class CommonController {
 	@RequestMapping(value="/singup", method=RequestMethod.GET)
 	public String singUp(Model model){
 		model.addAttribute("rol", "None");
+		model.addAttribute("rol", "monitor");
 		model.addAttribute("monitor", new Monitor());
-		model.addAttribute("cliente", new Cliente());
+		//model.addAttribute("cliente", new Cliente());
 		
 		return "common/singup";
 	}
-	
+	//NUEVO
+	//################
+
+	@RequestMapping(value="/singupCliente", method=RequestMethod.GET)
+	public String singUpCliente(Model model){
+		model.addAttribute("rol", "cliente");
+		model.addAttribute("cliente", new Cliente());
+
+		return "common/singupCliente";
+	}
+
+	@RequestMapping("/presingup")
+	public String preSingUp(Model model){
+
+		return "common/presingup";
+	}
+
+	//################
+
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session){
 		session.setAttribute("user", null);
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value="/success")
+	public String success(Model model){
+		return "common/success";
+	}
+	
+	
+	
+	
 }

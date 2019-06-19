@@ -12,45 +12,44 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top justify-content-between" th:if="${session.user!=null}">
-		<a href="/" class="btn btn-outline-success my-2 my-sm-0 btn-primary ml-4">Home</a>
-	
-		<!-- Toggler/collapsibe Button -->
-		<button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		
-		<div class="collapse navbar-collapse" id="collapsibleNavbar">
-	        <ul class="navbar-nav">
-	            <li class="nav-item my-2" th:each="link : ${session.links}">
-	            	<a class="nav-link my-2" th:href="@{{linkn}(linkn=${link.link})}" th:text="${link.name}"><b>Home</b>
-	            	</a>
-	            </li>
-	        </ul>
-		</div>
-		
-		<a href="/logout" class="btn btn-outline-success my-2 my-sm-0 btn-primary mr-4">Log out</a>
-</nav>
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top justify-content-between" th:if="${session.user==null}">
+<!-- NAVBAR 2 --> 
+  <div class="w3-top" th:if="${session.user!=null}">
+   <div class="w3-bar w3-black w3-wide w3-padding w3-card">
+       <a href="/" class="w3-bar-item w3-button w3-mobile">Home</a>
+       <a href="/logout" class=" w3-bar-item w3-right w3-button w3-mobile">Desconectarse</a>
+       <div class="w3-right w3-hide-small" th:each="link : ${session.links}">
+       	   <a th:href="@{{linkn}(linkn=${link.link})}" th:text="${link.name}" class="w3-bar-item w3-button w3-mobile"></a>  
+       </div>
+           
+    </div>
+  </div>
+<!-- NAVBAR 2 --> 
+
+<!-- NAVBAR --> 
+  <div class="w3-top" th:if="${session.user==null}">
+   <div class="w3-bar w3-black w3-wide w3-padding w3-card">
+       <a href="/" class="w3-bar-item w3-button w3-mobile">Home</a>
+       <div class="w3-right w3-hide-small">
+       	   <a href="/" th:href="@{/actividad/actividades}" class="w3-bar-item w3-button w3-mobile">Actividades</a>
+           <a href="/login" class="w3-bar-item w3-button w3-mobile">Acceder</a>
+           
+           <!-- ESTO NO SE COMO FUNCIONA  -->
+           <!-- <a href="/presingup" class="btn btn-outline-success my-2 my-sm-0 btn-primary mr-4">Sing up</a>   -->
 	
-	<a href="/login" class="btn btn-outline-success my-2 my-sm-0 btn-primary ml-4">Log In</a>
-	
-	<div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-            <li class="nav-item my-2" ><a class="nav-link my-2" href="/" th:href="@{/}"><b>Home</b></a></li>
-            <li class="nav-item my-2" ><a class="nav-link my-2" href="/" th:href="@{/actividad/list}"><b>Actividades</b></a></li>
-        </ul>
-	</div>
-	
-	<a href="/singup" class="btn btn-outline-success my-2 my-sm-0 btn-primary mr-4">Sing up</a>
-		
-</nav>
+       </div>
+    </div>
+  </div>
+<!-- NAVBAR --> 
 
 </body>
 </html>

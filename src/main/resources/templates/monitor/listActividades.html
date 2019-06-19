@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Actividades</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div th:replace="/common/navbar" >...</div>
+
+<h1>Lista de actividades</h1>
+<div th:if="${#lists.isEmpty(actividades)}">
+	    No hay actividades disponibles en estos momentos
+</div>
+
+	<table th:unless="${#lists.isEmpty(actividades)}" class="table table-striped">
+	    <thead>
+	    <tr>
+	        <th>Nombre</th>
+	        <th>Fecha</th>
+	        <th>Duración</th>
+	        <th>Lugar</th>
+	        <th>Precio</th>
+	        <th>Punto Encuentro</th>
+	        <th>Texto Cliente</th>
+	    </tr>
+	    </thead>
+	    <tbody>
+	    <tr th:each="actividad : ${actividades}">
+	        <td th:text="${actividad.nombre}"></td>
+	        <td th:text="${actividad.fecha}"></td>
+	        <td> <a th:text="${actividad.duracionDias}"> </a> Dias</td>
+	        <td th:text="${actividad.lugar}"></td>
+	        <td> <a th:text="${actividad.precio}"> </a> € </td>
+	        <td th:text="${actividad.puntoEncuentro}"></td>
+	        <td th:text="${actividad.textoCliente}"></td>
+	
+	       <!--  <td><a class="btn btn-info" th:href="@{/actividad/{id}(id=${actividad.id_actividad})}"
+	                                                          style="color:white;">Ver</a></td> -->
+	        <td th:if="${session.user!=null}"><a class="btn btn-info" th:href="@{/actividad/update/{id}(id=${actividad.id_actividad})}"
+	                                                          style="color:white;">Editar</a></td>
+	        <td ><a class="btn btn-danger" th:href="@{/actividad/delete/{id}(id=${actividad.id_actividad})}"
+	                                                          style="color:white;">Eliminar</a></td>
+	    </tr>
+	    </tbody>
+	</table>
+	<div class="col-sm-3"></div>
+   		<a class=" btn btn-danger col-sm-1" href="/"> Volver </a>
+    <div class="col-sm-4"></div>
+	<a class="btn btn-success" th:href="@{/actividad/add}" style="color:white;">Añadir Actividad</a>
+</body>
+</html>

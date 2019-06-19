@@ -1,0 +1,78 @@
+Actividad 10. Procesamiento de consultas (A10)
+
+SELECT emp.codven, emp.nombre, jef.nombre
+FROM   vendedores emp JOIN vendedores jef ON (emp.codjefe = jef.codven)
+       JOIN pueblos pue ON (emp.codpue = pue.codpue)
+WHERE  pue.codpro = '12';
+
+Ejercicio 1. 
+¿Por qué crees que los planes de ejecución de ambos SGBD son diferentes?
+
+Ejercicio 2. 
+Intenta convencer al optimizador de Oracle para que cambie su plan de ejecución. 
+¿Consigues que elija el mismo plan que ha escogido PostgreSQL?
+Comenta qué pruebas has hecho y a qué conclusiones has llegado. 
+
+Ejercicio 3.
+Ejecuta la siguiente sentencia y contesta:
+¿qué tipo de camino de acceso se ha utilizado en cada SGBD? 
+Explica el motivo por el cual crees que cada SGBD ha escogido dicho camino.
+Si hay diferencia entre la decisión de ambos SGBD ¿a qué la achacas?
+
+SELECT COUNT(*)
+FROM   pueblos p
+WHERE  p.nombre LIKE 'CAS%';
+
+Ejercicio 4.
+Ejecuta la siguiente sentencia y contesta:
+¿qué tipo de camino de acceso se ha utilizado en cada SGBD? 
+Explica el motivo por el cual crees que cada SGBD ha escogido dicho camino. 
+(quizá observar el porcentaje de las filas de la tabla que selecciona
+la consulta pueda ser interesante).
+Si hay diferencia entre la decisión de ambos SGBD ¿a qué la achacas?
+
+SELECT COUNT(*)
+FROM   pueblos p
+WHERE  p.codpue LIKE '123%';
+
+Ejercicio 5.
+Ejecuta la siguiente sentencia y contesta:
+¿qué tipo de camino de acceso se ha utilizado en cada SGBD? 
+Explica el motivo por el cual crees que cada SGBD ha escogido dicho camino.
+Si hay diferencia entre la decisión de ambos SGBD ¿a qué la achacas?
+
+SELECT COUNT(*)
+FROM   pueblos p
+WHERE  p.codpue LIKE '123%'
+AND    SUBSTR(p.nombre,2,1) BETWEEN 'A' AND 'M';
+
+Ejercicio 6.
+Utiliza las directivas o cambios de parámetros de optimización necesarios para intentar que cada 
+SGBD cambie su elección respecto al camino de acceso a la tabla de los pueblos.
+Anota los cambios realizados e indica si lo consigues o no (copia y pega el plan de ejecución
+en la entrega).
+Fíjate siempre en el coste real y el coste estimado, puede ser interesante.
+
+Ejercicio 7.
+Si has modificado algún parámetro de optimización, vuélvelo a dejar como estaba.
+En PostgreSQL puedes consultar el estado de los parámetros mediante \texttt{SHOW param;
+(puedes devolver el valor por defecto con \texttt{SET param TO DEFAULT;).
+Ejecuta la siguiente sentencia y contesta:
+¿qué tipo de camino de acceso se ha utilizado en cada SGBD? 
+Explica el motivo por el cual crees que cada SGBD ha escogido dicho camino.
+Si hay diferencia entre la decisión de ambos SGBD ¿a qué la achacas?
+
+SELECT COUNT(*)
+FROM   pueblos p
+WHERE  p.codpue BETWEEN '1' AND '4' 
+AND    SUBSTR(p.nombre,2,1) BETWEEN 'A' AND 'M';
+
+
+Ejercicio 8.
+¿Cuál es el coste estimado si se fuerza el cambio en el camino de acceso 
+en cada SGBD (siempre que sea posible hacerlo)? 
+Anota cómo has conseguido cambiar el camino de acceso (directiva, cambio
+de parámetro) y copia y pega el plan de ejecución en cada caso. 
+¿Esperabas los resultados obtenidos? ¿algún comentario al respecto?
+
+

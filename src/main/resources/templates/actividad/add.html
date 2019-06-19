@@ -1,0 +1,108 @@
+!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>Añade una actividad</title>
+	    <meta charset="UTF-8"/>
+	    <link rel="stylesheet"
+	          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+	</head>
+	<body>
+	<div th:replace="/common/navbar">...</div>
+	<div class="container">
+	    <h2>Nueva actividad</h2>
+	    <form action="#" th:action="@{/actividad/add}"
+	          th:object="${actividad}" method="post" enctype="multipart/form-data">
+	
+	        <div class="input-group mb-3">
+	            <label class="col-sm-1 col-form-label">ID_Actividad</label>
+	            <div class="col-sm-11">
+	                <input class="form-control" type="number" th:field="*{id_actividad}" minlength="9" maxlength="9" required/>
+	            </div>
+	        </div>
+	
+	 <div class="input-group mb-3">
+	            <label class="col-sm-1 col-form-label">Nombre</label>
+	            <div class="col-sm-11">
+	                <input class="form-control" type="text" th:field="*{nombre}" maxlength="25" required/>
+	            </div>
+	        </div>
+	
+	        <div class="input-group mb-3">
+	            <label class="col-sm-1 col-form-label">Descripción</label>
+	            <div class="col-sm-11">
+	                <input class="form-control" type="text" th:field="*{descripcion}" maxlength="200" required/>
+	            </div>
+	        </div>
+	
+	        <div class="input-group mb-3">
+	            <label class="col-sm-1 col-form-label">Duración dias</label>
+	            <div class="col-sm-11">
+	                <input class="form-control" type="number" th:field="*{duracionDias}" required/>
+	            </div>
+	        </div>
+	
+	        <div class="input-group mb-3">
+	            <label class="col-sm-1 col-form-label">Fecha</label>
+	            <div class="col-sm-11">
+	                <input class="form-control" type="date" th:field="*{fecha}" maxlength="50" required/>
+	            </div>
+	        </div>
+	
+	
+	        <div class="input-group mb-3">
+	            <label class="col-sm-1 col-form-label">Punto Encuentro</label>
+	            <div class="col-sm-11">
+	                <input class="form-control" type="text" th:field="*{puntoEncuentro}" maxlength="60" required/>
+	            </div>
+	        </div>
+	        <div class="input-group mb-3">
+	            <label class="col-sm-1 col-form-label">Lugar</label>
+	            <div class="col-sm-11">
+	                <input class="form-control" type="text" th:field="*{lugar}" maxlength="60" required/>
+	            </div>
+	        </div>
+	
+	
+		<div class="input-group mb-3">
+	            <label class="col-sm-1 col-form-label">Texto Cliente</label>
+	            <div class="col-sm-11">
+	                <input class="form-control" type="text" th:field="*{textoCliente}" maxlength="60" required/>
+	            </div>
+	        </div>
+	
+	        <div class="input-group mb-3">
+	            <label class="col-sm-1 col-form-label">Hora encuentro</label>
+	            <div class="col-sm-11">
+	                <input class="form-control" type="time" th:field="*{horaEncuentro}" maxlength="60" required/>
+	            </div>
+	        </div>
+	
+	        <div class="input-group mb-3">
+	            <label class="col-sm-1 col-form-label">Minimo Asistentes</label>
+	            <div class="col-sm-11">
+	                <input class="form-control" type="number" th:field="*{minAsistentes}" required/>
+	            </div>
+	        </div>
+	        <div class="input-group mb-3">
+	            <label class="col-sm-1 col-form-label">Máximo Asistentes</label>
+	            <div class="col-sm-11">
+	                <input class="form-control" type="number" th:field="*{maxAsistentes}" required/>
+	            </div>
+	        </div>
+	        <div class="input-group mb-3">
+	            <label class="col-sm-1 col-form-label">ID_Tipo Actividad</label>
+	            <div class="col-sm-11">
+	                <input class="form-control" type="number" th:field="*{id_tipoActividad}" required/>
+	            </div>
+	        </div>
+	
+			<div class="col-sm-3"></div>
+			        <a class=" btn btn-danger col-sm-1" href="/actividad/listActividades"> Volver </a>
+			        <div class="col-sm-4"></div>
+	        <input type="submit" class=" btn btn-success" value="Añadir monitor"/>
+	
+	
+	    </form>
+	</div>
+	</body>
+	</html>
