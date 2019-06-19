@@ -3,6 +3,11 @@ package es.uji.ei1027.toopots.model;
 import java.sql.Date;
 import java.sql.Time;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import es.uji.ei1027.toopots.dao.MonitorDao;
+import es.uji.ei1027.toopots.dao.ReservaDao;
+
 public class Actividad {
 	private int id_actividad;
 	private String nombre;
@@ -18,6 +23,14 @@ public class Actividad {
 	private String textoCliente;
 	private String estado;
 	private int id_tipoActividad;
+	
+	private DescuentoManager dm;
+
+    @Autowired
+    public void setMonitorDao(DescuentoManager dm) {
+        this.dm=dm;
+    }
+    
 	public int getId_actividad() {
 		return id_actividad;
 	}
@@ -48,8 +61,8 @@ public class Actividad {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public int getPrecio() {
-		return precio;
+	public float getPrecio() {
+		return dm.getPriceWithDiscount(null, this.precio);
 	}
 	public void setPrecio(int precio) {
 		this.precio = precio;
