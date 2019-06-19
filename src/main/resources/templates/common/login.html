@@ -34,6 +34,10 @@
             <input type="submit"  value="Iniciar sesion" class="w3-button w3-block w3-light-grey w3-margin-bottom w3-wide w3-padding-large">
         </div>
         
+        <div class="w3-container" style="margin-top: 10px, margin-bottom: 4px" th:if="${session.errors!=null}">
+        	<p style="color: red" th:text="${session.errors}"></p>
+        </div>
+        
       </div>
     </div>
 </form>

@@ -56,7 +56,7 @@ public class SessionController {
         // intentant carregar les dades de l'usuari 
         user = usuariosRegistradosDao.loadUserByEmail(user.getEmail(),user.getPassword(), usuariosRegistradosDao.getUsuarios()); 
         if (user == null) {
-            bindingResult.rejectValue("password", "badpw", "Contrasenya incorrecta"); 
+            session.setAttribute("errors", "ERROR: Los credenciales introducidos son incorrectos");
             return LOGIN_ROUTE;
         }
         
