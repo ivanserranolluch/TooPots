@@ -2,6 +2,7 @@ package es.uji.ei1027.toopots.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Time;
 
 import javax.sql.DataSource;
 
@@ -31,6 +32,7 @@ public class ActividadDao {
 	
 	// Añade una nueva actividad
 	public void addActividad(Actividad act){
+		act.setHoraEncuentro(new Time(10));
 		update(ADD_ACT_SQL, act);
 	}
 	
@@ -41,9 +43,20 @@ public class ActividadDao {
 		jdbcTemplate.update(sql, act.getId_actividad(), act.getNombre(), act.getDescripcion(),
 				act.getDuracionDias(), act.getFecha(), act.getPrecio(), act.getMinAsistentes(),
 				act.getMaxAsistentes(), act.getLugar(), act.getPuntoEncuentro(), act.getHoraEncuentro(),
-				act.getTextoCliente(), act.getEstado(), act.getId_actividad());
+				act.getTextoCliente(), act.getEstado(), act.getId_tipoActividad());
 	}
 	
+	public void updateActividad(Actividad act) {
+		jdbcTemplate.update("Update actividad set nombre=?, descripcion=?, duraciondias=?,fecha=?,precio=?,minasistentes=?,maxasistentes=?,lugar=?,puntoencuento=?,horaencuentro=?,textocliente=?,estado=?, id_tipoactividad=? where id_actividad =?", act.getNombre(), act.getDescripcion(),
+				act.getDuracionDias(), act.getFecha(), act.getPrecio(), act.getMinAsistentes(),
+				act.getMaxAsistentes(), act.getLugar(), act.getPuntoEncuentro(), new Time(10),
+				act.getTextoCliente(), act.getEstado(), act.getId_tipoActividad(),act.getId_actividad());
+	}
+	
+	public void deleteActividad(int id) {
+	        jdbcTemplate.update("DELETE FROM actividad WHERE id_actividad=?", id);
+	}
+	 
 	public Actividad getActividad(int id) {
         try{
             return jdbcTemplate.queryForObject("SELECT * FROM actividad WHERE id_actividad=?", new ActividadRowMapper(), id);

@@ -80,6 +80,56 @@ p{
 		<p>	- Consultar reserves per tipus i data i imports cobrats per les activitats confirmades. Els monitors cobren un 95% de l'import que es factura per una activitat.  </p>	
 	  </div>
 	</div>
+
+<!--  
+//NUEVO IVAN
+
+<div class="container" style="min-height:150px;">
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">
+							<a th:href="@{/reserva/list/{email}(email=${session.user.email})}">Gestionar Reservas</a></h4>
+						<p class="description" th:text="${'Consultar la informació detallada de les seues reserves de clients y Acceptar les reserves de clients per a una activitat. Tancar una activitat a noves reserves si, per exemple, ja està completa. Cancel·lar una activitat per motius diversos, com per exemple l’oratge o malaltia.'}"></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4 col-5">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="/actividad/listActividades">Gestionar Actividades</a></h4>
+						<p class="description" th:text="${'Crear activitats per a les que estan qualificats i modificar o anul·lar les creades. S’ha de avaluar i proposar què fer si es cancel·la una activitat per a la qual ja hi ha reserves de clients.'}"></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">
+							<a th:href="@{/reserva/list/{email}(email=${session.user.email})}">Cosultar Reserves Asignadas</a></h4>
+						<p class="description" th:text="${'Consultar reserves per tipus, data e imports cobrats per les activitats confirmades.'}"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container" style="min-height:150px;">
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">
+							<a th:href="@{/monitor/update/{email}(email=${session.user.email})}">Gestión Datos Personales</a></h4>
+						<p class="description" th:text="${' actualitzar el seu perfil per a incloure foto o dades relacionades en la seua activitat.'}"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+-->	
+	
 </body>
 
 </html>

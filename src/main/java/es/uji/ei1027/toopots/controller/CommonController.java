@@ -37,12 +37,31 @@ public class CommonController {
 	@RequestMapping(value="/singup", method=RequestMethod.GET)
 	public String singUp(Model model){
 		model.addAttribute("rol", "None");
+		model.addAttribute("rol", "monitor");
 		model.addAttribute("monitor", new Monitor());
-		model.addAttribute("cliente", new Cliente());
+		//model.addAttribute("cliente", new Cliente());
 		
 		return "common/singup";
 	}
-	
+	//NUEVO
+	//################
+
+	@RequestMapping(value="/singupCliente", method=RequestMethod.GET)
+	public String singUpCliente(Model model){
+		model.addAttribute("rol", "cliente");
+		model.addAttribute("cliente", new Cliente());
+
+		return "common/singupCliente";
+	}
+
+	@RequestMapping("/presingup")
+	public String preSingUp(Model model){
+
+		return "common/presingup";
+	}
+
+	//################
+
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session){
 		session.setAttribute("user", null);

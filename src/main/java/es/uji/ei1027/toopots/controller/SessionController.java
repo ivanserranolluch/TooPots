@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import es.uji.ei1027.toopots.dao.MonitorDao;
 import es.uji.ei1027.toopots.dao.UsuariosRegistradosDao;
+import es.uji.ei1027.toopots.model.Monitor;
 import es.uji.ei1027.toopots.model.NavbarLink;
 import es.uji.ei1027.toopots.model.User;
 
@@ -23,7 +25,13 @@ public class SessionController {
 	
 	private final String LOGIN_ROUTE = "common/login";
 	
-	private UsuariosRegistradosDao usuariosRegistradosDao; 
+	private UsuariosRegistradosDao usuariosRegistradosDao;
+	private MonitorDao monitorDao;
+	
+	@Autowired
+    public void setMonitorDao(MonitorDao monitorDao) {
+		this.monitorDao=monitorDao;
+	}
     
     @Autowired
     public void setUserDao(UsuariosRegistradosDao usuariosRegistradosDao) {
@@ -51,6 +59,19 @@ public class SessionController {
             bindingResult.rejectValue("password", "badpw", "Contrasenya incorrecta"); 
             return LOGIN_ROUTE;
         }
+        
+    
+        //NUEVO IVAN
+        if(user.getTipoUsuario().equals("monitor")) {    	
+        	
+	        Monitor monitor = monitorDao.getMonitorEmail(user.getEmail());
+	        //System.out.println(monitor.getEstado("rechazada"));
+	        if(monitor.getEstado().equals("pendiente") || monitor.getEstado().equals("rechazada")) {
+	        		return LOGIN_ROUTE;
+	        }
+        }
+        //#########
+        
         
         // Autenticats correctament. 
         // Guardem les dades de l'usuari autenticat a la sessió

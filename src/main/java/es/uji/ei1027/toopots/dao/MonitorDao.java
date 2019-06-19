@@ -43,6 +43,16 @@ public class MonitorDao {
             return null;
         }
     }
+    
+    //NUEVO IVAN
+    public Monitor getMonitorEmail(String email) {
+        try{
+            return jdbcTemplate.queryForObject("SELECT * FROM monitor WHERE email=?", new MonitorRowMapper(), email);
+        }catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
+    // #################
 
     public List<Monitor> getMonitores() {
         try{

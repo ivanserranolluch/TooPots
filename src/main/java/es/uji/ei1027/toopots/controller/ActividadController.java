@@ -3,6 +3,17 @@ package es.uji.ei1027.toopots.controller;
 import java.sql.Date;
 import java.sql.Time;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import es.uji.ei1027.toopots.model.User;
+import es.uji.ei1027.toopots.model.Monitor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,12 +49,20 @@ public class ActividadController {
 		return "actividad/list"; 
 	}
 	
+	//Nuevo
+	@RequestMapping(value="/listActividades", method=RequestMethod.GET) 
+	public String listActivitiesMonitor(Model model) {
+		model.addAttribute("actividades", actividadDao.getActividad()); 
+		return "monitor/listActividades"; 
+	}
+	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public String getActividad(Model model, @PathVariable int id){
 		model.addAttribute("actividad", actividadDao.getActividad(id));
 		return "actividad/detail";
 	}
 	
+	/*
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public String addActivitie(){
@@ -74,6 +93,67 @@ public class ActividadController {
 		actividadDao.addActividad(act);
 		return "common/succes";
 	}
+	*/
+	
+	@RequestMapping(value="/add")
+    public String addActividad(Model model) {
+
+	 System.out.println("hola");
+        model.addAttribute("actividad", new Actividad());
+        return "actividad/add";
+    }
+
+    @RequestMapping(value="/add", method=RequestMethod.POST)
+    public String processAddSubmit(@ModelAttribute("actividad") Actividad actividad,
+                                   BindingResult bindingResult, Model model) {
+
+        //if (bindingResult.hasErrors()){
+		//	return "redirect:/singup";
+       // }
+
+		actividad.setEstado("pendiente");
+        	//actividad.setId_actividad(1);
+        	System.out.println(actividad.getId_actividad()+" "+actividad.getId_tipoActividad());
+        actividadDao.addActividad(actividad);
+
+        return "redirect:listActividades";
+    }
+
+
+    @RequestMapping(value="/update/{id}", method=RequestMethod.GET)
+    public String updateActividad(Model model, @PathVariable String id) {
+    	System.out.println("HOA");
+        model.addAttribute("actividad", actividadDao.getActividad(Integer.parseInt(id)));
+        return "actividad/update";
+    }
+
+    @RequestMapping(value="/update/{id}", method = RequestMethod.POST)
+    public String processUpdateSubmit(@PathVariable String id,
+                                      @ModelAttribute("actividad") Actividad actividad,
+                                      BindingResult bindingResult) {
+        //if (bindingResult.hasErrors()) {
+        	//System.out.println(bindingResult);
+          //  return "actividad/update";
+        //}
+
+        actividadDao.updateActividad(actividad);
+
+        //if (actividad.getEstado().equals("aceptada")) {
+       	//mailService.sendMail("al342376@uji.es", monitor.getEmail(), "Aceptado como Monitor", "Su solicitud como monitor, ha sido aceptada.");
+        	//System.out.println("Se ha enviado un correo al monitor");
+		//}
+        return "redirect:../listActividades";
+    }
+
+
+
+    @RequestMapping(value="/delete/{id}")
+    public String deleteActividad(Model model, @PathVariable String id) {
+        actividadDao.deleteActividad(Integer.parseInt(id));
+        return "redirect:../listActividades";
+    }
+
+	
 	
 	@RequestMapping(value="/kayak") 
 	public String pageKayak(Model model) {
