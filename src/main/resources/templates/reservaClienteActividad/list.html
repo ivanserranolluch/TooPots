@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestionar Monitores</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+</head>
+<body>
+<div th:replace="/common/navbar" >...</div>
+
+<div th:if="${#lists.isEmpty(reservaClienteActividadDao)}">
+    No hay reservas en la base de datos
+</div>
+<div class="container">
+	<div class="w3-container w3-padding-64" id="projects">
+    	<h1 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center w3-wide">Listado de Reservas</h1>
+    	
+    
+    	
+    	
+    </div>	  
+	<table th:unless="${#lists.isEmpty(reservaClienteActividadDao)}" class="table table-striped">
+	    <thead>
+	    <tr>
+	        
+	        <th>Nombre</th>
+	        <th>Duración en dias</th>
+	        <th>Fecha</th>
+	        <th>Precio</th>
+	        <th>Lugar</th>
+	        <th>Punto Encuentro</th>
+	        <th>Nombre Cliente</th>
+	        <th>DNI cliente</th>
+	        <th>Correo Cliente</th>
+	        <th>Estado</th>
+	        
+	    </tr>
+	    </thead>
+	    <tbody>
+	    
+	    <tr th:each="reserva: ${reservaClienteActividadDao}" >
+	    
+	        
+	        <td th:text="${reserva.nombreActividad}" ></td>
+	        <td th:text="${reserva.duracionDias}" ></td>
+	        <td th:text="${reserva.fechaActividad}" ></td>
+	        <td th:text="${reserva.precio}" ></td>
+	        <td th:text="${reserva.lugar}" ></td>
+	        <td th:text="${reserva.puntoEncuentro}" ></td>
+	        <td th:text="${reserva.nombreCliente}" ></td>
+	        <td th:text="${reserva.dni}" ></td>
+	        <td th:text="${reserva.email}" ></td>
+	        <td th:text="${reserva.estadoPago}" ></td>
+	        
+	       
+	        
+	  <!--  <td th:text="${monitor.id}" th:class="${strings.equals(busca,monitor.id)}? 'bg-secondary text-blue'"></td>
+	        <td th:text="${monitor.nombre}" th:class="${strings.equals(busca,monitor.nombre)}? 'bg-secondary text-blue'"></td>
+	        <td th:text="${monitor.domicilio}" th:class="${strings.equals(busca,monitor.domicilio)}? 'bg-secondary text-blue'"></td>
+	        <td th:text="${monitor.email}" th:class="${strings.equals(busca,monitor.email)}? 'bg-secondary text-blue'"></td>
+	        <td th:text="${monitor.iban}" th:class="${strings.equals(busca,monitor.iban)}? 'bg-secondary text-blue'"></td>
+	        <td th:text="${monitor.estado}"th:class="${strings.equals(busca,monitor.estado)}? 'bg-secondary text-blue'"></td>
+	   -->
+
+	    </tr>
+	    </tbody>
+	</table>
+	
+	<a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" href="/administrador/lobby" style="color:white;">Volver</a>
+</div>
+</body>
+</html>
