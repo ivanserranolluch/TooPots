@@ -75,4 +75,15 @@ public class ActividadDao {
         }
     }
 
+	public List<Actividad> getActividadPorTipo(String tipo) {
+		try {
+			return jdbcTemplate.query("SELECT id_actividad, a.nombre, descripcion, duracionDias, fecha," +
+					" precio, minAsistentes, maxAsistentes, lugar, puntoEncuento, horaEncuentro, textoCliente," +
+					"estado, id_tipoactividad FROM actividad a JOIN tipoactividad t USING(id_tipoactividad) WHERE LOWER(t.nombre)=LOWER(?)", new ActividadRowMapper(),tipo);
+		}
+		catch(EmptyResultDataAccessException e) {
+			return new ArrayList<Actividad>();
+		}
+	}
+
 }

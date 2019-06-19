@@ -7,12 +7,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import es.uji.ei1027.toopots.dao.ImgActDao;
+import es.uji.ei1027.toopots.model.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import es.uji.ei1027.toopots.model.User;
-import es.uji.ei1027.toopots.model.Monitor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,8 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import es.uji.ei1027.toopots.dao.ActividadDao;
 import es.uji.ei1027.toopots.dao.TipoActividadDao;
-import es.uji.ei1027.toopots.model.Actividad;
-import es.uji.ei1027.toopots.model.TipoActividad;
 
 @Controller
 @RequestMapping("/actividad")
@@ -32,6 +31,7 @@ public class ActividadController {
 	
 	private ActividadDao actividadDao;
 	private TipoActividadDao tipoActividadDao;
+	private ImgActDao imgActDao;
 	
 	@Autowired
 	public void setActividadDao(ActividadDao actividadDao) {
@@ -41,6 +41,11 @@ public class ActividadController {
 	@Autowired
 	public void setTipoActividadDao(TipoActividadDao tipoActividadDao) {
 		this.tipoActividadDao = tipoActividadDao; 
+	}
+
+	@Autowired
+	public void setImgActDao(ImgActDao imgActDao){
+		this.imgActDao=imgActDao;
 	}
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET) 
@@ -152,6 +157,20 @@ public class ActividadController {
         actividadDao.deleteActividad(Integer.parseInt(id));
         return "redirect:../listActividades";
     }
+
+	@RequestMapping(value="/listaActividadesPorTipo/{tipo}", method=RequestMethod.GET)
+	public String pageActividadesTipo(Model model, @PathVariable String tipo) {
+		model.addAttribute("actividades", actividadDao.getActividadPorTipo(tipo));
+		return "actividad/listaActividadesPorTipo";
+	}
+
+	@RequestMapping(value="/actividadinfo/{id}", method=RequestMethod.GET)
+	public String pageActividad(Model model, @PathVariable int id) {
+		System.out.println(id);
+		model.addAttribute("actividad", actividadDao.getActividad(id));
+		model.addAttribute("imgurl", imgActDao.getImageActividad(id).getUrl());
+		return "actividad/actividadinfo";
+	}
 
 	
 	
