@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Modifica el Tipo de Actividad</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div th:replace="/common/navbar" >...</div>
+<div class="container">
+	<div th:replace="/common/navbar" >...</div>
+
+	<form action="#" th:action="@{/tipoActividad/update/{id}(id=${tipoActividad.id})}"
+	      th:object="${tipoActividad}" method="post" enctype="multipart/form-data">
+	  <div class="container">  
+	  
+	  		<div class="w3-container">
+    			<h2 class="w3-border-bottom w3-border-light-grey w3-padding-64 w3-margin-top"> Modifica el Tipo de Actividad </h2>
+    		</div>
+    
+		
+            
+            <div class="w3-container">
+                <label for="nombre">Nombre</label>
+                <input class="w3-input w3-section w3-border" type="text" th:field="*{nombre}" maxlength="25" placeholder="Riesgo" required>
+
+            </div>
+            
+            
+            <div class="w3-container">
+                <label for="city">Nivel</label>
+                <input class="w3-input w3-section w3-border"  type="text" th:field="*{nivel}" maxlength="50" placeholder="medio" >
+            </div>
+            
+            
+            
+            <div class="w3-container">
+                <input type="submit" class=" w3-btn w3-pale-green w3-margin-top w3-margin-bottom w3-margin-right" value="Modificar tipo actividad"/>
+                <a href="../list" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black"> Volver</a>
+            </div>
+            
+		</div>
+	</form>
+
+</div>
+
+</body>
+</body>
+</html>

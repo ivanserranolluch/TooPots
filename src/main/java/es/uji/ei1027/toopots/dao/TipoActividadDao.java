@@ -31,12 +31,12 @@ public class TipoActividadDao {
     }
 
     public void deleteTipoActividad(String id) {
-        jdbcTemplate.update("DELETE FROM tipoactividad WHERE id_tipoActividad=?", id);
+        jdbcTemplate.update("DELETE FROM tipoactividad WHERE id_tipoActividad=?", Integer.parseInt(id));
     }
 
     public TipoActividad getTipoActividad(String id) {
         try{
-            return jdbcTemplate.queryForObject("SELECT * FROM tipoactividad WHERE id_tipoActividad=?", new TipoActividadRowMapper(), id);
+            return jdbcTemplate.queryForObject("SELECT * FROM tipoactividad WHERE id_tipoactividad=?", new TipoActividadRowMapper(), Integer.parseInt(id));
         }catch (EmptyResultDataAccessException e){
             return null;
         }
