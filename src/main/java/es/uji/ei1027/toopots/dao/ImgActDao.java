@@ -10,7 +10,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import es.uji.ei1027.toopots.model.ImgAct;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ImgActDao {
 	
 	private final String TABLE_NAME = "ImgAct";
@@ -37,6 +39,15 @@ public class ImgActDao {
 	// Realiza operaciones con un objeto imagen
 	private void update(String sql, ImgAct img){
 		jdbcTemplate.update(sql, img.getId_imagen(), img.getId_actividad(), img.getUrl());
+	}
+
+	public ImgAct getImageActividad(int id){
+		try{
+			return jdbcTemplate.queryForObject("SELECT DISTINCT(id_actividad), url, id_imagen FROM imgact where id_actividad=?", new ImgActRowMapper(), id);
+		}catch (EmptyResultDataAccessException e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
     /* Obté totes les Imagens. Torna una llista buida si no n'hi ha cap. */
