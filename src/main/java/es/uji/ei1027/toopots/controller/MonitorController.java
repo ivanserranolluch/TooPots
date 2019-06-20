@@ -25,6 +25,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/monitor")
 public class MonitorController {
@@ -108,10 +110,13 @@ public class MonitorController {
     public String processUpdateSubmit(@PathVariable String id,
                                       @ModelAttribute("monitor") Monitor monitor,
                                       BindingResult bindingResult,
-                                      @RequestParam(value="estado", required=true) String action) {
+                                      @RequestParam(value="action", required=false) String action) {
         if (bindingResult.hasErrors())
             return "monitor/update";
-
+       
+        monitor.setEstado(action);
+        
+        
         if (action.equals("aceptada"))
             monitor.setEstado("aceptada");
         else if (action.equals("rechazada"))
@@ -120,10 +125,20 @@ public class MonitorController {
         monitorDao.updateMonitor(monitor);
         
         if (monitor.getEstado().equals("aceptada")) {
-       	mailService.sendMail("al342376@uji.es", monitor.getEmail(), "Aceptado como Monitor", "Su solicitud como monitor, ha sido aceptada.");
-        	
+        	mailService.sendMail("pruebasuji@gmail.es", monitor.getEmail(), "Aceptado como Monitor", "Su solicitud como monitor ha sido aceptada.");	
+		} 
+        
+
+        if (monitor.getEstado().equals("rechazada")) {
+        	mailService.sendMail("pruebasuji@gmail.es", monitor.getEmail(), "Rechazado como Monitor", "Su solicitud como monitor ha sido rechazada.");	
+		} 
+        
+        if (action.equals("aceptada") || action.equals("rechazada")) {
+        	 return "redirect:/monitor/list?pen=1";
 		}
-        return "redirect:../list";
+        
+        
+        return "redirect:/monitor/list?pen=1";
     }
 
 
@@ -134,7 +149,8 @@ public class MonitorController {
     }
 
     @RequestMapping("/list")
-    public String listMonitores(Model model, @RequestParam("pen") Optional<Integer> pen, @RequestParam("busca") Optional<String> busca) {
+    public String listMonitores(Model model, @RequestParam("pen") Optional<Integer> pen, 
+    		@RequestParam("busca") Optional<String> busca, HttpSession session) {
 
     	String buscar = busca.orElse("None");
     	
@@ -147,14 +163,20 @@ public class MonitorController {
     	
         if(pen.orElse(0) == 0) {
             model.addAttribute("monitores", monitorDao.getMonitoresRegistrados());
-            model.addAttribute("pen", "1");
+            model.addAttribute("pen", "0");
+            session.setAttribute("bus", 0);
+            
             
         }else if(pen.orElse(1) == 1) {
             model.addAttribute("monitores", monitorDao.getMonitoresPendientes());
             model.addAttribute("pen", "1");
+            session.setAttribute("pen", 1);
+
             
         }else if(pen.orElse(2) == 2) {
         	model.addAttribute("pen", "2");
+            session.setAttribute("pen", 2);
+
             model.addAttribute("monitores", monitorDao.getMonitoresRechazados());
         }
         
@@ -167,13 +189,33 @@ public class MonitorController {
     }
     
     @RequestMapping("/perfil")
-    public String perfil(Model model) {
+    public String perfil(Model model, HttpSession session) {
+		String id = (String) session.getAttribute("id");
+    	model.addAttribute("monitor", monitorDao.getMonitor(id));
         return "monitor/perfil";
     }
     
+    @RequestMapping(value="/perfil/update/{id}", method = RequestMethod.POST)
+    public String processUpdatePerfil(@PathVariable String id,
+                                      @ModelAttribute("monitor") Monitor monitor,
+                                      BindingResult bindingResult,
+                                      @RequestParam(value="estado", required=true) String action) {
+        if (bindingResult.hasErrors())
+            return "monitor/perfil";
+
+        monitorDao.updateMonitor(monitor);
+    
+        return "monitor/modificarCorrecto";
+    }
+
     @RequestMapping("/success")
     public String suscribirse(Model model) {
         return "monitor/success";
+    }
+    
+    @RequestMapping("/modificarCorrecto")
+    public String modificarCorrecto(Model model) {
+        return "monitor/modificarCorrecto";
     }
     
     

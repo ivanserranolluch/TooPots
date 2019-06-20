@@ -6,13 +6,78 @@
      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
 <title>Perfil</title>
 </head>
+<style>
+p{
+	text-align: center;
+
+}
+</style>
 <body>
 <div th:replace="/common/navbar" >...</div>
 
 
+<div class="container">
+   <div class="w3-padding-64 w3-center">
+     <h1 th:text="${'Bienvenido a tu perfil ' + session.nombre}" ></h1>
+     <img src="/images/perfil.jpg" class="w3-margin w3-circle" style="width:20%;" alt="Person" >
+     <div class="w3-left-align w3-padding-large">
+       <p> Aqui puedes modificar tus datos </p>
 
+     <form action="#" th:action="@{/monitor/perfil/update/{id}(id=${monitor.id})}"
+	      th:object="${monitor}" method="post" enctype="multipart/form-data">
+	  <div class="container">  
+	  
+			<div class="w3-container">
+                <label for="dni">DNI</label>
+                <input class="w3-input w3-section w3-border" type="text" th:field="*{id}" minlength="9" maxlength="9"  placeholder="645362728H" readonly="readonly">
+            </div>
+            
+            <div class="w3-container">
+                <label for="nombre">Nombre</label>
+                <input class="w3-input w3-section w3-border" type="text" th:field="*{nombre}" maxlength="25" placeholder="John M. Doe" required>
+
+            </div>
+            
+            <div class="w3-container">
+                <label for="adr">Email</label>
+                <input class="w3-input w3-section w3-border"  type="email" th:field="*{email}" placeholder="john@gmail.com" readonly="readonly">
+
+            </div>
+            
+            <div class="w3-container">
+                <label for="city">Iban</label>
+                <input class="w3-input w3-section w3-border"  type="text" th:field="*{iban}" maxlength="50" placeholder="ESxxxxxxxxxxxx" required >
+            </div>
+            
+            <div class="w3-container w3-margin-bottom"  hidden="hidden">
+                <label for="city">Estado</label>
+                <select class="form-control" th:field="*{estado}">
+			        <option th:value="'aceptada'" th:text="Aceptada"></option>
+			        <option th:value="'rechazada'" th:text="Rechazada"></option>
+			    	<option th:value="'pendiente'" th:text="Pendiente"></option>
+			    </select>
+            </div>
+            
+            <div class="w3-container">
+                <label for="city">Domicilio</label>
+                <input class="w3-input w3-section w3-border" type="text" th:field="*{domicilio}" maxlength="60" placeholder="Avenida xxxxx" required>
+            </div>
+            
+            <div class="w3-container">
+                <input type="submit" class=" w3-btn w3-pale-green w3-margin-top w3-margin-bottom w3-margin-right w3-hover-green" value="Modificar datos"/>
+                <a href="javascript:history.back()" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black w3-hover-red"> Volver</a>
+            </div>
+            
+		</div>
+	</form>
+       
+     </div>
+   </div>
+</div>
 
 </body>
 </html>

@@ -16,7 +16,7 @@ p{
 <div th:replace="/common/navbar" >...</div>
 <div class="w3-container" style="min-height:150px;">
 	<div class="w3-container w3-padding-64" id="projects">
-    	<h1 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center w3-wide">Bienvenido</h1> 	    
+    	<h1 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center w3-wide" th:text="${'Bienvenido/a ' + session.nombre}"></h1> 	    
    	</div>
 	
 	<div class="row w3-margin-left w3-margin-right">
@@ -32,7 +32,7 @@ p{
 		</div>
 		<div class="col-sm-4">
 			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
-				<a style="text-decoration:none" href="/cliente/list">
+				<a style="text-decoration:none" href="/actividad/add">
 					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
 						<h4 class="card-title"> Nueva actividad</h4>
 						<p>Crear nueva actividad</p>
