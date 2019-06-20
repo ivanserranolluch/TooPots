@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<<<<<<< HEAD
 <meta charset="UTF-8">
 	<link rel="stylesheet"     
      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
@@ -10,12 +9,10 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     
 <title>Perfil</title>
-=======
     <title>Modifica el monitor</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
->>>>>>> ad2aaec9113957483e50ea9fd33c87b500f0e43e
 </head>
 <style>
 p{
@@ -25,27 +22,7 @@ p{
 </style>
 <body>
 <div th:replace="/common/navbar" >...</div>
-<div class="container">
-	<div th:replace="/common/navbar" >...</div>
 
-	<form action="#" th:action="@{/monitor/perfil/{email}(email=${session.user.email})}"
-	      th:object="${monitor}" method="post" enctype="multipart/form-data">
-	  <div class="container">  
-	  
-	  		<div class="w3-container">
-    			<h2 class="w3-border-bottom w3-border-light-grey w3-padding-64 w3-margin-top"> Modifica monitor </h2>
-    		</div>
-    
-			<div class="w3-container">
-                <label for="dni">DNI</label>
-                <input class="w3-input w3-section w3-border" type="text" th:field="*{id}" minlength="9" maxlength="9"  placeholder="645362728H" readonly="readonly">
-            </div>
-            
-            <div class="w3-container">
-                <label for="nombre">Nombre</label>
-                <input class="w3-input w3-section w3-border" type="text" th:field="*{nombre}" maxlength="25" placeholder="John M. Doe" required>
-
-<<<<<<< HEAD
 <div class="container">
    <div class="w3-padding-64 w3-center">
      <h1 th:text="${'Bienvenido a tu perfil ' + session.nombre}" ></h1>
@@ -66,37 +43,23 @@ p{
                 <label for="nombre">Nombre</label>
                 <input class="w3-input w3-section w3-border" type="text" th:field="*{nombre}" maxlength="25" placeholder="John M. Doe" required>
 
-=======
->>>>>>> ad2aaec9113957483e50ea9fd33c87b500f0e43e
             </div>
             
             <div class="w3-container">
                 <label for="adr">Email</label>
-<<<<<<< HEAD
                 <input class="w3-input w3-section w3-border"  type="email" th:field="*{email}" placeholder="john@gmail.com" readonly="readonly">
-=======
                 <input class="w3-input w3-section w3-border"  type="email" th:field="*{email}" placeholder="john@gmail.com" required>
->>>>>>> ad2aaec9113957483e50ea9fd33c87b500f0e43e
 
             </div>
             
             <div class="w3-container">
                 <label for="city">Iban</label>
-<<<<<<< HEAD
                 <input class="w3-input w3-section w3-border"  type="text" th:field="*{iban}" maxlength="50" placeholder="ESxxxxxxxxxxxx" required >
             </div>
-            
-            <div class="w3-container w3-margin-bottom"  hidden="hidden">
-                <label for="city">Estado</label>
-                <select class="form-control" th:field="*{estado}">
-=======
-                <input class="w3-input w3-section w3-border"  type="text" th:field="*{iban}" maxlength="50" placeholder="ESxxxxxxxxxxxx" readonly="readonly">
-            </div>
-            
+                
             <div class="w3-container w3-margin-bottom">
                 <label for="city">Estado</label>
                 <select class="form-control" th:field="*{estado}" required>
->>>>>>> ad2aaec9113957483e50ea9fd33c87b500f0e43e
 			        <option th:value="'aceptada'" th:text="Aceptada"></option>
 			        <option th:value="'rechazada'" th:text="Rechazada"></option>
 			    	<option th:value="'pendiente'" th:text="Pendiente"></option>
@@ -109,24 +72,17 @@ p{
             </div>
             
             <div class="w3-container">
-<<<<<<< HEAD
                 <input type="submit" class=" w3-btn w3-pale-green w3-margin-top w3-margin-bottom w3-margin-right w3-hover-green" value="Modificar datos"/>
                 <a href="javascript:history.back()" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black w3-hover-red"> Volver</a>
-=======
                 <input type="submit" class=" w3-btn w3-pale-green w3-margin-top w3-margin-bottom w3-margin-right" value="Modificar monitor"/>
                 <a href="/monitor/lobby" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black"> Volver</a>
->>>>>>> ad2aaec9113957483e50ea9fd33c87b500f0e43e
             </div>
             
 		</div>
 	</form>
-<<<<<<< HEAD
-       
      </div>
    </div>
 </div>
-=======
->>>>>>> ad2aaec9113957483e50ea9fd33c87b500f0e43e
 
 </div>
 

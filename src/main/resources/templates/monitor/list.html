@@ -19,8 +19,9 @@
 	<div class="w3-container w3-padding-64" id="projects">
     	<h1 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center w3-wide">Listado de monitores</h1>
     	
-    	<form class="form-inline w3-margin-top" action="#" th:action="@{/monitor/list?pen=${pen}&?busca=${busca}}">
+    	<form class="form-inline w3-margin-top" action="#" th:action="@{/monitor/list}">
     		<input class="form-control" type="search" name="busca" placeholder="Busqueda por nombre">
+    		<input class="form-control" type="number" name="pen" th:value=${pen} placeholder="Busqueda por nombre" hidden="hidden">
     		<input class="w3-button w3-small w3-black w3-text-white w3-hover-light-grey w3-margin-left " type="submit" value="Buscar"> 
  
     	</form>
@@ -34,18 +35,18 @@
 	        <th>Nombre</th>
 	        <th>Domicilio</th>
 	        <th>Email</th>
-	        <th>Iban</th>
+    <!--    <th>Iban</th>      -->
 	        <th>Estado</th>
 	    </tr>
 	    </thead>
 	    <tbody>
-	    <tr th:each="monitor: ${monitores}" th:class="${#strings.startsWith(monitor.nombre.toLowerCase(),busca)}? 'w3-blue-grey'">
+	    <tr th:each="monitor: ${monitores}" th:class="${#strings.startsWith(monitor.nombre.toLowerCase(),busca.toLowerCase())}? 'w3-blue-grey'">
 	    
 	        <td th:text="${monitor.id}"></td>
 	        <td th:text="${monitor.nombre}" ></td>
 	        <td th:text="${monitor.domicilio}" ></td>
 	        <td th:text="${monitor.email}" ></td>
-	        <td th:text="${monitor.iban}" ></td>
+	  <!--  <td th:text="${monitor.iban}" ></td>   -->
 	        <td th:text="${monitor.estado}" ></td>
 	        
 	  <!--  <td th:text="${monitor.id}" th:class="${strings.equals(busca,monitor.id)}? 'bg-secondary text-blue'"></td>
@@ -61,12 +62,11 @@
 
 			<td><a class="w3-button w3-round w3-medium w3-pale-blue w3-text-black w3-hover-blue" th:href="@{/monitor/update/{id}(id=${monitor.id})}"
 	                                                          style="color:white;">Editar</a></td>
-	        <td><a onclick="return confirm('¿Seguro que quieres borrar el monitor?')" class="w3-button w3-round w3-medium w3-pale-red w3-text-black w3-hover-red " th:href="@{/monitor/delete/{id}(id=${monitor.id})}"
-	                                                            style="color:white;">Borrar</a></td>
+
 	    </tr>
 	    </tbody>
 	</table>
-	<a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" href="add" style="color:white;">Añade monitor</a>
+<!--	<a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" href="add" style="color:white;">Añade monitor</a> -->
 	<a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" href="/administrador/lobby" style="color:white;">Volver</a>
 </div>
 </body>
