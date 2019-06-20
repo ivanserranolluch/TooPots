@@ -110,13 +110,15 @@ public class MonitorController {
     public String processUpdateSubmit(@PathVariable String id,
                                       @ModelAttribute("monitor") Monitor monitor,
                                       BindingResult bindingResult,
-                                      @RequestParam(value="action", required=false) String action) {
+                                      @RequestParam(value="action", defaultValue="vacio") String action) {
         if (bindingResult.hasErrors())
             return "monitor/update";
-       
-        monitor.setEstado(action);
         
+        if (action.equals("vacio")) {
+			action = monitor.getEstado();
+		}
         
+
         if (action.equals("aceptada"))
             monitor.setEstado("aceptada");
         else if (action.equals("rechazada"))
@@ -135,7 +137,7 @@ public class MonitorController {
 		} 
         
         if (action.equals("aceptada") || action.equals("rechazada")) {
-        	 return "redirect:/monitor/list?pen=1";
+        	 return "redirect:/monitor/list?pen=0";
   
 		}
         
