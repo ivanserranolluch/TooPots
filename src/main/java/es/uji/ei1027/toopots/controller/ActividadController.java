@@ -48,6 +48,7 @@ public class ActividadController {
 		this.imgActDao=imgActDao;
 	}
 	
+	//HACE LO MISMO DE QUE listActividad???????
 	@RequestMapping(value="/list", method=RequestMethod.GET) 
 	public String listActivities(Model model) {
 		model.addAttribute("actividades", actividadDao.getActividad()); 
@@ -61,6 +62,7 @@ public class ActividadController {
 		return "monitor/listActividades"; 
 	}
 	
+	//CON LA ID DE LA ACTIVIDAD MUESTRA SUS DETALLES
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public String getActividad(Model model, @PathVariable int id){
 		model.addAttribute("actividad", actividadDao.getActividad(id));
@@ -103,7 +105,7 @@ public class ActividadController {
 	@RequestMapping(value="/add")
     public String addActividad(Model model) {
 
-	 System.out.println("hola");
+		//System.out.println("hola");
         model.addAttribute("actividad", new Actividad());
         return "actividad/add";
     }
@@ -115,20 +117,22 @@ public class ActividadController {
         //if (bindingResult.hasErrors()){
 		//	return "redirect:/singup";
        // }
-
-		actividad.setEstado("pendiente");
-        	//actividad.setId_actividad(1);
-        	System.out.println(actividad.getId_actividad()+" "+actividad.getId_tipoActividad());
+	
+        //actividad.setId_actividad(1);
+        //System.out.println(actividad.getId_actividad()+" "+actividad.getId_tipoActividad());
+    	
+    	actividad.setEstado("abierta");
         actividadDao.addActividad(actividad);
 
-        return "redirect:listActividades";
+        return "redirect:/actividad/list";
     }
 
 
     @RequestMapping(value="/update/{id}", method=RequestMethod.GET)
     public String updateActividad(Model model, @PathVariable String id) {
-    	System.out.println("HOA");
         model.addAttribute("actividad", actividadDao.getActividad(Integer.parseInt(id)));
+        System.out.println(actividadDao.getActividad(Integer.parseInt(id)).getEstado());
+        
         return "actividad/update";
     }
 
@@ -140,24 +144,26 @@ public class ActividadController {
         	//System.out.println(bindingResult);
           //  return "actividad/update";
         //}
-
+    
         actividadDao.updateActividad(actividad);
 
         //if (actividad.getEstado().equals("aceptada")) {
        	//mailService.sendMail("al342376@uji.es", monitor.getEmail(), "Aceptado como Monitor", "Su solicitud como monitor, ha sido aceptada.");
         	//System.out.println("Se ha enviado un correo al monitor");
 		//}
-        return "redirect:../listActividades";
+        return "redirect:/actividad/list";
     }
 
 
-
+    
+    // BORRAR ACTIVIDAD
     @RequestMapping(value="/delete/{id}")
     public String deleteActividad(Model model, @PathVariable String id) {
         actividadDao.deleteActividad(Integer.parseInt(id));
         return "redirect:../listActividades";
     }
-
+    
+    //LISTAR ACTIVIDADES POR TIPO
 	@RequestMapping(value="/listaActividadesPorTipo/{tipo}", method=RequestMethod.GET)
 	public String pageActividadesTipo(Model model, @PathVariable String tipo) {
 		model.addAttribute("actividades", actividadDao.getActividadPorTipo(tipo));
@@ -171,6 +177,7 @@ public class ActividadController {
 		model.addAttribute("imgurl", imgActDao.getImageActividad(id).getUrl());
 		return "actividad/actividadinfo";
 	}
+
 
 	
 	
