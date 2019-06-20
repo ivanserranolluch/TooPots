@@ -1,29 +1,18 @@
 package es.uji.ei1027.toopots.controller;
 
-import java.sql.Date;
-import java.sql.Time;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import es.uji.ei1027.toopots.dao.ImgActDao;
-import es.uji.ei1027.toopots.model.*;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import es.uji.ei1027.toopots.dao.ActividadDao;
+import es.uji.ei1027.toopots.dao.ImgActDao;
 import es.uji.ei1027.toopots.dao.TipoActividadDao;
+import es.uji.ei1027.toopots.model.Actividad;
 
 @Controller
 @RequestMapping("/actividad")
@@ -103,8 +92,7 @@ public class ActividadController {
 	@RequestMapping(value="/add")
     public String addActividad(Model model) {
 
-	 System.out.println("hola");
-        model.addAttribute("actividad", new Actividad());
+		model.addAttribute("actividad", new Actividad());
         return "actividad/add";
     }
 
@@ -121,13 +109,12 @@ public class ActividadController {
         	System.out.println(actividad.getId_actividad()+" "+actividad.getId_tipoActividad());
         actividadDao.addActividad(actividad);
 
-        return "redirect:listActividades";
+        return "redirect:/actividad/list";
     }
 
 
     @RequestMapping(value="/update/{id}", method=RequestMethod.GET)
     public String updateActividad(Model model, @PathVariable String id) {
-    	System.out.println("HOA");
         model.addAttribute("actividad", actividadDao.getActividad(Integer.parseInt(id)));
         return "actividad/update";
     }
@@ -147,17 +134,18 @@ public class ActividadController {
        	//mailService.sendMail("al342376@uji.es", monitor.getEmail(), "Aceptado como Monitor", "Su solicitud como monitor, ha sido aceptada.");
         	//System.out.println("Se ha enviado un correo al monitor");
 		//}
-        return "redirect:../listActividades";
+        return "redirect:/actividad/list";
     }
 
 
-
+    //BORRAR ACTIVIDAD
     @RequestMapping(value="/delete/{id}")
     public String deleteActividad(Model model, @PathVariable String id) {
         actividadDao.deleteActividad(Integer.parseInt(id));
-        return "redirect:../listActividades";
+        return "/actividad/list";
     }
-
+    
+    //LISTAR ACTIVIDADES POR TIPO	
 	@RequestMapping(value="/listaActividadesPorTipo/{tipo}", method=RequestMethod.GET)
 	public String pageActividadesTipo(Model model, @PathVariable String tipo) {
 		model.addAttribute("actividades", actividadDao.getActividadPorTipo(tipo));
