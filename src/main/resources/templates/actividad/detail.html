@@ -9,12 +9,6 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<style>
-p{
-	color: black;
-
-}
-</style>
 <body>
 	<div th:replace="/common/navbar" >...</div>
 
@@ -24,7 +18,7 @@ p{
     	</div>	  
     
         <div class="w3-container">
-           <h2 class="w3-border-bottom w3-border-light-grey w3-padding-16"> <b>Nombre</b> </h2>
+           <h2 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-margin-top"> <b>Nombre</b> </h2>
 	       <p class="w3-large" th:text="${actividad.nombre}"><p>
 		</div>
 		
@@ -73,12 +67,12 @@ p{
 		</div>
 		
 		<div class="w3-container" style="margin-bottom: 10%;margin-top: 2%">
-        	<a th:if="${session.user!=null}"class="w3-btn w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-right" th:href="@{/reserva/add}"
+        	<a th:if="${session.user!=null}"class="w3-btn w3-large w3-pale-green w3-text-black w3-hover-green w3-margin-right" th:href="@{/reserva/add}"
                                                           style="color:white;">Solicitar reserva</a>
-        	<a th:if="${session.user==null}" class="w3-btn w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-right"  th:href="@{/login}"
+        	<a th:if="${session.user==null}" class="w3-btn w3-large w3-pale-green w3-text-black w3-hover-green w3-margin-right"  th:href="@{/login}"
                                                           style="color:white;">Solicitar reserva</a>
                                                           
-            <a class="w3-btn w3-medium w3-pale-red w3-text-black w3-hover-red w3-margin-left"  href="/actividad/list"> Volver </a>
+            <a class="w3-btn w3-large w3-pale-red w3-text-black w3-hover-red w3-margin-left"  th:href="redirect:/actividad/list"> Volver </a>
                                                      
 		</div>
 		
