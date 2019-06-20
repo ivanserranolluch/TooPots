@@ -1,5 +1,13 @@
 package es.uji.ei1027.toopots.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
+
+import javax.servlet.http.HttpSession;
+
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,14 +26,6 @@ import es.uji.ei1027.toopots.dao.UsuariosRegistradosDao;
 import es.uji.ei1027.toopots.model.Monitor;
 import es.uji.ei1027.toopots.model.User;
 import es.uji.ei1027.toopots.service.MailService;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Optional;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/monitor")
@@ -145,7 +145,7 @@ public class MonitorController {
         return "redirect:/monitor/list?pen=1";
     }
 	
-
+    /*
     @RequestMapping(value="/perfil/{email}", method=RequestMethod.GET)
     public String updateMonitorEmail(Model model, @PathVariable String email) {
         model.addAttribute("monitor", monitorDao.getMonitorEmail(email));
@@ -155,19 +155,17 @@ public class MonitorController {
     @RequestMapping(value="/perfil/{email}", method = RequestMethod.POST)
     public String processUpdateSubmit(@PathVariable String email,
                                       @ModelAttribute("monitor") Monitor monitor,
-                                      BindingResult bindingResult) {
+                                      @RequestParam(value="file",required=false) MultipartFile file, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "monitor/perfil";
 
-      
+        
         monitorDao.updateMonitor(monitor);
         
-        /*if (monitor.getEstado().equals("aceptada")) {
-       	mailService.sendMail("al342376@uji.es", monitor.getEmail(), "Aceptado como Monitor", "Su solicitud como monitor, ha sido aceptada.");
-        	
-		}*/
+
         return "monitor/lobby";
     }
+    */
     
     @RequestMapping(value="/delete/{id}")
     public String deleteMonitor(Model model, @PathVariable String id) {
@@ -226,12 +224,27 @@ public class MonitorController {
     public String processUpdatePerfil(@PathVariable String id,
                                       @ModelAttribute("monitor") Monitor monitor,
                                       BindingResult bindingResult,
-                                      @RequestParam(value="estado", required=true) String action) {
+                                      @RequestParam("file") MultipartFile file) {
         if (bindingResult.hasErrors())
             return "monitor/perfil";
+        
 
+        
+        
+        try {
+            // Obtener el fichero y guardarlo
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(uploadDirectory + "fotosUsuarios/" 
+                                          + monitor.getId() +".jpg");
+            Files.write(path, bytes);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
         monitorDao.updateMonitor(monitor);
-    
+
+
         return "monitor/modificarCorrecto";
     }
 
