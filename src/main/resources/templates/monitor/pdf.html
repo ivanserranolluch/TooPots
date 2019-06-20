@@ -12,23 +12,23 @@
 <div th:replace="/common/navbar" >...</div>
 <div class="w3-container w3-padding-64">
 	<embed th:src="@{/pdfs/{id}(id=${monitor.id})}" width="100%" height="600px" type="application/pdf">
-    <div th:if="${monitor.estado == 'pendiente'}">
+    <div>
         <form action="#" th:action="@{/monitor/update/{id}(id=${monitor.id})}"
-              th:object="${monitor}" method="post">
+              th:object="${monitor}" th:if="${monitor.estado=='pendiente'}" method="post">
             <input type="hidden" th:value="${monitor.id}" th:field="*{id}" />
             <input type="hidden" th:value="${monitor.nombre}" th:field="*{nombre}" />
             <input type="hidden" th:value="${monitor.email}" th:field="*{email}" />
             <input type="hidden" th:value="${monitor.iban}" th:field="*{iban}" />
             <input type="hidden" th:value="${monitor.domicilio}" th:field="*{domicilio}" />
-            <input type="submit" th:name="action" th:value="'aceptada'" th:field="*{estado}" class="btn btn-success"
-                   style="color:white;" />
-            <input type="submit" th:name="action" th:value="'rechazada'" th:field="*{estado}" class="btn btn-danger"
-                   style="color:white;" />
-            <a class="w3-button w3-block w3-black w3-wide w3-margin-top" th:href="@{/monitor/list?pen=1}"
-               style="color:white;">Volver</a>
+          
+            <input type="submit"  th:name="action"  th:field="*{estado}" th:value="'aceptada'"  class="w3-button w3-round w3-medium w3-pale-green w3-hover-green w3-margin-bottom w3-margin-top w3-margin-right"  />
+            <input type="submit"  th:name="action"  th:field="*{estado}" th:value="'rechazada'"  class="w3-button w3-round w3-medium w3-pale-red w3-hover-red w3-margin-bottom w3-margin-top w3-margin-right" href="javascript:history.back())" />
+         
         </form>
+        	<a class="w3-button w3-round w3-medium w3-black w3-text-white w3-hover-light-grey w3-margin-left " href="javascript:history.back()"
+               style="color:white;">Volver</a>
+          
     </div>
-    <a th:unless="${monitor.estado == 'pendiente'}" class="w3-button w3-block w3-black w3-wide w3-margin-top"  th:href="@{/monitor/list}" style="width:30%;" th:text="Volver" /></a>
 </div>
 </body>
 </html>
