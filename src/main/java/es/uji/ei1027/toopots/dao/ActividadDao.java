@@ -32,7 +32,7 @@ public class ActividadDao {
 	
 	// Añade una nueva actividad
 	public void addActividad(Actividad act){
-		act.setHoraEncuentro(new Time(10));
+		//act.setHoraEncuentro(new Time(10));
 		update(ADD_ACT_SQL, act);
 	}
 	
