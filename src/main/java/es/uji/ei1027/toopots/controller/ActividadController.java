@@ -126,11 +126,11 @@ public class ActividadController {
 		//	return "redirect:/singup";
        // }
     	
+    	
     	try {
             // Obtener el fichero y guardarlo
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(uploadDirectory + "images/" 
-                                          + actividad.getId_actividad());
+            Path path = Paths.get(uploadDirectory + "images/" + actividad.getId_actividad() + ".jpg");
             Files.write(path, bytes);
 
         } catch (IOException e) {
@@ -154,15 +154,16 @@ public class ActividadController {
     		}
     	}	
 		
-		actividad.setId_actividad(idActividad);
+		actividad.setId_tipoActividad(idActividad);
 		actividad.setEstado("abierta");
 		
         actividadDao.addActividad(actividad);
         
         
         //AÑADIR SERIALIZABLE PARA LA IMAGEN
-        imgActDao.addImagen(actividad.getId_actividad(),1,uploadDirectory + "images/" 
-                + actividad.getId_actividad());
+        
+        String url = "/images/" + actividad.getId_actividad() + ".jpg";
+        imgActDao.addImagen(actividad.getId_actividad(),actividad.getId_actividad(), url);
 
         return "redirect:/actividad/list";
     }
