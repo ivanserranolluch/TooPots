@@ -14,7 +14,7 @@
     <div class="w3-col m6 w3-padding-large w3-hide-small" style="margin-left:12%; margin-top:4%">
         <img th:src="${imgurl}" class="w3-round w3-image" width="1200" height="750">
 
-        <h4><b th:text="${'¿Preparado para realizar ' + actividad.nombre + '?'}"></b></h4>
+        <h4><b th:text="${'¿Preparado para realizar ' + actividad.nombre + ' en '+ actividad.lugar +'?'}"></b></h4>
 
         <p th:text="${actividad.descripcion}"></p>
 
@@ -31,24 +31,58 @@
 
             <div class="w3-container">
                 <label class="w3-margin-top w3-wide">Fecha</label>
-                <input type="date"  class="form-control input_user w3-input w3-section w3-border" >
+                <input type="text" th:value="${actividad.fecha + ' a las ' + actividad.horaEncuentro}"  class="form-control input_user w3-input w3-section w3-border" readonly>
 
             </div>
 
             <div class="w3-container">
                 <label class="w3-margin-top w3-wide" >Duración</label>
-                <input type="number" class="form-control input_pass w3-input w3-section w3-border" placeholder="1 hora">
+                <input type="text" th:value="${actividad.duracionDias + ' horassss'}" class="form-control input_pass w3-input w3-section w3-border" readonly>
             </div>
 
             <div class="w3-container">
-                <label class="w3-margin-top w3-wide" >Asistentes</label> <!-- Poner texto de minimo y maximo de asistentes -->
-                <input type="number" class="form-control input_pass w3-input w3-section w3-border" placeholder="Máximo 6 personas">
+                <label class="w3-margin-top w3-wide" >Encuentro</label>
+                <input type="text" th:value="${'Punto de encuentro en ' + actividad.puntoEncuentro + ' a las ' + actividad.horaEncuentro}" class="form-control input_pass w3-input w3-section w3-border" readonly>
             </div>
 
-            <div class="w3-container" style="margin-top: 6%">
-                <input type="submit"  value="Reservar" class="w3-button w3-block w3-light-grey w3-margin-bottom w3-wide w3-padding-large">
-                <a href="javascript:history.back()" class="w3-btn w3-block w3-pale-green w3-margin-bottom w3-wide w3-padding-large"> Volver </a>
+            <form action="#" th:action="@{/reserva/add}"
+                  th:object="${reserva}" method="post" enctype="multipart/form-data">
 
+                <div class="w3-container">
+                    <label class="w3-margin-top w3-wide" >Asistentes</label>
+                    <input th:type="number" min=1 th:max="${actividad.maxAsistentes}" th:field="*{numAsistentes}" class="form-control input_pass w3-input w3-section w3-border" value=1 required>
+                </div>
+
+
+                <div class="w3-container">
+                    <a>Id reserva</a>
+                    <input th:type="number" th:field="*{id_reserva}" class="form-control input_pass w3-input w3-section w3-border" placeholder="Cambiar a serial" required>
+                </div>
+
+                <div class="w3-container">
+                    <a>Num transccion</a>
+                    <input th:type="number" th:field="*{numTransacciones}" class="form-control input_pass w3-input w3-section w3-border" placeholder="Lo envio la plataforma de pago" required>
+                </div>
+
+                <div class="w3-container">
+                    <input th:type="hidden" id="precioPersona" name="precioPersona" class="form-control input_pass w3-input w3-section w3-border" th:value="${actividad.precio}" >
+                </div>
+
+                <div class="w3-container">
+                    <input th:type="hidden" id="id_actividad" name="id_actividad" class="form-control input_pass w3-input w3-section w3-border" th:value="${actividad.id_actividad}">
+                </div>
+
+
+                <div th:if="${session.user!=null}" class="w3-container" style="margin-top: 6%">
+                    <input type="submit"  value="Reservar" th:href="@{/reserva/add}"
+                           class="w3-button w3-block w3-light-grey w3-margin-bottom w3-wide w3-padding-large">
+                    <a href="javascript:history.back()" class="w3-btn w3-block w3-pale-green w3-margin-bottom w3-wide w3-padding-large"> Volver </a>
+                </div>
+            </form>
+            <div th:if="${session.user==null}" class="w3-container" style="margin-top: 6%">
+                <a th:href="@{/login}"
+                   class="w3-button w3-block w3-light-grey w3-margin-bottom w3-wide w3-padding-large">Reservar</a>
+                <a href="javascript:history.back()" class="w3-btn w3-block w3-pale-green w3-margin-bottom w3-wide w3-padding-large"> Volver </a>
             </div>
         </div>
     </div>
