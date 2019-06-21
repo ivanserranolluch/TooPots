@@ -5,16 +5,23 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <div th:replace="/common/navbar" >...</div>
 
-<div class="container">
-	<h1>Lista de actividades y monitores</h1>
+<div class="container ">
+	
 
 	<div th:if="${#lists.isEmpty(monitoresActividad)}">
 	    No hay monitores en la base de datos
 	</div>
+	
+	<div class="w3-container">
+       <h1 class="w3-border-bottom w3-border-light-grey w3-padding-64 w3-margin-top">Lista de actividades y monitores</h1>
+    </div>
+    
 	<table th:unless="${#lists.isEmpty(monitoresActividad)}" class="table table-striped">
 	    <thead>
 	    <tr>
