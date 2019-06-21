@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestionar certififcaciones de los monitores</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div th:replace="/common/navbar" >...</div>
+
+<div class="container ">
+	
+
+	<div th:if="${#lists.isEmpty(certificacionesMonitor)}">
+	    No hay monitores en la base de datos
+	</div>
+	
+	<div class="w3-container">
+       <h1 class="w3-border-bottom w3-border-light-grey w3-padding-64 w3-margin-top">Lista de certificaciones de monitores</h1>
+    </div>
+    
+	<table th:unless="${#lists.isEmpty(certificacionesMonitor)}" class="table table-striped">
+	    <thead>
+	    <tr>
+	        <th>Id_certificacion</th>
+	        <th>Estado Certififcaion</th>
+	        <th> ID Monitor</th>
+	        <th>Nombre</th>
+	        <th>Email</th>
+	        
+	        
+	        <th>Domicilio</th>
+	        
+	    </tr>
+	    </thead>
+	    <tbody>
+	    <tr th:each="certificacion: ${certificacionesMonitor}" >
+	        <td th:text="${certificacion.id_certificacion}"></td>
+	        <td th:text="${certificacion.estado}"></td>
+	        <td th:text="${certificacion.id_monitor}"></td>
+	        <td th:text="${certificacion.nombre}"></td>
+	        <td th:text="${certificacion.email}"></td>
+	        
+	        
+	        <td th:text="${certificacion.domicilio}"></td>
+	       
+	        <td><a class="btn btn-info" th:href="@{/certificacionMonitor/pdf/{id}(id=${certificacion.id_certificacion})}"
+	                                                          style="color:white;">Ver pdf</a></td>  
+	    </tr>
+	    </tbody>
+	</table>
+	 <a class="btn btn-success" href="/administrador/lobby" style="color:white;">Volver</a> 
+</div>
+</body>
+</html>
