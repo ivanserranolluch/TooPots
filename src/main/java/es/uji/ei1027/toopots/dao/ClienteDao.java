@@ -30,6 +30,17 @@ public class ClienteDao {
                 cliente.getDni(),cliente.getNombre(),cliente.getEmail(),
                 cliente.getFechaNacimiento(),cliente.getSexo());
     }
+
+    public Cliente getClienteEmail(String email){
+        try {
+            return jdbcTemplate.queryForObject("SELECT * from Cliente WHERE email=?",
+                    new ClienteRowMapper(), email);
+        }
+        catch(EmptyResultDataAccessException e) {
+            e.printStackTrace();
+            return new Cliente();
+        }
+    }
 	
     /* Obté tots els nadadors. Torna una llista buida si no n'hi ha cap. */
     public List<Cliente> getClientes() {

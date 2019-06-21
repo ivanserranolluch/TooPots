@@ -1,5 +1,6 @@
 package es.uji.ei1027.toopots.model;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 public class Reserva {
@@ -7,7 +8,8 @@ public class Reserva {
 	private String estadoPago;
 	private Date fecha;
 	private int numAsistentes;
-	private int precioPersona;
+	private Double precioPersona;
+	private Double preciototal;
 	private int numTransacciones;
 	private int id_actividad;
 	private String dni;
@@ -36,10 +38,10 @@ public class Reserva {
 	public void setNumAsistentes(int numAsistentes) {
 		this.numAsistentes = numAsistentes;
 	}
-	public int getPrecioPersona() {
+	public Double getPrecioPersona() {
 		return precioPersona;
 	}
-	public void setPrecioPersona(int precioPersona) {
+	public void setPrecioPersona(Double precioPersona) {
 		this.precioPersona = precioPersona;
 	}
 	public int getNumTransacciones() {
@@ -60,6 +62,13 @@ public class Reserva {
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
-	
 
+
+	public Double getPreciototal() {
+		return preciototal;
+	}
+
+	public void setPreciototal(Double preciototal) {
+		this.preciototal = preciototal;
+	}
 }
