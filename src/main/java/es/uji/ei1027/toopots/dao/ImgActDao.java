@@ -36,6 +36,12 @@ public class ImgActDao {
 		update(ADD_ACT_SQL, img);
 	}
 	
+	// Añade una nueva imagen
+	public void addImagen(int id_actividad, int id_imagen, String url){
+		jdbcTemplate.update("INSERT INTO imgact VALUES(?, ?, ?)",
+                id_imagen, id_actividad, url);
+	}
+		
 	// Realiza operaciones con un objeto imagen
 	private void update(String sql, ImgAct img){
 		jdbcTemplate.update(sql, img.getId_imagen(), img.getId_actividad(), img.getUrl());
