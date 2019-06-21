@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import es.uji.ei1027.toopots.dao.ActividadDao;
+import es.uji.ei1027.toopots.dao.CertificacionDao;
 
 @Configuration
 public class TooPotsConfiguration {
@@ -21,6 +22,11 @@ public class TooPotsConfiguration {
 	@Bean
     public ActividadDao myActividadDao() {
         return new ActividadDao();
+    }
+	
+	@Bean
+    public CertificacionDao certificacionDao() {
+        return new CertificacionDao();
     }
     
 }
