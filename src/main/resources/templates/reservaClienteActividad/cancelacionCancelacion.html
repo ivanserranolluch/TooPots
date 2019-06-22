@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cancelación</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
+</head>
+<body>
+	<div th:replace="/common/navbar" >...</div>
+	
+	<div class="container">
+	
+		<div class="w3-container">
+	        <h1 class="w3-border-bottom w3-border-light-grey w3-padding-64 w3-padding-1 w3-margin-top">No puedes cancelar la reserva</h1>
+	        
+	        <div class="w3-panel w3-pale-green w3-border ">
+	        
+		  		<div class="w3-container">
+		        	<h2 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-margin-top">Cancelación Cancelada</h2>
+		            <p>No puedes realizar la cancelación de la reserva ya que ya quedan menos de 10 dias para realizar la actividad. </p>
+		            <a href="/reservaClienteActividad/listCliente" class="w3-button w3-round w3-medium w3-green w3-text-white w3-hover-green w3-margin-bottom w3-margin-top"> Volver a las reservas </a>	  
+		    	</div>
+		    	
+			</div>
+	    </div>
+	    
+	    
+	</div>
+	
+</body>
+</html>
