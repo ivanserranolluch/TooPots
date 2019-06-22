@@ -24,19 +24,6 @@ public class TooPotsConfiguration {
     public ActividadDao myActividadDao() {
         return new ActividadDao();
     }
-	
-	@Bean
-    public CertificacionDao certificacionDao() {
-        return new CertificacionDao();
-	}
-	
-	@Bean
-	public DescuentoManager getDescuentoManager(){
-		DescuentoManager dm = new DescuentoManager();
-		Descuento d = new Descuento();
-		d.setDiscountValue(0.5f);
-		dm.setDescuento(d);
-		return dm;
-	}
+
     
 }
