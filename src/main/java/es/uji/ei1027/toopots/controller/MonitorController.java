@@ -113,7 +113,8 @@ public class MonitorController {
                                       @RequestParam(value="action", defaultValue="vacio") String action) {
         if (bindingResult.hasErrors())
             return "monitor/update";
-        
+
+
         if (action.equals("vacio")) {
 			action = monitor.getEstado();
 		}
@@ -123,6 +124,7 @@ public class MonitorController {
             monitor.setEstado("aceptada");
         else if (action.equals("rechazada"))
             monitor.setEstado("rechazada");
+
 
         monitorDao.updateMonitor(monitor);
         
@@ -140,8 +142,7 @@ public class MonitorController {
         	 return "redirect:/monitor/list?pen=0";
   
 		}
-        
-        
+		
         return "redirect:/monitor/list?pen=1";
     }
 	
@@ -227,19 +228,17 @@ public class MonitorController {
                                       @RequestParam("file") MultipartFile file) {
         if (bindingResult.hasErrors())
             return "monitor/perfil";
-        
 
-        
-        
+
         try {
             // Obtener el fichero y guardarlo
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(uploadDirectory + "fotosUsuarios/" 
-                                          + monitor.getId() +".jpg");
+            Path path = Paths.get(uploadDirectory + "fotosUsuarios/" + monitor.getId() + ".jpg");
             Files.write(path, bytes);
+            monitor.setUrlImg("/fotosUsuarios/" + monitor.getId() + ".jpg");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            monitor.setUrlImg("/fotosUsuarios/default.jpg");
         }
         
         monitorDao.updateMonitor(monitor);

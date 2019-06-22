@@ -26,7 +26,7 @@ p{
 <div class="container">
    <div class="w3-padding-64 w3-center">
      <h1 th:text="${'Bienvenido a tu perfil ' + session.nombre}" ></h1>
-     <img th:src="@{/fotosUsuarios/{id}(id=${monitor.id + '.jpg'})}" class="w3-margin w3-circle" style="width:20%;" alt="Person" >
+     <img th:src="${monitor.urlImg}" class="w3-margin w3-circle" style="width:20%;" alt="Person" >
      <div class="w3-left-align w3-padding-large">
        <p> Aqui puedes modificar tus datos </p>
 
