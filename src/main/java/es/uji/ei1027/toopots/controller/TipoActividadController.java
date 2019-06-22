@@ -30,6 +30,12 @@ public class TipoActividadController {
 		return "tipoActividad/list"; 
 	}
 	
+	@RequestMapping(value="/listMonitor", method=RequestMethod.GET) 
+	public String listActivitiesMonitor(Model model) {
+		model.addAttribute("tipoActividad", tipoActividadDao.getTiposActividades()); 
+		return "tipoActividad/listMonitor"; 
+	}
+	
 	 @RequestMapping(value="/add")
 	    public String addTipoActividad(Model model) {
 	        model.addAttribute("tipoActividad", new TipoActividad());

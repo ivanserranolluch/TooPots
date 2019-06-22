@@ -23,9 +23,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.uji.ei1027.toopots.dao.CertificacionDao;
 import es.uji.ei1027.toopots.dao.CertificacionMonitorDao;
+import es.uji.ei1027.toopots.dao.CertificacionesTipoActividadDao;
 import es.uji.ei1027.toopots.dao.MonitorDao;
 import es.uji.ei1027.toopots.model.Certificacion;
 import es.uji.ei1027.toopots.model.CertificacionMonitor;
+import es.uji.ei1027.toopots.model.CertificacionesTipoActividad;
 import es.uji.ei1027.toopots.model.Monitor;
 import es.uji.ei1027.toopots.model.User;
 import es.uji.ei1027.toopots.service.MailService;
@@ -38,6 +40,7 @@ public class CertificacionMonitorController {
 	private CertificacionDao certificacionDao;
 	private CertificacionMonitorDao certificacionMonitorDao;
 	private MailService mailService;
+	private CertificacionesTipoActividadDao certificacionesTipoActividadDao;
 	
 	@Value("${upload.file.directory}")
     private String uploadDirectory;
@@ -51,6 +54,11 @@ public class CertificacionMonitorController {
     public void setCertificacionMonitorDao(CertificacionMonitorDao certificacionMonitorDao) {
         this.certificacionMonitorDao=certificacionMonitorDao;
     }
+	 
+	 @Autowired
+	    public void setCertificacionesTipoActividadDao(CertificacionesTipoActividadDao certificacionesTipoActividadDao) {
+	        this.certificacionesTipoActividadDao=certificacionesTipoActividadDao;
+	    }
 	 
 	 @Autowired
 	    public void setMonitorDao(MonitorDao monitorDao) {
@@ -76,6 +84,47 @@ public class CertificacionMonitorController {
 			return "certificacionMonitor/listAdminAceptadas";
 		}
 	 
+	 @RequestMapping(value="/add/{id}")
+	    public String addCertificacion(Model model, @PathVariable String id, HttpSession session) {
+		 	model.addAttribute("id_tipoActividad", id);
+	        model.addAttribute("certificacionMonitor", new Certificacion());
+	        //model.addAttribute("certificacionTipoActividad", new CertificacionesTipoActividad());
+	        return "certificacionMonitor/add";
+	    }
+	 
+	 @RequestMapping(value="/add/{id}", method=RequestMethod.POST)
+	    public String processAddSubmit(@ModelAttribute("certificacion") Certificacion certificacion,
+	                                   BindingResult bindingResult, Model model, 
+	                                   @RequestParam("file") MultipartFile file, HttpSession session, @PathVariable String id) {
+	        if (bindingResult.hasErrors()){
+				return "redirect:/";
+	        }
+	        
+	        User user= (User) session.getAttribute("user");
+	        Monitor m= monitorDao.getMonitorEmail(user.getEmail());
+	        	        
+	        try {
+	            // Obtener el fichero y guardarlo
+	            byte[] bytes = file.getBytes();
+	            Path path = Paths.get(uploadDirectory + "pdfs/" 
+	                                          +user.getEmail() +"" +certificacion.getId_certificacion());
+	            Files.write(path, bytes);
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        	   
+	        certificacion.setId_monitor(Integer.parseInt(m.getId()));
+	        certificacion.setEstado("pendiente");
+	        certificacion.setRutaCertificado(""+uploadDirectory + "pdfs/" 
+	        		+user.getEmail() +"/" +certificacion.getId_certificacion());
+	        	
+	        certificacionDao.addCertificacion(certificacion);
+	        certificacionesTipoActividadDao.addCertificacionesTipoActividad(new CertificacionesTipoActividad(certificacion.getId_certificacion(),Integer.parseInt(id)));
+	        
+	        return "certificacionMonitor/success";
+	    }
+	 /*
 	 @RequestMapping(value="/add")
 	    public String addCertificacion(Model model) {
 	        model.addAttribute("certificacionMonitor", new Certificacion());
@@ -90,13 +139,9 @@ public class CertificacionMonitorController {
 				return "redirect:/";
 	        }
 	        
-	        
-	        
-	        
 	        User user= (User) session.getAttribute("user");
 	        Monitor m= monitorDao.getMonitorEmail(user.getEmail());
-	        
-	        
+	        	        
 	        try {
 	            // Obtener el fichero y guardarlo
 	            byte[] bytes = file.getBytes();
@@ -107,8 +152,7 @@ public class CertificacionMonitorController {
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
-	        
-	   
+	        	   
 	        certificacion.setId_monitor(Integer.parseInt(m.getId()));
 	        certificacion.setEstado("pendiente");
 	        certificacion.setRutaCertificado(""+uploadDirectory + "pdfs/" 
@@ -117,7 +161,7 @@ public class CertificacionMonitorController {
 	        certificacionDao.addCertificacion(certificacion);
 	        
 	        return "certificacionMonitor/success";
-	    }
+	    }*/
 	    
 	 
 	   @RequestMapping(value="/pdf/{id}", method=RequestMethod.GET)

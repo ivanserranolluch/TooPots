@@ -12,7 +12,7 @@
 <body>
 <div th:replace="/common/navbar">...</div>
  
-  <form action="#" th:action="@{/certificacionMonitor/add}"
+  <form action="#" th:action="@{/certificacionMonitor/add/{id}(id=${id_tipoActividad})}"
           th:object="${certificacionMonitor}" method="post" enctype="multipart/form-data">
           
           <br><br><br><br><br>
