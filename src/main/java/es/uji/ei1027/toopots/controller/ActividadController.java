@@ -114,12 +114,11 @@ public class ActividadController {
 	*/
 	
 	@RequestMapping(value="/add")
-    public String addActividad(Model model) {
-    	ArrayList<TipoActividad> tipo= new ArrayList<TipoActividad>();
-    	for(TipoActividad t: tipoActividadDao.getTiposActividades())
-    		tipo.add(t);
+    public String addActividad(Model model, HttpSession session) {
+    	User user = (User) session.getAttribute("user");
+    	String idMonitor = monitorDao.getMonitorEmail(user.getEmail()).getId();
     	
-    	model.addAttribute("tipo", tipo);
+    	model.addAttribute("tipo", tipoActividadDao.getTiposActividadesCertificadas(idMonitor));
 		model.addAttribute("actividad", new Actividad());
         return "actividad/add";
     }

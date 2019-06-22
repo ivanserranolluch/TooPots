@@ -29,8 +29,8 @@ p{
 			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
 				<a style="text-decoration:none" href="/reserva/list">
 					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
-						<h4 class="card-title"> Numero de reservas </h4>
-						<p class="description" th:text="${'Tenemos un total de ' + 0 + ' reservas'}"></p>
+						<h4 class="card-title"> Consultar reservas </h4>
+						<p class="description" th:text="${'Tenemos un total de ' + numReservas + ' reservas'}"></p>
 					</div>
 				</a>
 			</div>
@@ -39,7 +39,7 @@ p{
 			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
 				<a style="text-decoration:none" href="/cliente/list">
 					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
-						<h4 class="card-title"> Numero de clientes</h4>
+						<h4 class="card-title"> Consultar clientes</h4>
 						<p class="description" th:text="${'Tenemos un total de ' + numClientes + ' clientes registrados'}"></p>
 					</div>
 				</a>
@@ -49,7 +49,7 @@ p{
 			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
 				<a style="text-decoration:none" href="/actividad/list">
 					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
-						<h4 class="card-title"> Numero de actividades </h4>
+						<h4 class="card-title"> Consultar actividades </h4>
 						<p class="description" th:text="${'Tenemos un total de ' + numActividades + ' actividades registradas'}"></p>
 					</div>
 				</a>
@@ -73,7 +73,7 @@ p{
 			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
 				<a style="text-decoration:none"  href="/monitor/list?pen=0">
 					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
-						<h4 class="card-title"> Gestionar monitores activos </h4>
+						<h4 class="card-title"> Gestion monitores activos </h4>
 						<p class="description" th:text="${'Tenemos un total de ' + numMonitores + ' monitores registrados. '}"></p>
 					</div>
 				</a>
@@ -83,7 +83,7 @@ p{
 			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
 				<a style="text-decoration:none"  href="/monitor/list?pen=2">
 					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
-						<h4 class="card-title"> Gestionar monitores rechazados </h4>
+						<h4 class="card-title"> Gestion monitores rechazados </h4>
 						<p class="description" th:text="${'Tenemos un total de ' + numRechazados + ' monitores rechazados. '}"></p>
 					</div>
 				</a>

@@ -49,4 +49,14 @@ public class TipoActividadDao {
             return new ArrayList<TipoActividad>();
         }
     }
+
+    public List<TipoActividad> getTiposActividadesCertificadas(String id_monitor){
+        try{
+            return jdbcTemplate.query("select ta.id_tipoactividad, ta.nombre, ta.nivel from monitor m join certificacion c USING(id_monitor) " +
+                    "JOIN certificacionestipoactividad cta using(id_certificacion) join tipoactividad ta using(id_tipoactividad) WHERE m.id_monitor='537291814'",
+                    new TipoActividadRowMapper());
+        }catch (EmptyResultDataAccessException e){
+            return  new ArrayList<TipoActividad>();
+        }
+    }
 }
