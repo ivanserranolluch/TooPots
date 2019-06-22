@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 
 import es.uji.ei1027.toopots.dao.ActividadDao;
 import es.uji.ei1027.toopots.dao.CertificacionDao;
+import es.uji.ei1027.toopots.model.Descuento;
+import es.uji.ei1027.toopots.model.DescuentoManager;
 
 @Configuration
 public class TooPotsConfiguration {
