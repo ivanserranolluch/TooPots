@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title th:text="${'Pagina de ' + actividad.nombre}"></title>
+</head>
+<body>
+
+<div th:replace="/common/navbar" >...</div>
+<div class="center-block">
+<div class="w3-row w3-padding-64"id="about">
+    <div class="w3-col m6 w3-padding-large w3-hide-small" style="margin-left:12%; margin-top:4%">
+        <img th:src="${imgurl}" class="w3-round w3-image" width="1200" height="750">
+
+        <h4><b th:text="${'¿Preparado para realizar ' + actividad.nombre + ' en '+ actividad.lugar +'?'}"></b></h4>
+
+        <p th:text="${actividad.descripcion}"></p>
+
+        <p> Precio por persona: <b th:text="${actividad.precio + 'E iva incluido.'}"></b></p>
+	<br><br>
+		<a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" href="/reservaClienteActividad/listCliente" style="color:white;">Volver</a>
+    </div>
+    
+
+    
+</div></div>
+
+
+
+
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-16 " style="width: 100%;">
+    <p>Powered by Universistat Jaume I</p>
+</footer>
+
+
+</body>
+</html>

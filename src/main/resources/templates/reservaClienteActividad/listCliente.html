@@ -33,9 +33,6 @@
 	        <th>Precio</th>
 	        <th>Lugar</th>
 	        <th>Punto Encuentro</th>
-	        <th>Nombre Cliente</th>
-	        <th>DNI cliente</th>
-	        <th>Correo Cliente</th>
 	        <th>Estado</th>
 	        
 	    </tr>
@@ -51,10 +48,9 @@
 	        <td th:text="${reserva.precio}" ></td>
 	        <td th:text="${reserva.lugar}" ></td>
 	        <td th:text="${reserva.puntoEncuentro}" ></td>
-	        <td th:text="${reserva.nombreCliente}" ></td>
-	        <td th:text="${reserva.dni}" ></td>
-	        <td th:text="${reserva.email}" ></td>
 	        <td th:text="${reserva.estadoPago}" ></td>
+	        <td><a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" th:href="@{/actividad/actividadInfoReserva/{id}(id=${reserva.id_actividad})}" style="color:white;">Ver</a></td>
+	        <td><a th:href="@{/reservaClienteActividad/cancelar/{id}(id=${reserva.id_reserva})}" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black w3-hover-red"> Cancelar</a></td>
 	        
 	       
 	        
@@ -70,7 +66,7 @@
 	    </tbody>
 	</table>
 	
-	<a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" href="/monitor/lobby" style="color:white;">Volver</a>
+	<a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" href="/cliente/lobby" style="color:white;">Volver</a>
 </div>
 </body>
 </html>
