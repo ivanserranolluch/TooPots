@@ -47,31 +47,45 @@ public class ReservaClienteActividadDao {
         }
     }
 	/* Obtiene una reserva de la base de datos */
-	public ReservaClienteActividad getReservaClienteActividadPendientes() {
+	public List<ReservaClienteActividad> getReservaClienteActividadPendientes() {
         try{
-            return jdbcTemplate.queryForObject("SELECT id_actividad, a.nombre as nombreActividad, a.descripcion, a.duraciondias, a.fecha as fechaActividad, a.precio, a.minasistentes, a.maxasistentes, a.lugar, a.puntoencuento, a.textocliente, a.estado, a.id_tipoactividad, c.nombre as nombreCliente, c.dni, c.email, c.fechanacimiento, c.sexo, r.id_Reserva, r.estadopago, r.numasistentes, r.preciopersona FROM cliente c join reserva r using(dni) join actividad a using(id_Actividad) where r.estadoPago='pendiente'", new ReservaClienteActividadRowMapper());
+            return jdbcTemplate.query("SELECT id_actividad, a.nombre as nombreActividad, a.descripcion, a.duraciondias, " +
+					"a.fecha as fechaActividad, a.precio, a.minasistentes, a.maxasistentes, a.lugar, a.puntoencuento, " +
+					"a.textocliente, a.estado, a.id_tipoactividad, c.nombre as nombreCliente, c.dni, c.email, " +
+					"c.fechanacimiento, c.sexo, r.id_Reserva, r.estadopago, r.numasistentes, r.preciopersona " +
+					"FROM cliente c join reserva r using(dni) join actividad a using(id_Actividad) " +
+					"where r.estadoPago='pendiente'", new ReservaClienteActividadRowMapper());
         }catch (EmptyResultDataAccessException e){
-            return null;
+			return new ArrayList<ReservaClienteActividad>();
         }
     }
 	/* Obtiene una reserva de la base de datos */
-	public ReservaClienteActividad getReservaClienteActividadAceptadas() {
+	public List<ReservaClienteActividad> getReservaClienteActividadAceptadas() {
         try{
-            return jdbcTemplate.queryForObject("SELECT id_actividad, a.nombre as nombreActividad, a.descripcion, a.duraciondias, a.fecha as fechaActividad, a.precio, a.minasistentes, a.maxasistentes, a.lugar, a.puntoencuento, a.textocliente, a.estado, a.id_tipoactividad, c.nombre as nombreCliente, c.dni, c.email, c.fechanacimiento, c.sexo, r.id_Reserva, r.estadopago, r.numasistentes, r.preciopersona FROM cliente c join reserva r using(dni) join actividad a using(id_Actividad) where r.estadoPago='aceptada'", new ReservaClienteActividadRowMapper());
+            return jdbcTemplate.query("SELECT id_actividad, a.nombre as nombreActividad, a.descripcion, a.duraciondias, " +
+							"a.fecha as fechaActividad, a.precio, a.minasistentes, a.maxasistentes, a.lugar, a.puntoencuento, " +
+					"a.textocliente, a.estado, a.id_tipoactividad, c.nombre as nombreCliente, c.dni, c.email, " +
+					"c.fechanacimiento, c.sexo, r.id_Reserva, r.estadopago, r.numasistentes, r.preciopersona " +
+					"FROM cliente c join reserva r using(dni) join actividad a using(id_Actividad) " +
+					"where r.estadoPago='aceptada'", new ReservaClienteActividadRowMapper());
         }catch (EmptyResultDataAccessException e){
-            return null;
+			return new ArrayList<ReservaClienteActividad>();
         }
     }
 
 
 	/* Obtiene todas las certificaciones de los tipos de actividad. Devuelve una lista vacia si no encuentra ninguno */
-	public List<Reserva> getReservas() {
+	public List<ReservaClienteActividad> getReservas() {
 		try {
-			return jdbcTemplate.query("SELECT * from Reserva",
-					new ReservaRowMapper());
+			return jdbcTemplate.query("SELECT id_actividad, a.nombre as nombreActividad, a.descripcion, a.duraciondias, " +
+							"a.fecha as fechaActividad, a.precio, a.minasistentes, a.maxasistentes, a.lugar, a.puntoencuento, " +
+							"a.textocliente, a.estado, a.id_tipoactividad, c.nombre as nombreCliente, c.dni, c.email, " +
+							"c.fechanacimiento, c.sexo, r.id_Reserva, r.estadopago, r.numasistentes, r.preciopersona " +
+							"FROM cliente c join reserva r using(dni) join actividad a using(id_Actividad)",
+						new ReservaClienteActividadRowMapper());
 		}
 		catch(EmptyResultDataAccessException e) {
-			return new ArrayList<Reserva>();
+			return new ArrayList<ReservaClienteActividad>();
 		}
 	}
 

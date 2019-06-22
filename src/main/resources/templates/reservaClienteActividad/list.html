@@ -12,7 +12,7 @@
 <body>
 <div th:replace="/common/navbar" >...</div>
 
-<div th:if="${#lists.isEmpty(reservaClienteActividadDao)}">
+<div th:if="${#lists.isEmpty(reservasClienteActividad)}">
     No hay reservas en la base de datos
 </div>
 <div class="container">
@@ -23,7 +23,7 @@
     	
     	
     </div>	  
-	<table th:unless="${#lists.isEmpty(reservaClienteActividadDao)}" class="table table-striped">
+	<table th:unless="${#lists.isEmpty(reservasClienteActividad)}" class="table table-striped">
 	    <thead>
 	    <tr>
 	        
@@ -42,7 +42,7 @@
 	    </thead>
 	    <tbody>
 	    
-	    <tr th:each="reserva: ${reservaClienteActividadDao}" >
+	    <tr th:each="reserva: ${reservasClienteActividad}" >
 	    
 	        
 	        <td th:text="${reserva.nombreActividad}" ></td>
