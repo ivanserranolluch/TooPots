@@ -11,6 +11,9 @@ public class Descuento {
 	private Descuento anotherDiscount;
 	
 	public float getPriceWithDiscount(Cliente cliente, float price){
+		if (cliente == null){
+			return price;
+		}
 		if (isValidDiscount(cliente)){
 			price *= discountValue;
 		}
