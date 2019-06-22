@@ -26,6 +26,11 @@ public class TooPotsConfiguration {
     }
 	
 	@Bean
+    public CertificacionDao certificacionDao() {
+        return new CertificacionDao();
+	}
+	
+	@Bean
 	public DescuentoManager getDescuentoManager(){
 		DescuentoManager dm = new DescuentoManager();
 		Descuento d = new Descuento();
