@@ -1,8 +1,10 @@
 package es.uji.ei1027.toopots.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,7 @@ import es.uji.ei1027.toopots.dao.ActividadDao;
 import es.uji.ei1027.toopots.dao.MonitorDao;
 import es.uji.ei1027.toopots.dao.MonitoresActividadDao;
 import es.uji.ei1027.toopots.model.Actividad;
+import es.uji.ei1027.toopots.model.Monitor;
 import es.uji.ei1027.toopots.model.MonitoresActividad;
 
 @Controller
@@ -42,16 +45,48 @@ public class MonitoresActividadController {
 
     @RequestMapping(value="/add")
     public String Actividad(Model model) {
-        model.addAttribute("monitorActividad", new MonitoresActividad());
+    	List<Monitor> monitores= new ArrayList<Monitor>();
+    	List<Actividad> activity= new ArrayList<Actividad>();
+    	
+    	for(Monitor m : monitor.getMonitoresRegistrados())
+    		monitores.add(m);
+    	
+    	for(Actividad a: actividad.getActividad())
+    		activity.add(a);
+    	
+    	model.addAttribute("listaActividades", activity);
+    	model.addAttribute("listaMonitores", monitores);
         return "monitoresActividad/add";
     }
 
     @RequestMapping(value="/add", method=RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("monitorActividad") MonitoresActividad monitoractividad,
-                                   BindingResult bindingResult) {
-    	monitorActividad.addActividad(monitoractividad);
+    public String processAddSubmit(@ModelAttribute("monitor") String monitor1,
+									@ModelAttribute("actividad") String actividad1,
+                                    BindingResult bindingResult) {
+    	
+    
         if (bindingResult.hasErrors())
             return "monitoresActividad/add";
+        
+        //Monitor por nombre y actividad por nombre (NECESITO SQL)
+        String idMonitor = "";
+        int idActividad = 0;
+        
+        for(Monitor m : monitor.getMonitoresRegistrados()) {
+        	if(m.getNombre().equals(monitor1))
+        		idMonitor = m.getId();
+        }
+        
+    	for(Actividad a: actividad.getActividad()) {
+    		if(a.getNombre().equals(actividad1))
+        		idActividad = a.getId_actividad();
+    	}
+    	
+    	MonitoresActividad monitoractividad = new MonitoresActividad();
+    	monitoractividad.setId_monitor(idMonitor);
+    	monitoractividad.setId_actividad(idActividad);
+    	
+    	monitorActividad.addActividad(monitoractividad);
        
         return "redirect:list";
     }
@@ -59,12 +94,13 @@ public class MonitoresActividadController {
 
     @RequestMapping("/list")
     public String listMonitorActividad(Model model) {
-    	Actividad mostrar = new Actividad();
+    	ArrayList<Actividad> mostrar = new ArrayList<Actividad>();
     	List<MonitoresActividad> monitoresActividad = monitorActividad.getActividad();
     	for (MonitoresActividad monitoresActividad2 : monitoresActividad) {
-    		mostrar.setEstado(monitor.getMonitor(monitoresActividad2.getId_monitor()).getNombre());
-    		mostrar.setDescripcion(actividad.getActividad(monitoresActividad2.getId_actividad()).getNombre());
-			
+    		Actividad e = new Actividad();
+    		e.setEstado(monitor.getMonitor(monitoresActividad2.getId_monitor()).getNombre());
+    		e.setDescripcion(actividad.getActividad(monitoresActividad2.getId_actividad()).getNombre());
+    		mostrar.add(e);	
 		}
     	
     	model.addAttribute("monitoresActividad", mostrar);

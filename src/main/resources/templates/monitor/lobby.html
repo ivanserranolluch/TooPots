@@ -22,7 +22,7 @@ p{
 	<div class="row w3-margin-left w3-margin-right">
 		<div class="col-sm-4">
 			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
-				<a style="text-decoration:none" href="@{/monitor/perfil/{email}(email=${session.user.email})}">
+				<a style="text-decoration:none" href="/monitor/perfil/">
 					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
 						<h4 class="card-title"> Perfil </h4>
 						<p>Modifica o actualiza tu perfil</p>
@@ -32,7 +32,7 @@ p{
 		</div>
 		<div class="col-sm-4">
 			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
-				<a style="text-decoration:none" href="/cliente/list">
+				<a style="text-decoration:none" href="/actividad/add">
 					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
 						<h4 class="card-title"> Nueva actividad</h4>
 						<p>Crear nueva actividad</p>
@@ -64,7 +64,16 @@ p{
 				</a>
 			</div>
 		</div>
-		
+		<div class="col-sm-4">
+			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
+				<a style="text-decoration:none"  th:href="@{/tipoActividad/listMonitor} ">
+					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
+						<h4 class="card-title"> Añadir Certificación </h4>
+						<p>Adjuntar el documento pdf que acredite la certificación</p>
+					</div>
+				</a>
+			</div>
+		</div>
 	</div>
 </div>
 

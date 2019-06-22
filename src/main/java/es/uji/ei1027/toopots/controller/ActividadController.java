@@ -1,30 +1,27 @@
 package es.uji.ei1027.toopots.controller;
 
-import java.sql.Date;
-import java.sql.Time;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import es.uji.ei1027.toopots.model.User;
-import es.uji.ei1027.toopots.model.Monitor;
+import java.util.ArrayList;
 
+import es.uji.ei1027.toopots.dao.*;
+import es.uji.ei1027.toopots.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import es.uji.ei1027.toopots.dao.ActividadDao;
-import es.uji.ei1027.toopots.dao.TipoActividadDao;
-import es.uji.ei1027.toopots.model.Actividad;
-import es.uji.ei1027.toopots.model.TipoActividad;
+import javax.jws.soap.SOAPBinding;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/actividad")
@@ -32,7 +29,13 @@ public class ActividadController {
 	
 	private ActividadDao actividadDao;
 	private TipoActividadDao tipoActividadDao;
+	private ImgActDao imgActDao;
+	private MonitoresActividadDao monitoresActividadDao;
+	private MonitorDao monitorDao;
 	
+	@Value("${upload.file.directory}")
+    private String uploadDirectory;
+
 	@Autowired
 	public void setActividadDao(ActividadDao actividadDao) {
 		this.actividadDao = actividadDao; 
@@ -42,7 +45,22 @@ public class ActividadController {
 	public void setTipoActividadDao(TipoActividadDao tipoActividadDao) {
 		this.tipoActividadDao = tipoActividadDao; 
 	}
-	
+
+	@Autowired
+	public void setImgActDao(ImgActDao imgActDao){
+		this.imgActDao=imgActDao;
+	}
+
+	@Autowired
+	public void setMonitoresActividadDao(MonitoresActividadDao monitoresActividadDao){
+		this.monitoresActividadDao=monitoresActividadDao;
+	}
+
+	@Autowired
+	public void setMonitorDao(MonitorDao monitorDao){
+		this.monitorDao=monitorDao;
+	}
+
 	@RequestMapping(value="/list", method=RequestMethod.GET) 
 	public String listActivities(Model model) {
 		model.addAttribute("actividades", actividadDao.getActividad()); 
@@ -96,33 +114,80 @@ public class ActividadController {
 	*/
 	
 	@RequestMapping(value="/add")
-    public String addActividad(Model model) {
-
-	 System.out.println("hola");
-        model.addAttribute("actividad", new Actividad());
+    public String addActividad(Model model, HttpSession session) {
+    	User user = (User) session.getAttribute("user");
+    	String idMonitor = monitorDao.getMonitorEmail(user.getEmail()).getId();
+    	
+    	model.addAttribute("tipo", tipoActividadDao.getTiposActividadesCertificadas(idMonitor));
+		model.addAttribute("actividad", new Actividad());
         return "actividad/add";
     }
 
     @RequestMapping(value="/add", method=RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("actividad") Actividad actividad,
-                                   BindingResult bindingResult, Model model) {
+								   @ModelAttribute("tipo") String t,
+								   @RequestParam("hora") String h,
+								   BindingResult bindingResult,
+								   @RequestParam("file") MultipartFile file,
+								   Model model,
+								   HttpSession session) {
 
         //if (bindingResult.hasErrors()){
 		//	return "redirect:/singup";
        // }
 
-		actividad.setEstado("pendiente");
-        	//actividad.setId_actividad(1);
-        	System.out.println(actividad.getId_actividad()+" "+actividad.getId_tipoActividad());
+
+    	try {
+            // Obtener el fichero y guardarlo
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(uploadDirectory + "images/" + actividad.getId_actividad() + actividad.getNombre() + ".jpg");
+            Files.write(path, bytes);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+		MonitoresActividad monitoresActividad = new MonitoresActividad();
+		User user = (User)session.getAttribute("user");
+		Monitor monitor = monitorDao.getMonitorEmail(user.getEmail());
+    	String[] hour = h.split(":");
+    	
+    	int hora = Integer.parseInt(hour[0]);
+    	int minuto = Integer.parseInt(hour[1]);
+    	
+    	java.sql.Time timeValue = new java.sql.Time(hora, minuto, 00);
+    	
+    	actividad.setHoraEncuentro(timeValue);
+    	
+    	int idActividad = 0;
+		for(TipoActividad a: tipoActividadDao.getTiposActividades()) {
+    		if(a.getNombre().equals(t)) {
+        		idActividad = a.getId();
+    		}
+    	}	
+
+		actividad.setId_tipoActividad(idActividad);
+		actividad.setEstado("abierta");
+		
         actividadDao.addActividad(actividad);
 
-        return "redirect:listActividades";
+
+        monitoresActividad.setId_actividad(actividad.getId_actividad());
+        monitoresActividad.setId_monitor(monitor.getId());
+        monitoresActividadDao.addActividad(monitoresActividad);
+
+
+        //AÑADIR SERIALIZABLE PARA LA IMAGEN
+        
+        String url = "/images/" + actividad.getId_actividad() + actividad.getNombre() + ".jpg";
+        imgActDao.addImagen(actividad.getId_actividad(),actividad.getId_actividad(), url);
+
+        return "redirect:/actividad/list";
     }
 
 
     @RequestMapping(value="/update/{id}", method=RequestMethod.GET)
     public String updateActividad(Model model, @PathVariable String id) {
-    	System.out.println("HOA");
         model.addAttribute("actividad", actividadDao.getActividad(Integer.parseInt(id)));
         return "actividad/update";
     }
@@ -142,19 +207,33 @@ public class ActividadController {
        	//mailService.sendMail("al342376@uji.es", monitor.getEmail(), "Aceptado como Monitor", "Su solicitud como monitor, ha sido aceptada.");
         	//System.out.println("Se ha enviado un correo al monitor");
 		//}
-        return "redirect:../listActividades";
+        return "redirect:/actividad/list";
     }
 
 
-
+    //BORRAR ACTIVIDAD
     @RequestMapping(value="/delete/{id}")
     public String deleteActividad(Model model, @PathVariable String id) {
         actividadDao.deleteActividad(Integer.parseInt(id));
-        return "redirect:../listActividades";
+        return "/actividad/list";
     }
+    
+    //LISTAR ACTIVIDADES POR TIPO	
+	@RequestMapping(value="/listaActividadesPorTipo/{tipo}", method=RequestMethod.GET)
+	public String pageActividadesTipo(Model model, @PathVariable String tipo) {
+		model.addAttribute("actividades", actividadDao.getActividadPorTipo(tipo));
+		return "actividad/listaActividadesPorTipo";
+	}
 
-	
-	
+	@RequestMapping(value="/actividadinfo/{id}", method=RequestMethod.GET)
+	public String pageActividad(Model model, @PathVariable int id) {
+		//System.out.println(id);
+		model.addAttribute("reserva", new Reserva());
+		model.addAttribute("actividad", actividadDao.getActividad(id));
+		model.addAttribute("imgurl", imgActDao.getImageActividad(id).getUrl());
+		return "actividad/actividadinfo";
+	}
+
 	@RequestMapping(value="/kayak") 
 	public String pageKayak(Model model) {
 		return "actividad/kayak"; 

@@ -27,9 +27,9 @@ public class MonitorDao {
     }
 
     public void updateMonitor(Monitor monitor) {
-        jdbcTemplate.update("UPDATE monitor SET nombre=?, email=?, iban=?, estado=?, domicilio=? WHERE id_monitor=?",
+        jdbcTemplate.update("UPDATE monitor SET nombre=?, email=?, iban=?, estado=?, domicilio=?, foto=? WHERE id_monitor=?",
                 monitor.getNombre(), monitor.getEmail(),
-                monitor.getIban(), monitor.getEstado(), monitor.getDomicilio(), monitor.getId());
+                monitor.getIban(), monitor.getEstado(), monitor.getDomicilio(),monitor.getUrlImg(), monitor.getId());
     }
 
     public void deleteMonitor(String id) {

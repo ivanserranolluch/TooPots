@@ -1,5 +1,13 @@
 package es.uji.ei1027.toopots.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
+
+import javax.servlet.http.HttpSession;
+
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,12 +26,6 @@ import es.uji.ei1027.toopots.dao.UsuariosRegistradosDao;
 import es.uji.ei1027.toopots.model.Monitor;
 import es.uji.ei1027.toopots.model.User;
 import es.uji.ei1027.toopots.service.MailService;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/monitor")
@@ -108,26 +110,43 @@ public class MonitorController {
     public String processUpdateSubmit(@PathVariable String id,
                                       @ModelAttribute("monitor") Monitor monitor,
                                       BindingResult bindingResult,
-                                      @RequestParam(value="estado", required=true) String action) {
+                                      @RequestParam(value="action", defaultValue="vacio") String action) {
         if (bindingResult.hasErrors())
             return "monitor/update";
+
+
+        if (action.equals("vacio")) {
+			action = monitor.getEstado();
+		}
+        
 
         if (action.equals("aceptada"))
             monitor.setEstado("aceptada");
         else if (action.equals("rechazada"))
             monitor.setEstado("rechazada");
 
+
         monitorDao.updateMonitor(monitor);
         
         if (monitor.getEstado().equals("aceptada")) {
-       	//mailService.sendMail("al342376@uji.es", monitor.getEmail(), "Aceptado como Monitor", "Su solicitud como monitor, ha sido aceptada.");
-        	System.out.println("Su solicitud como monitor, ha sido aceptada.");
-        	
+
+        	mailService.sendMail("pruebasuji@gmail.es", monitor.getEmail(), "Aceptado como Monitor", "Su solicitud como monitor ha sido aceptada.");	
+		} 
+        
+
+        if (monitor.getEstado().equals("rechazada")) {
+        	mailService.sendMail("pruebasuji@gmail.es", monitor.getEmail(), "Rechazado como Monitor", "Su solicitud como monitor ha sido rechazada.");	
+		} 
+        
+        if (action.equals("aceptada") || action.equals("rechazada")) {
+        	 return "redirect:/monitor/list?pen=0";
+  
 		}
-        return "redirect:../list";
+		
+        return "redirect:/monitor/list?pen=1";
     }
 	
-
+    /*
     @RequestMapping(value="/perfil/{email}", method=RequestMethod.GET)
     public String updateMonitorEmail(Model model, @PathVariable String email) {
         model.addAttribute("monitor", monitorDao.getMonitorEmail(email));
@@ -137,19 +156,17 @@ public class MonitorController {
     @RequestMapping(value="/perfil/{email}", method = RequestMethod.POST)
     public String processUpdateSubmit(@PathVariable String email,
                                       @ModelAttribute("monitor") Monitor monitor,
-                                      BindingResult bindingResult) {
+                                      @RequestParam(value="file",required=false) MultipartFile file, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "monitor/perfil";
 
-      
+        
         monitorDao.updateMonitor(monitor);
         
-        /*if (monitor.getEstado().equals("aceptada")) {
-       	mailService.sendMail("al342376@uji.es", monitor.getEmail(), "Aceptado como Monitor", "Su solicitud como monitor, ha sido aceptada.");
-        	
-		}*/
+
         return "monitor/lobby";
     }
+    */
     
     @RequestMapping(value="/delete/{id}")
     public String deleteMonitor(Model model, @PathVariable String id) {
@@ -158,7 +175,8 @@ public class MonitorController {
     }
 
     @RequestMapping("/list")
-    public String listMonitores(Model model, @RequestParam("pen") Optional<Integer> pen, @RequestParam("busca") Optional<String> busca) {
+    public String listMonitores(Model model, @RequestParam("pen") Optional<Integer> pen, 
+    		@RequestParam("busca") Optional<String> busca, HttpSession session) {
 
     	String buscar = busca.orElse("None");
     	
@@ -171,14 +189,20 @@ public class MonitorController {
     	
         if(pen.orElse(0) == 0) {
             model.addAttribute("monitores", monitorDao.getMonitoresRegistrados());
-            model.addAttribute("pen", "1");
+            model.addAttribute("pen", "0");
+            session.setAttribute("bus", 0);
+            
             
         }else if(pen.orElse(1) == 1) {
             model.addAttribute("monitores", monitorDao.getMonitoresPendientes());
             model.addAttribute("pen", "1");
+            session.setAttribute("pen", 1);
+
             
         }else if(pen.orElse(2) == 2) {
         	model.addAttribute("pen", "2");
+            session.setAttribute("pen", 2);
+
             model.addAttribute("monitores", monitorDao.getMonitoresRechazados());
         }
         
@@ -191,13 +215,46 @@ public class MonitorController {
     }
     
     @RequestMapping("/perfil")
-    public String perfil(Model model) {
+    public String perfil(Model model, HttpSession session) {
+		String id = (String) session.getAttribute("id");
+    	model.addAttribute("monitor", monitorDao.getMonitor(id));
         return "monitor/perfil";
     }
     
+    @RequestMapping(value="/perfil/update/{id}", method = RequestMethod.POST)
+    public String processUpdatePerfil(@PathVariable String id,
+                                      @ModelAttribute("monitor") Monitor monitor,
+                                      BindingResult bindingResult,
+                                      @RequestParam("file") MultipartFile file) {
+        if (bindingResult.hasErrors())
+            return "monitor/perfil";
+
+
+        try {
+            // Obtener el fichero y guardarlo
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(uploadDirectory + "fotosUsuarios/" + monitor.getId() + ".jpg");
+            Files.write(path, bytes);
+            monitor.setUrlImg("/fotosUsuarios/" + monitor.getId() + ".jpg");
+
+        } catch (IOException e) {
+            monitor.setUrlImg("/fotosUsuarios/default.jpg");
+        }
+        
+        monitorDao.updateMonitor(monitor);
+
+
+        return "monitor/modificarCorrecto";
+    }
+
     @RequestMapping("/success")
     public String suscribirse(Model model) {
         return "monitor/success";
+    }
+    
+    @RequestMapping("/modificarCorrecto")
+    public String modificarCorrecto(Model model) {
+        return "monitor/modificarCorrecto";
     }
     
     

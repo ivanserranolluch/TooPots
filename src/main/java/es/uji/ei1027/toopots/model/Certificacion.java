@@ -4,6 +4,15 @@ public class Certificacion {
 	private int id_certificacion;
 	private String estado;
 	private int id_monitor;
+	private String rutaCertificado;
+	
+	
+	public String getRutaCertificado() {
+		return rutaCertificado;
+	}
+	public void setRutaCertificado(String rutaCertificado) {
+		this.rutaCertificado = rutaCertificado;
+	}
 	public int getId_certificacion() {
 		return id_certificacion;
 	}

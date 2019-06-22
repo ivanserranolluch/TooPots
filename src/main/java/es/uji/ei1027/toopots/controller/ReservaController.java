@@ -1,41 +1,60 @@
 package es.uji.ei1027.toopots.controller;
 
+import es.uji.ei1027.toopots.dao.ClienteDao;
+import es.uji.ei1027.toopots.model.Actividad;
+import es.uji.ei1027.toopots.model.Cliente;
+import es.uji.ei1027.toopots.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import es.uji.ei1027.toopots.dao.ReservaDao;
 import es.uji.ei1027.toopots.model.Reserva;
+
+import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/reserva")
 public class ReservaController {
 	
 	private ReservaDao reservaDao;
+	private ClienteDao clienteDao;
 	
 	@Autowired
 	public void setReservaDao(ReservaDao reservaDao) {
 		this.reservaDao=reservaDao; 
 	}
 
+	@Autowired
+	public void setClienteDao(ClienteDao clienteDao){
+		this.clienteDao=clienteDao;
+	}
+
 	@RequestMapping(value="/add")
 	public String addReserva(Model model) {
 		model.addAttribute("reserva", new Reserva()); 
-		return "reserva/add"; 
+		return "reserva/add";
 	}
 
 	@RequestMapping(value="/add", method=RequestMethod.POST) 
-	public String processAddSubmit(@ModelAttribute("reserva") Reserva reserva, BindingResult
-			bindingResult) { 
-		/*if (bindingResult.hasErrors()) 
-			return "reserva/add";*/
+	public String processAddSubmit(@ModelAttribute("reserva") Reserva reserva, HttpSession session,
+								   BindingResult bindingResult) {
+		if (bindingResult.hasErrors())
+			return "reserva/add";
+
+		reserva.setEstadoPago("pendiente");
+		reserva.setFecha(java.sql.Date.valueOf(LocalDate.now()));
+		reserva.setPreciototal(reserva.getPrecioPersona() * reserva.getNumAsistentes());
+		User user = (User) session.getAttribute("user");
+		Cliente cliente = clienteDao.getClienteEmail(user.getEmail());
+		reserva.setDni(cliente.getDni());
 		reservaDao.addReserva(reserva); 
-		return "redirect:list"; 
+		return "redirect:../success";
 	}
 
 	@RequestMapping(value="/update/{id}", method=RequestMethod.GET) 

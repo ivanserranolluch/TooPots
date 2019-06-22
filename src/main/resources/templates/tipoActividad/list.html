@@ -46,8 +46,9 @@
 	        <td th:text="${monitor.email}" th:class="${strings.equals(busca,monitor.email)}? 'bg-secondary text-blue'"></td>
 	        <td th:text="${monitor.iban}" th:class="${strings.equals(busca,monitor.iban)}? 'bg-secondary text-blue'"></td>
 	        <td th:text="${monitor.estado}"th:class="${strings.equals(busca,monitor.estado)}? 'bg-secondary text-blue'"></td>
-	   -->
-
+	   
+			<td><a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" th:href="@{/tipoActividadCertificacionMonitor/list/{id}(id=${ta.id})}" style="color:white;">Gestionar Certificaciones</a></td>
+			-->
 			<td><a class="w3-button w3-round w3-medium w3-pale-blue w3-text-black w3-hover-blue" th:href="@{/tipoActividad/update/{id}(id=${ta.id})}"
 	                                                          style="color:white;">Editar</a></td>
 	        <td><a onclick="return confirm('¿Seguro que quieres borrar el monitor?')" class="w3-button w3-round w3-medium w3-pale-red w3-text-black w3-hover-red " th:href="@{/tipoActividad/delete/{id}(id=${ta.id})}"

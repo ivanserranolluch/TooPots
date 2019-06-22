@@ -43,10 +43,10 @@
             
             <div class="w3-container w3-margin-bottom">
                 <label for="city">Estado</label>
-                <select class="form-control" th:field="*{estado}" required>
-			        <option th:value="'aceptada'" th:text="Aceptada"></option>
-			        <option th:value="'rechazada'" th:text="Rechazada"></option>
-			    	<option th:value="'pendiente'" th:text="Pendiente"></option>
+                <select class="form-control" th:name="action" th:field="*{estado}" required>
+			    	<option  th:value="'aceptada'" th:text="Aceptada"></option>
+			        <option  th:value="'rechazada'" th:text="Rechazada"></option>
+			    	<option  th:value="'pendiente'" th:text="Pendiente"></option>
 			    </select>
             </div>
             
@@ -57,12 +57,11 @@
             
             <div class="w3-container">
                 <input type="submit" class=" w3-btn w3-pale-green w3-margin-top w3-margin-bottom w3-margin-right" value="Modificar monitor"/>
-                <a href="/monitor/lobby" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black"> Volver</a>
+                <a href="javascript:history.back()" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black"> Volver</a>
             </div>
             
 		</div>
 	</form>
-
 </div>
 
 </body>

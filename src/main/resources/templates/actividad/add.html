@@ -1,108 +1,102 @@
 !DOCTYPE html>
-	<html xmlns:th="http://www.thymeleaf.org">
-	<head>
-	    <title>Añade una actividad</title>
-	    <meta charset="UTF-8"/>
-	    <link rel="stylesheet"
-	          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
-	</head>
-	<body>
-	<div th:replace="/common/navbar">...</div>
-	<div class="container">
-	    <h2>Nueva actividad</h2>
-	    <form action="#" th:action="@{/actividad/add}"
-	          th:object="${actividad}" method="post" enctype="multipart/form-data">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Añade una actividad</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div th:replace="/common/navbar">...</div>
+<div class="container">
+    <form action="#" th:action="@{/actividad/add}"
+          th:object="${actividad}" method="post" enctype="multipart/form-data" >
 	
-	        <div class="input-group mb-3">
-	            <label class="col-sm-1 col-form-label">ID_Actividad</label>
-	            <div class="col-sm-11">
-	                <input class="form-control" type="number" th:field="*{id_actividad}" minlength="9" maxlength="9" required/>
-	            </div>
-	        </div>
+	    <div class="w3-container">
+	        <h2 class="w3-border-bottom w3-border-light-grey w3-padding-64 w3-margin-top">Nueva Actividad</h2>
+	    </div>
 	
-	 <div class="input-group mb-3">
-	            <label class="col-sm-1 col-form-label">Nombre</label>
-	            <div class="col-sm-11">
-	                <input class="form-control" type="text" th:field="*{nombre}" maxlength="25" required/>
-	            </div>
-	        </div>
+	    <div class="w3-container">
+	        <label for="dni">ID_Actividad</label>
+	        <input class="w3-input w3-section w3-border" type="number" th:field="*{id_actividad}" required>
 	
-	        <div class="input-group mb-3">
-	            <label class="col-sm-1 col-form-label">Descripción</label>
-	            <div class="col-sm-11">
-	                <input class="form-control" type="text" th:field="*{descripcion}" maxlength="200" required/>
-	            </div>
-	        </div>
+	    </div>
 	
-	        <div class="input-group mb-3">
-	            <label class="col-sm-1 col-form-label">Duración dias</label>
-	            <div class="col-sm-11">
-	                <input class="form-control" type="number" th:field="*{duracionDias}" required/>
-	            </div>
-	        </div>
+	    <div class="w3-container">
+	        <label for="nombre">Nombre</label>
+	        <input class="w3-input w3-section w3-border" type="text" th:field="*{nombre}" maxlength="25" required>
 	
-	        <div class="input-group mb-3">
-	            <label class="col-sm-1 col-form-label">Fecha</label>
-	            <div class="col-sm-11">
-	                <input class="form-control" type="date" th:field="*{fecha}" maxlength="50" required/>
-	            </div>
-	        </div>
+	    </div>
+	
+	    <div class="w3-container">
+	        <label for="adr">Descripción</label>
+	        <input class="w3-input w3-section w3-border" type="text" th:field="*{descripcion}" maxlength="200" required>
+	
+	    </div>
+	
+	    <div class="w3-container">
+	        <label for="city">Duración dias</label>
+	        <input class="w3-input w3-section w3-border" type="number" th:field="*{duracionDias}" required>
+	    </div>
 	
 	
-	        <div class="input-group mb-3">
-	            <label class="col-sm-1 col-form-label">Punto Encuentro</label>
-	            <div class="col-sm-11">
-	                <input class="form-control" type="text" th:field="*{puntoEncuentro}" maxlength="60" required/>
-	            </div>
-	        </div>
-	        <div class="input-group mb-3">
-	            <label class="col-sm-1 col-form-label">Lugar</label>
-	            <div class="col-sm-11">
-	                <input class="form-control" type="text" th:field="*{lugar}" maxlength="60" required/>
-	            </div>
-	        </div>
+	    <div id="calendar" class="w3-container">
+	        <label for="city">Fecha</label>
+	        <input class="w3-input w3-section w3-border" type="date" th:field="*{fecha}" maxlength="50" required>
+	    </div>
 	
+	    <div class="w3-container">
+	        <label for="city">Punto Encuentro</label>
+	        <input class="w3-input w3-section w3-border" type="text" th:field="*{puntoEncuentro}" maxlength="60" required>
+	    </div>
+	    
+	    <div class="w3-container">
+	        <label for="city">Lugar</label>
+	        <input class="w3-input w3-section w3-border" type="text" th:field="*{lugar}" maxlength="60" required>
+	    </div>
+	    
+	    <div class="w3-container">
+	        <label for="city">Texto Cliente</label>
+	        <input class="w3-input w3-section w3-border" type="text" th:field="*{textoCliente}" maxlength="60" required>
+	    </div>
+	    
+	    <div class="w3-container">
+	        <label for="city">Hora encuentro</label>
+	        <input class="w3-input w3-section w3-border" type="time" th:name="hora"  required>
+	    </div>
+	    
+	    <div class="w3-container">
+	        <label for="city">Minimo Asistentes</label>
+	        <input class="w3-input w3-section w3-border" type="number" th:field="*{minAsistentes}" required>
+	    </div>
+	    
+	    <div class="w3-container">
+	        <label for="city">Máximo Asistentes</label>
+	        <input class="w3-input w3-section w3-border" type="number" th:field="*{maxAsistentes}" required>
+	    </div>
+	    
+	     <div class="w3-container">
+	     	<label for="city">Tipo Actividad</label>
+	        <select class="custom-select w3-margin-bottom w3-margin-top" name="tipo" th:object="${tipo}"  >
+				<option value="----- Elige un tipo de actividad -----" selected="selected" disabled="disabled">----- Elige tipo de actividad -----</option >
+				<option th:each="t:${tipo}" th:text="${t.nombre}"></option>
+			</select>
+	    </div>
+	    
+	    <div class="w3-container">
+            <label class="w3-cell w3-margin-right">Foto Actividad</label>
+            <div class="w3-cell w3-margin-left ">
+                <input class="w3-margin-left" type="file" name="file" id="file" required>
+            </div>
+        </div>
+	    
 	
-		<div class="input-group mb-3">
-	            <label class="col-sm-1 col-form-label">Texto Cliente</label>
-	            <div class="col-sm-11">
-	                <input class="form-control" type="text" th:field="*{textoCliente}" maxlength="60" required/>
-	            </div>
-	        </div>
-	
-	        <div class="input-group mb-3">
-	            <label class="col-sm-1 col-form-label">Hora encuentro</label>
-	            <div class="col-sm-11">
-	                <input class="form-control" type="time" th:field="*{horaEncuentro}" maxlength="60" required/>
-	            </div>
-	        </div>
-	
-	        <div class="input-group mb-3">
-	            <label class="col-sm-1 col-form-label">Minimo Asistentes</label>
-	            <div class="col-sm-11">
-	                <input class="form-control" type="number" th:field="*{minAsistentes}" required/>
-	            </div>
-	        </div>
-	        <div class="input-group mb-3">
-	            <label class="col-sm-1 col-form-label">Máximo Asistentes</label>
-	            <div class="col-sm-11">
-	                <input class="form-control" type="number" th:field="*{maxAsistentes}" required/>
-	            </div>
-	        </div>
-	        <div class="input-group mb-3">
-	            <label class="col-sm-1 col-form-label">ID_Tipo Actividad</label>
-	            <div class="col-sm-11">
-	                <input class="form-control" type="number" th:field="*{id_tipoActividad}" required/>
-	            </div>
-	        </div>
-	
-			<div class="col-sm-3"></div>
-			        <a class=" btn btn-danger col-sm-1" href="/actividad/listActividades"> Volver </a>
-			        <div class="col-sm-4"></div>
-	        <input type="submit" class=" btn btn-success" value="Añadir monitor"/>
-	
-	
-	    </form>
-	</div>
-	</body>
-	</html>
+	    <div class="w3-container">
+	        <input type="submit" class=" w3-btn w3-pale-green w3-margin-top w3-margin-bottom w3-margin-right w3-hover-green" value="Añadir actividad"/>
+	        <a href="javascript:history.back()" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black w3-hover-red" > Volver</a>   
+	    </div>
+	    
+    </form>
+</div>
+</body>
+</html>

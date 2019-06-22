@@ -32,7 +32,7 @@ public class ActividadDao {
 	
 	// Añade una nueva actividad
 	public void addActividad(Actividad act){
-		act.setHoraEncuentro(new Time(10));
+		//act.setHoraEncuentro(new Time(10));
 		update(ADD_ACT_SQL, act);
 	}
 	
@@ -74,5 +74,16 @@ public class ActividadDao {
             return new ArrayList<Actividad>();
         }
     }
+
+	public List<Actividad> getActividadPorTipo(String tipo) {
+		try {
+			return jdbcTemplate.query("SELECT id_actividad, a.nombre, descripcion, duracionDias, fecha," +
+					" precio, minAsistentes, maxAsistentes, lugar, puntoEncuento, horaEncuentro, textoCliente," +
+					"estado, id_tipoactividad FROM actividad a JOIN tipoactividad t USING(id_tipoactividad) WHERE LOWER(t.nombre)=LOWER(?)", new ActividadRowMapper(),tipo);
+		}
+		catch(EmptyResultDataAccessException e) {
+			return new ArrayList<Actividad>();
+		}
+	}
 
 }

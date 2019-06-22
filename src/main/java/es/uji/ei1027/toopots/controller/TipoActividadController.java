@@ -1,10 +1,5 @@
 package es.uji.ei1027.toopots.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
 import es.uji.ei1027.toopots.dao.TipoActividadDao;
-
 import es.uji.ei1027.toopots.model.TipoActividad;
 
 
@@ -35,6 +28,12 @@ public class TipoActividadController {
 	public String listActivities(Model model) {
 		model.addAttribute("tipoActividad", tipoActividadDao.getTiposActividades()); 
 		return "tipoActividad/list"; 
+	}
+	
+	@RequestMapping(value="/listMonitor", method=RequestMethod.GET) 
+	public String listActivitiesMonitor(Model model) {
+		model.addAttribute("tipoActividad", tipoActividadDao.getTiposActividades()); 
+		return "tipoActividad/listMonitor"; 
 	}
 	
 	 @RequestMapping(value="/add")

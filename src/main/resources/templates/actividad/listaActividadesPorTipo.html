@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Actividades</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<div th:replace="/common/navbar" >...</div>
+<div th:if="${#lists.isEmpty(actividades)}">
+    No hay actividades disponibles en estos momentos.
+</div>
+
+<div class="container">
+    <div class="w3-container w3-padding-64" id="projects">
+        <h1 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center w3-wide">Listado de actividades</h1>
+    </div>
+    <table th:unless="${#lists.isEmpty(actividades)}" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Fecha</th>
+            <th>Duración</th>
+            <th>Lugar</th>
+            <th>Precio</th>
+            <th> </th>
+            <th> </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="actividad : ${actividades}">
+            <td th:text="${actividad.nombre}"></td>
+            <td th:text="${actividad.fecha}"></td>
+            <td> <a th:text="${actividad.duracionDias}"> </a> Dias</td>
+            <td th:text="${actividad.lugar}"></td>
+            <td> <a th:text="${actividad.precio}"> </a> € </td>
+            <td><a class="btn btn-info" th:href="@{/actividad/actividadinfo/{id}(id=${actividad.id_actividad})}"
+                   style="color:white;">Ver</a></td>
+            <td th:if="${session.user!=null}"><a class="btn btn-info" th:href="@{/actividad/actividadinfo/{id}(id=${actividad.id_actividad})}"
+                                                 style="color:white;">Reservar</a></td>
+            <td th:if="${session.user==null}"><a class="btn btn-info" th:href="@{/login}"
+                                                 style="color:white;">Reservar</a></td>
+        </tr>
+        <tr>
+            <td><a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" href="/actividad/actividades" style="color:white;">Volver</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

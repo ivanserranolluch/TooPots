@@ -4,6 +4,14 @@ public class CertificacionesTipoActividad {
 	private int id_certificacion;
 	private int id_tipoActividad;
 	
+	public CertificacionesTipoActividad(int id_certificacion, int id_tipoActividad) {
+		this.id_certificacion=id_certificacion;
+		this.id_tipoActividad=id_tipoActividad;
+	}
+	public CertificacionesTipoActividad() {
+		
+	}
+	
 	public int getId_certificacion() {
 		return id_certificacion;
 	}

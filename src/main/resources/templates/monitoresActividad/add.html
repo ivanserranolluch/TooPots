@@ -5,26 +5,41 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <div th:replace="/common/navbar" >...</div>
-<form action="#" th:action="@{/monitorActividad/add}"
-      th:object="${monitorActividad}" method="post">
+<form action="#" th:action="@{/monitorActividad/add}" method="post">
     <div class= container>
-    <h2>Asignar actividades a los monitores</h2>
-	    <table class="table table-striped">
-	        <tr>
-	            <td><label>ID_monitor</label></td>
-	            <td><input  class="form-control" type="text" th:field="*{id_monitor}" /></td>
-	        </tr>
-	        <tr>
-	            <td><label>ID_actividad</label></td>
-	            <td><input  class="form-control" type="number" th:field="*{id_actividad}" /></td>
-	        </tr>
-	        <tr>
-	            <td colspan="2"><input type="submit" value="Asignar actividad" /></td>
-	        </tr>
-	    </table>
+    	<div class="w3-container">
+           <h2 class="w3-border-bottom w3-border-light-grey w3-padding-64 w3-margin-top">Asignar actividades a los monitores</h2>
+         </div>
+         
+         <div class="w3-container">
+            <label>Monitor</label>
+            <select class="custom-select w3-margin-bottom w3-margin-top" name="monitor" th:object="${listaMonitores}"  >
+				<option value="----- Elige un monitor -----" selected="selected" disabled="disabled">----- Elige un monitor-----</option >
+				<option th:each="monitor:${listaMonitores}" th:text="${monitor.nombre}"></option>
+			</select>
+         </div>
+         
+         <div class="w3-container">
+            <label>Actividad</label>
+            <select class="custom-select w3-margin-bottom w3-margin-top" name="actividad" th:object="${listaActividades}"  >
+				<option value="----- Elige una actividad -----" selected="selected" disabled="disabled">----- Elige una actividad -----</option >
+				<option th:each="actividad:${listaActividades}" th:text="${actividad.nombre}"></option>
+			</select>
+         </div>
+         
+	     <div class="w3-container">
+            <input type="submit" class=" w3-btn w3-pale-green w3-margin-top w3-margin-bottom w3-margin-right" value="Asignar actividad"/>
+            <a href="javascript:history.back()" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black"> Volver</a>                
+         </div>
+	    
+	    
+	 
+            
      </div>
 </form>
 </body>

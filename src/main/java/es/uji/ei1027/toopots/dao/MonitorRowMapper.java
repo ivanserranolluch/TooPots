@@ -15,6 +15,7 @@ public final class MonitorRowMapper implements RowMapper<Monitor> {
         monitor.setIban(rs.getString("iban"));
         monitor.setEstado(rs.getString("estado"));
         monitor.setDomicilio(rs.getString("domicilio"));
+        monitor.setUrlImg(rs.getString("foto"));
         return monitor;
     }
 }

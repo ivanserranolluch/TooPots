@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Añade una certificacion</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+</head>
+<body>
+<div th:replace="/common/navbar">...</div>
+ 
+  <form action="#" th:action="@{/certificacionMonitor/add/{id}(id=${id_tipoActividad})}"
+          th:object="${certificacionMonitor}" method="post" enctype="multipart/form-data">
+          
+          <br><br><br><br><br>
+          <h1 class="w3-container">Añade el pdf de la certificación para su posteriór evaluación</h1>
+          <br><br>
+      <div class="container ">
+            
+
+           
+
+            <div class="w3-container">
+                <label class="w3-cell w3-margin-right">Id Certificacion</label>
+                <input class="w3-input w3-section w3-border" type="number" th:field="*{id_certificacion}" maxlength="60" placeholder="Avenida xxxxx" required>
+            </div>
+
+
+            <div class="w3-container">
+                <label class="w3-cell w3-margin-right">Curriculum Vitae</label>
+                <div class="w3-cell w3-margin-left ">
+                    <input class="w3-margin-left" type="file" name="file" id="file" required>
+                </div>
+            </div>
+            
+           
+
+            <div class="w3-container">
+                <input type="submit" class=" w3-btn w3-pale-green w3-margin-top w3-margin-bottom w3-margin-right" value="Añadir certificacion"/>
+                <a href="/monitor/lobby" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black"> Volver</a>                
+            </div>
+            
+    </div>
+</form>
+</body>            
+</html>

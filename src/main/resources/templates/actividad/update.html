@@ -9,113 +9,90 @@
 <body>
 <div th:replace="/common/navbar" >...</div>
 <div class="container">
-		<h2>Modificar la actividad</h2>
 		<form action="#" th:action="@{/actividad/update/{id}(id=${actividad.id_actividad})}"
 		      th:object="${actividad}" method="post">
+
+		<div class="w3-container">
+	        <h2 class="w3-border-bottom w3-border-light-grey w3-padding-64 w3-margin-top">Modificar Actividad</h2>
+	    </div>
+	
+	    <div class="w3-container" hidden="hidden">
+	        <label>ID_Actividad</label>
+	        <input class="w3-input w3-section w3-border" type="number" th:field="*{id_actividad}" required>
+	
+	    </div>
+	
+	    <div class="w3-container">
+	        <label>Nombre</label>
+	        <input class="w3-input w3-section w3-border" type="text" th:field="*{nombre}" maxlength="25" required>
+	
+	    </div>
+	
+	    <div class="w3-container">
+	        <label>Descripción</label>
+	        <input class="w3-input w3-section w3-border" type="text" th:field="*{descripcion}" maxlength="200" required>
+	
+	    </div>
+	
+	    <div class="w3-container">
+	        <label>Duración dias</label>
+	        <input class="w3-input w3-section w3-border" type="number" th:field="*{duracionDias}" required>
+	    </div>
 	
 	
-		      <div class="input-group mb-3">
-				        <label class="col-sm-1 col-form-label" >ID</label>
-				        <div class="col-sm-11">
-				        	<input class="form-control" type="text" th:field="*{id_actividad}" maxlength="25" required/>
-				       </div>
-				    </div>
-		      <div class="input-group mb-3">
-				        <label class="col-sm-1 col-form-label" >Nombre</label>
-				        <div class="col-sm-11">
-				        	<input class="form-control" type="text" th:field="*{nombre}" maxlength="25" required/>
-				       </div>
-				    </div>
+	    <div id="calendar" class="w3-container">
+	        <label>Fecha</label>
+	        <input class="w3-input w3-section w3-border" type="date" th:field="*{fecha}" maxlength="50" required>
+	    </div>
 	
-			        <div class="input-group mb-3">
-				        <label class="col-sm-1 col-form-label" >Descripción</label>
-				        <div class="col-sm-11">
-				        	<input class="form-control" type="text" th:field="*{descripcion}" maxlength="200" required/>
-				       </div>
-				    </div>
+	    <div class="w3-container">
+	        <label>Punto Encuentro</label>
+	        <input class="w3-input w3-section w3-border" type="text" th:field="*{puntoEncuentro}" maxlength="60" required>
+	    </div>
+	    
+	    <div class="w3-container">
+	        <label>Lugar</label>
+	        <input class="w3-input w3-section w3-border" type="text" th:field="*{lugar}" maxlength="60" required>
+	    </div>
+	    
+	    <div class="w3-container">
+	        <label>Texto Cliente</label>
+	        <input class="w3-input w3-section w3-border" type="text" th:field="*{textoCliente}" maxlength="60" required>
+	    </div>
+	    
+	    <div class="w3-container">
+	        <label>Hora encuentro</label>
+	        <input class="w3-input w3-section w3-border" type="time" th:field="*{horaEncuentro}" maxlength="60" required>
+	    </div>
+	    
+	    <div class="w3-container">
+	        <label>Minimo Asistentes</label>
+	        <input class="w3-input w3-section w3-border" type="number" th:field="*{minAsistentes}" required>
+	    </div>
+	    
+	    <div class="w3-container">
+	        <label>Máximo Asistentes</label>
+	        <input class="w3-input w3-section w3-border" type="number" th:field="*{maxAsistentes}" required>
+	    </div>
+	    
+	    <div class="w3-container" hidden="hidden">
+	        <label>ID_Tipo Actividad</label>
+	        <input class="w3-input w3-section w3-border" type="number" th:field="*{id_tipoActividad}" required>
+	    </div>
+	    
+	    <div class="w3-container" hidden="estado">
+	        <label>Estado</label>
+	        <input class="w3-input w3-section w3-border" type="text" th:field="*{estado}" required>
+	    </div>
+	    
+	    
 	
-				     <div class="input-group mb-3">
-				        <label class="col-sm-1 col-form-label" >Duración en Dias</label>
-				        <div class="col-sm-11">
-				        	<input class="form-control" type="number" th:field="*{duracionDias}"  required/>
-				       </div>
-				    </div>
-	
-				    <div class="input-group mb-3">
-	            <label class="col-sm-1 col-form-label">Fecha</label>
-	             <div class="col-sm-11">
-	            <input class="form-control" type="date" th:field="*{fecha}"/>
-	        		</div>
-	        		</div>
-	
-	        		  <div class="input-group mb-3">
-				        <label class="col-sm-1 col-form-label" >Precio</label>
-				        <div class="col-sm-11">
-				        	<input class="form-control" type="number" th:field="*{precio}"  required/>
-				       </div>
-				    </div>
-	
-	
-			      <div class="input-group mb-3">
-				        <label class="col-sm-1 col-form-label" >Minimo Asistentes</label>
-				        <div class="col-sm-11">
-				        	<input class="form-control" type="number" th:field="*{minAsistentes}"  required/>
-				       </div>
-				    </div>
-	
-				    <div class="input-group mb-3">
-				        <label class="col-sm-1 col-form-label" >Maximos Asistentes</label>
-				        <div class="col-sm-11">
-				        	<input class="form-control" type="number" th:field="*{maxAsistentes}"  required/>
-				       </div>
-				    </div>
-	
-				    <div class="input-group mb-3">
-				        <label class="col-sm-1 col-form-label" >Lugar</label>
-				        <div class="col-sm-11">
-				        	<input class="form-control" type="text" th:field="*{lugar}" maxlength="100" required/>
-				       </div>
-				    </div>
-	
-				    <div class="input-group mb-3">
-				        <label class="col-sm-1 col-form-label" >Punto Encuentro</label>
-				        <div class="col-sm-11">
-				        	<input class="form-control" type="text" th:field="*{puntoEncuentro}" maxlength="100" required/>
-				       </div>
-				    </div>
-	
-				    <div class="input-group mb-3">
-				        <label class="col-sm-1 col-form-label" >Hora Encuentro</label>
-				        <div class="col-sm-11">
-				        	<input class="form-control" type="time" th:field="*{horaEncuentro}" required/>
-				       </div>
-				    </div>
-	
-				    <div class="input-group mb-3">
-				        <label class="col-sm-1 col-form-label" >Texto Cliente</label>
-				        <div class="col-sm-11">
-				        	<input class="form-control" type="text" th:field="*{textoCliente}" maxlength="250" required/>
-				       </div>
-				    </div>
-	
-				    <div class="input-group mb-3">
-				        <label class="col-sm-1 col-form-label" >Estado</label>
-				        <div class="col-sm-11">
-				        	<input class="form-control" type="text" th:field="*{estado}" maxlength="9" required/>
-				       </div>
-				    </div>
-	
-				    <div class="input-group mb-3">
-				        <label class="col-sm-1 col-form-label" >ID Tipo Actividad</label>
-				        <div class="col-sm-11">
-				        	<input class="form-control" type="number" th:field="*{id_tipoActividad}"  required/>
-				       </div>
-				    </div>
-	
-		      <div class="col-sm-3"></div>
-	        	<a class=" btn btn-danger col-sm-1" href="/actividad/listActividades"> Volver </a>
-	        	<div class="col-sm-4"></div>
-	        	<input type="submit" class="btn btn-success" value="Modificar" />
+	    <div class="w3-container">
+	        <input type="submit" class=" w3-btn w3-pale-green w3-margin-top w3-margin-bottom w3-margin-right w3-hover-green" value="Modificar actividad"/>
+	        <a href="javascript:history.back()" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black w3-hover-red" > Volver</a>   
+	    </div>
+	    
+	    
 		</form>
 	
 	
