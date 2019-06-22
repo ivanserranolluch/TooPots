@@ -20,7 +20,8 @@
         <th>Fecha</th>
         <th>Numero de asistentes</th>
         <th>Precio por persona</th>
-        <th>Numero de Transacciones</th>
+        <th>Importe total</th>
+        <th>Numero de Transaccion</th>
         <th>ID_Actividad</th>
         <th>DNI</th>
     </tr>
@@ -28,13 +29,14 @@
     <tbody>
     <tr th:each="reserva : ${reservas}">
         <td th:text="${reserva.id_reserva}"></td>
-        <td th:text="${reserva.estadoPagado}"></td>
+        <td th:text="${reserva.estadoPago}"></td>
         <td th:text="${reserva.fecha}"></td>
         <td th:text="${reserva.numAsistentes}"></td>
         <td th:text="${reserva.precioPersona}"></td>
-        <td th:text="${reservar.numTransacciones}"></td>
-        <td th:text="${reservar.id_actividad}"></td>
-        <td th:text="${reservar.dni}"></td>
+        <td th:text="${reserva.preciototal}"></td>
+        <td th:text="${reserva.numTransacciones}"></td>
+        <td th:text="${reserva.id_actividad}"></td>
+        <td th:text="${reserva.dni}"></td>
         
         <td><a class="btn btn-info" th:href="@{/reserva/update/{id}(id=${reserva.id_reserva})}"
                                                           style="color:white;">Editar</a></td>
