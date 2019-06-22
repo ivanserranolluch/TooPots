@@ -31,16 +31,7 @@ p{
 			</div>
 		</div>
 		
-		<div class="col-sm-4">
-			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
-				<a style="text-decoration:none" href="/cliente/list">
-					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
-						<h4 class="card-title"> Numero de clientes</h4>
-						<p class="description" th:text="${'Tenemos un total de ' + numClientes + ' clientes registrados'}"></p>
-					</div>
-				</a>
-			</div>
-		</div>
+		
 		
 		<div class="col-sm-4">
 			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
@@ -53,46 +44,21 @@ p{
 			</div>
 		</div>
 		
+		<div class="col-sm-4">
+			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
+				<a style="text-decoration:none" href="/reservaClienteActividad/listCliente">
+					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
+						<h4 class="card-title"> Gestion Reservas</h4>
+						<p class="description" th:text="${'En esta sección puedes consultar y gestionar tus reservas.'}"></p>
+					</div>
+				</a>
+			</div>
+		</div>
+		
 	</div>
 </div>
+
 
-<div class="w3-container w3-padding-32" style="min-height:150px;">
-	<div class="row w3-margin-left w3-margin-right">
-		<div class="col-sm-4">
-			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
-				<a style="text-decoration:none"  href="/monitor/list?pen=1">
-					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
-						<h4 class="card-title"> Nuevas solicitudes de monitores </h4>
-						<p class="description" th:text="${'Tienes un total de ' + numPendientes + ' solicitudes para ser monitor pendientes. '}"></p>
-					</div>
-				</a>
-			</div>
-		</div>
-		
-		<div class="col-sm-4 ">
-			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
-				<a style="text-decoration:none"  href="/monitor/list">
-					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
-						<h4 class="card-title"> Gestionar monitores </h4>
-						<p class="description" th:text="${'Tenemos un total de ' + numMonitores + ' monitores registrados. '}"></p>
-					</div>
-				</a>
-			</div>
-		</div>
-		
-		<div class="col-sm-4">
-			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
-				<a style="text-decoration:none"  href="/actividad/list">
-					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
-						<h4 class="card-title"> Administrar tipos y niveles </h4>
-						<p class="description">Inserte algo</p>
-					</div>
-				</a>
-			</div>
-		</div>
-		
-	</div>
-</div>
 
 
 

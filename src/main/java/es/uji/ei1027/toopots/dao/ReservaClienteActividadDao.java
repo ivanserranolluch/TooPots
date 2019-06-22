@@ -35,7 +35,7 @@ public class ReservaClienteActividadDao {
 	
 	/* Borra las reservas a la base de datos */
 	public void deleteReserva(String id) {
-        jdbcTemplate.update("DELETE FROM Reserva WHERE id_reserva=?", id);
+        jdbcTemplate.update("DELETE FROM Reserva WHERE id_reserva=?", Integer.parseInt(id));
     }
 	
 	/* Obtiene una reserva de la base de datos */
@@ -46,6 +46,15 @@ public class ReservaClienteActividadDao {
             return null;
         }
     }
+	
+	public ReservaClienteActividad getReservaClienteActividad(String id) {
+        try{
+            return jdbcTemplate.queryForObject("SELECT id_actividad, a.nombre as nombreActividad, a.descripcion, a.duraciondias, a.fecha as fechaActividad, a.precio, a.minasistentes, a.maxasistentes, a.lugar, a.puntoencuento, a.textocliente, a.estado, a.id_tipoactividad, c.nombre as nombreCliente, c.dni, c.email, c.fechanacimiento, c.sexo, r.id_Reserva, r.estadopago, r.numasistentes, r.preciopersona FROM cliente c join reserva r using(dni) join actividad a using(id_Actividad) where r.id_reserva=?", new ReservaClienteActividadRowMapper(),Integer.parseInt(id));
+        }catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
+	
 	/* Obtiene una reserva de la base de datos */
 	public List<ReservaClienteActividad> getReservaClienteActividadPendientes() {
         try{
@@ -89,6 +98,20 @@ public class ReservaClienteActividadDao {
 		}
 	}
 
+	public List<ReservaClienteActividad> getReservasCliente(String dni) {
+		try {
+			return jdbcTemplate.query("SELECT id_actividad, a.nombre as nombreActividad, a.descripcion, a.duraciondias, " +
+							"a.fecha as fechaActividad, a.precio, a.minasistentes, a.maxasistentes, a.lugar, a.puntoencuento, " +
+							"a.textocliente, a.estado, a.id_tipoactividad, c.nombre as nombreCliente, c.dni, c.email, " +
+							"c.fechanacimiento, c.sexo, r.id_Reserva, r.estadopago, r.numasistentes, r.preciopersona " +
+							"FROM cliente c join reserva r using(dni) join actividad a using(id_Actividad) where c.dni =?",
+						new ReservaClienteActividadRowMapper(),dni);
+		}
+		catch(EmptyResultDataAccessException e) {
+			return new ArrayList<ReservaClienteActividad>();
+		}
+	}
+	
 	public Integer getNumReservas() {
 		try{
 			return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM reserva", Integer.class);

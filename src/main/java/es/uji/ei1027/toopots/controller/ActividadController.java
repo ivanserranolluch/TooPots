@@ -233,6 +233,15 @@ public class ActividadController {
 		model.addAttribute("imgurl", imgActDao.getImageActividad(id).getUrl());
 		return "actividad/actividadinfo";
 	}
+	
+	@RequestMapping(value="/actividadInfoReserva/{id}", method=RequestMethod.GET)
+	public String pageActividadReserva(Model model, @PathVariable int id) {
+		//System.out.println(id);
+		
+		model.addAttribute("actividad", actividadDao.getActividad(id));
+		model.addAttribute("imgurl", imgActDao.getImageActividad(id).getUrl());
+		return "actividad/actividadInfoReserva";
+	}
 
 	@RequestMapping(value="/kayak") 
 	public String pageKayak(Model model) {
