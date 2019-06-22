@@ -27,7 +27,7 @@ p{
 	<div class="row w3-margin-left w3-margin-right">
 		<div class="col-sm-4">
 			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
-				<a style="text-decoration:none" href="/reserva/list">
+				<a style="text-decoration:none" href="/reservaClienteActividad/list">
 					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
 						<h4 class="card-title"> Consultar reservas </h4>
 						<p class="description" th:text="${'Tenemos un total de ' + numReservas + ' reservas'}"></p>
@@ -95,7 +95,7 @@ p{
 	<div class="row w3-margin-left w3-margin-right">
 		<div class="col-sm-4">
 			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
-				<a style="text-decoration:none"  href="/reservaClienteActividad/list">
+				<a style="text-decoration:none"  href="/reservaClienteActividad/list?estado=1">
 					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
 						<h4 class="card-title"> Consultar Reservas Pendientes</h4>
 						<p class="description">Listado de todas las reservas pendientes</p>
@@ -106,7 +106,7 @@ p{
 		
 		<div class="col-sm-4">
 			<div class="w3-card-4 w3-dark-gray w3-hover-opacity w3-hover-light-grey">
-				<a style="text-decoration:none"  href="/reservaClienteActividad/listAceptadas">
+				<a style="text-decoration:none"  href="/reservaClienteActividad/list?estado=2">
 					<div class="card-body w3-hover-opacity w3-hover-light-grey" >
 						<h4 class="card-title"> Consultar Reservas Aceptadas </h4>
 						<p class="description">Listado de todas las reservas aceptadas.</p>
