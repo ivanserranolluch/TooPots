@@ -8,6 +8,7 @@ public class Monitor {
     private String iban;
     private String estado;
     private String passwd;
+    private String urlImg;
 
     public String getId() {
         return id;
@@ -75,4 +76,12 @@ public class Monitor {
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
 	}
+
+    public String getUrlImg() {
+        return urlImg;
+    }
+
+    public void setUrlImg(String urlImg) {
+        this.urlImg = urlImg;
+    }
 }

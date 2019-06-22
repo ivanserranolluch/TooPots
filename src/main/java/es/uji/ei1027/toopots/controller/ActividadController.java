@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import es.uji.ei1027.toopots.dao.*;
+import es.uji.ei1027.toopots.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -18,12 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import es.uji.ei1027.toopots.dao.ActividadDao;
-import es.uji.ei1027.toopots.dao.ImgActDao;
-import es.uji.ei1027.toopots.dao.TipoActividadDao;
-import es.uji.ei1027.toopots.model.Actividad;
-import es.uji.ei1027.toopots.model.Reserva;
-import es.uji.ei1027.toopots.model.TipoActividad;
+import javax.jws.soap.SOAPBinding;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/actividad")
@@ -32,6 +30,8 @@ public class ActividadController {
 	private ActividadDao actividadDao;
 	private TipoActividadDao tipoActividadDao;
 	private ImgActDao imgActDao;
+	private MonitoresActividadDao monitoresActividadDao;
+	private MonitorDao monitorDao;
 	
 	@Value("${upload.file.directory}")
     private String uploadDirectory;
@@ -50,7 +50,17 @@ public class ActividadController {
 	public void setImgActDao(ImgActDao imgActDao){
 		this.imgActDao=imgActDao;
 	}
-	
+
+	@Autowired
+	public void setMonitoresActividadDao(MonitoresActividadDao monitoresActividadDao){
+		this.monitoresActividadDao=monitoresActividadDao;
+	}
+
+	@Autowired
+	public void setMonitorDao(MonitorDao monitorDao){
+		this.monitorDao=monitorDao;
+	}
+
 	@RequestMapping(value="/list", method=RequestMethod.GET) 
 	public String listActivities(Model model) {
 		model.addAttribute("actividades", actividadDao.getActividad()); 
@@ -116,28 +126,31 @@ public class ActividadController {
 
     @RequestMapping(value="/add", method=RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("actividad") Actividad actividad,
-    								@ModelAttribute("tipo") String t,
-    								@RequestParam("hora") String h,
-                                   BindingResult bindingResult, 
-                                   @RequestParam("file") MultipartFile file,
-                                   Model model) {
+								   @ModelAttribute("tipo") String t,
+								   @RequestParam("hora") String h,
+								   BindingResult bindingResult,
+								   @RequestParam("file") MultipartFile file,
+								   Model model,
+								   HttpSession session) {
 
         //if (bindingResult.hasErrors()){
 		//	return "redirect:/singup";
        // }
-    	
-    	
+
+
     	try {
             // Obtener el fichero y guardarlo
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(uploadDirectory + "images/" + actividad.getId_actividad() + ".jpg");
+            Path path = Paths.get(uploadDirectory + "images/" + actividad.getId_actividad() + actividad.getNombre() + ".jpg");
             Files.write(path, bytes);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-    	
-    	
+
+		MonitoresActividad monitoresActividad = new MonitoresActividad();
+		User user = (User)session.getAttribute("user");
+		Monitor monitor = monitorDao.getMonitorEmail(user.getEmail());
     	String[] hour = h.split(":");
     	
     	int hora = Integer.parseInt(hour[0]);
@@ -153,16 +166,21 @@ public class ActividadController {
         		idActividad = a.getId();
     		}
     	}	
-		
+
 		actividad.setId_tipoActividad(idActividad);
 		actividad.setEstado("abierta");
 		
         actividadDao.addActividad(actividad);
-        
-        
+
+
+        monitoresActividad.setId_actividad(actividad.getId_actividad());
+        monitoresActividad.setId_monitor(monitor.getId());
+        monitoresActividadDao.addActividad(monitoresActividad);
+
+
         //AÑADIR SERIALIZABLE PARA LA IMAGEN
         
-        String url = "/images/" + actividad.getId_actividad() + ".jpg";
+        String url = "/images/" + actividad.getId_actividad() + actividad.getNombre() + ".jpg";
         imgActDao.addImagen(actividad.getId_actividad(),actividad.getId_actividad(), url);
 
         return "redirect:/actividad/list";
@@ -211,7 +229,7 @@ public class ActividadController {
 	@RequestMapping(value="/actividadinfo/{id}", method=RequestMethod.GET)
 	public String pageActividad(Model model, @PathVariable int id) {
 		//System.out.println(id);
-		model.addAttribute("reseva", new Reserva());
+		model.addAttribute("reserva", new Reserva());
 		model.addAttribute("actividad", actividadDao.getActividad(id));
 		model.addAttribute("imgurl", imgActDao.getImageActividad(id).getUrl());
 		return "actividad/actividadinfo";
