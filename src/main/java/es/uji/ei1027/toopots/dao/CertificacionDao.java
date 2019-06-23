@@ -39,6 +39,12 @@ public class CertificacionDao {
         jdbcTemplate.update("UPDATE certificacion SET estado=? WHERE id_certificacion=?", cert.getEstado(), cert.getId_certificacion());
     }
 	
+	public void insertCertificacion(Certificacion cert) {
+		jdbcTemplate.update("Insert into certificacion values((select nextval('sec_certificacion')),?,?,?)",cert.getEstado(),cert.getId_monitor(), cert.getRutaCertificado());
+	}
+	
+	
+	
 	// Realiza operaciones con un objeto Certificacion
 	private void update(String sql, Certificacion cert){
 		jdbcTemplate.update(sql, cert.getId_certificacion(), cert.getEstado(), cert.getId_monitor(), cert.getRutaCertificado());

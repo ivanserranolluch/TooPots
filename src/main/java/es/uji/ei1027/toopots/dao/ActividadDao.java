@@ -15,7 +15,7 @@ import es.uji.ei1027.toopots.model.Actividad;
 public class ActividadDao {
 	
 	private final String ADD_ACT_SQL = "INSERT INTO Actividad VALUES "
-			+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			+ "((select nextval('sec_Actividad')), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
 	private final String GET_ALL_ACT_SQL = "SELECT id_actividad, nombre, descripcion, duracionDias, fecha,"
 			+ " precio, minAsistentes, maxAsistentes, lugar, puntoEncuento, horaEncuentro, textoCliente,"
@@ -36,6 +36,13 @@ public class ActividadDao {
 		update(ADD_ACT_SQL, act);
 	}
 	
+	public void insertActividad(Actividad act) {
+		jdbcTemplate.update("INSERT INTO Actividad VALUES "
+				+ "((select nextval('sec_Actividad')), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", act.getNombre(), act.getDescripcion(),
+				act.getDuracionDias(), act.getFecha(), act.getPrecio(), act.getMinAsistentes(),
+				act.getMaxAsistentes(), act.getLugar(), act.getPuntoEncuentro(), act.getHoraEncuentro(),
+				act.getTextoCliente(), act.getEstado(), act.getId_tipoActividad());
+	}
 	
 	
 	// Realiza operaciones con un objeto actividad

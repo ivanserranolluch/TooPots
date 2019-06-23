@@ -33,6 +33,7 @@ public class ActividadController {
 	private ImgActDao imgActDao;
 	private MonitoresActividadDao monitoresActividadDao;
 	private MonitorDao monitorDao;
+	private SerialActividadDao serialActividadDao;
 	
 	@Value("${upload.file.directory}")
     private String uploadDirectory;
@@ -47,6 +48,10 @@ public class ActividadController {
 		this.tipoActividadDao = tipoActividadDao; 
 	}
 
+	@Autowired
+	public void setSerialActividadDao(SerialActividadDao serialActividadDao) {
+		this.serialActividadDao = serialActividadDao; 
+	}
 	@Autowired
 	public void setImgActDao(ImgActDao imgActDao){
 		this.imgActDao=imgActDao;
@@ -132,7 +137,9 @@ public class ActividadController {
 		//	return "redirect:/singup";
        // }
 
-
+    SerialActividad s=	serialActividadDao.obtenerIdActUltima();
+    	actividad.setId_actividad(s.getSec_actividad()+1);
+    	
     	try {
             // Obtener el fichero y guardarlo
             byte[] bytes = file.getBytes();
@@ -165,7 +172,10 @@ public class ActividadController {
 		actividad.setId_tipoActividad(idActividad);
 		actividad.setEstado("abierta");
 		
-        actividadDao.addActividad(actividad);
+		
+		System.out.println("HOLA tio esto es el ID actividad monitor: "+actividad.getId_actividad());
+		actividadDao.insertActividad(actividad);
+        //actividadDao.addActividad(actividad);
 
 
         monitoresActividad.setId_actividad(actividad.getId_actividad());

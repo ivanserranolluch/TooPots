@@ -25,10 +25,12 @@ import es.uji.ei1027.toopots.dao.CertificacionDao;
 import es.uji.ei1027.toopots.dao.CertificacionMonitorDao;
 import es.uji.ei1027.toopots.dao.CertificacionesTipoActividadDao;
 import es.uji.ei1027.toopots.dao.MonitorDao;
+import es.uji.ei1027.toopots.dao.SerialDao;
 import es.uji.ei1027.toopots.model.Certificacion;
 import es.uji.ei1027.toopots.model.CertificacionMonitor;
 import es.uji.ei1027.toopots.model.CertificacionesTipoActividad;
 import es.uji.ei1027.toopots.model.Monitor;
+import es.uji.ei1027.toopots.model.Serial;
 import es.uji.ei1027.toopots.model.User;
 import es.uji.ei1027.toopots.service.MailService;
 
@@ -41,6 +43,7 @@ public class CertificacionMonitorController {
 	private CertificacionMonitorDao certificacionMonitorDao;
 	private MailService mailService;
 	private CertificacionesTipoActividadDao certificacionesTipoActividadDao;
+	private SerialDao serialDao;
 	
 	@Value("${upload.file.directory}")
     private String uploadDirectory;
@@ -54,6 +57,10 @@ public class CertificacionMonitorController {
     public void setCertificacionMonitorDao(CertificacionMonitorDao certificacionMonitorDao) {
         this.certificacionMonitorDao=certificacionMonitorDao;
     }
+	 @Autowired
+	    public void setSerialDao(SerialDao serialDao) {
+	        this.serialDao=serialDao;
+	    }
 	 
 	 @Autowired
 	    public void setCertificacionesTipoActividadDao(CertificacionesTipoActividadDao certificacionesTipoActividadDao) {
@@ -99,9 +106,12 @@ public class CertificacionMonitorController {
 	        if (bindingResult.hasErrors()){
 				return "redirect:/";
 	        }
-	        
+	        Serial s= serialDao.obtenerIdCertUltimo();
 	        User user= (User) session.getAttribute("user");
 	        Monitor m= monitorDao.getMonitorEmail(user.getEmail());
+	        
+	        certificacion.setId_certificacion(s.getSec_certificacion()+1);
+	        System.out.println(certificacion.getId_certificacion());
 	        	        
 	        try {
 	            // Obtener el fichero y guardarlo
@@ -118,8 +128,9 @@ public class CertificacionMonitorController {
 	        certificacion.setEstado("pendiente");
 	        certificacion.setRutaCertificado(""+uploadDirectory + "pdfs/" 
 	        		+user.getEmail() +"/" +certificacion.getId_certificacion());
-	        	
-	        certificacionDao.addCertificacion(certificacion);
+	        	System.out.println(certificacion.getRutaCertificado());
+	        certificacionDao.insertCertificacion(certificacion);
+	        
 	        certificacionesTipoActividadDao.addCertificacionesTipoActividad(new CertificacionesTipoActividad(certificacion.getId_certificacion(),Integer.parseInt(id)));
 	        
 	        return "certificacionMonitor/success";
