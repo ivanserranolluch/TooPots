@@ -17,8 +17,8 @@ import es.uji.ei1027.toopots.model.User;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Date;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Optional;
 
@@ -88,13 +88,19 @@ public class ReservaClienteActividadController {
 	public String deleteReserva(Model
 		model, @PathVariable String id) { 
 			ReservaClienteActividad r=reservaClienteActividadDao.getReservaClienteActividad(id);
-			Date fechaHoy= new Date();
-			Calendar calendar = new GregorianCalendar(r.getFechaActividad().getYear(), r.getFechaActividad().getMonth()-1, r.getFechaActividad().getDay());
-			java.sql.Date fecha = new java.sql.Date(calendar.getTimeInMillis());
-			int diasDiferencia = (int)(fechaHoy.getTime()-fecha.getTime());
-			System.out.println("%%%%%%%% Diferencia : "+diasDiferencia);
-			if (diasDiferencia>1000000000) {
-				reservaClienteActividadDao.deleteReserva(id);
+
+			Date fechaHoy = new Date(System.currentTimeMillis());
+
+			Date fecha = r.getFechaActividad();
+
+			long diferencia = Math.abs((fecha.getTime()-fechaHoy.getTime())/86400000);
+
+			System.out.println("%%%%%%%% Diferencia : " + diferencia);
+
+
+			if (diferencia > 10) {
+				//reservaClienteActividadDao.deleteReserva(id);
+                reservaClienteActividadDao.anulaReserva(id);
 				return "redirect:../listCliente";
 			}else {
 				return "redirect:../cancelacionCancelacion";

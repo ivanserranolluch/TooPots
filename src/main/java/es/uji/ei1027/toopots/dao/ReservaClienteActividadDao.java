@@ -37,6 +37,10 @@ public class ReservaClienteActividadDao {
 	public void deleteReserva(String id) {
         jdbcTemplate.update("DELETE FROM Reserva WHERE id_reserva=?", Integer.parseInt(id));
     }
+
+    public void anulaReserva(String id) {
+        jdbcTemplate.update("UPDATE Reserva SET estadoPago='anulada' WHERE id_reserva=?", Integer.parseInt(id));
+    }
 	
 	/* Obtiene una reserva de la base de datos */
 	public ReservaClienteActividad getReservaClienteActividad() {

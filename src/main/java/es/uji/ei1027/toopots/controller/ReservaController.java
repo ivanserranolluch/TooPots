@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 @RequestMapping("/reserva")
@@ -53,6 +54,21 @@ public class ReservaController {
         User user = (User) session.getAttribute("user");
         Cliente cliente = clienteDao.getClienteEmail(user.getEmail());
         reserva.setDni(cliente.getDni());
+
+        System.out.print("Enviando datos a la PPS...");
+        for (int i=0; i<5; i++){
+            System.out.print(".");
+
+            try {
+                TimeUnit.SECONDS.sleep((long)1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(" ");
+        System.out.println("Datos Correctos, guardando numero transaccion");
+        reserva.setEstadoPago("confirmada");
+
         reservaDao.addReserva(reserva);
         return "redirect:../success";
     }
