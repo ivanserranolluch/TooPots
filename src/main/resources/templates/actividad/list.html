@@ -40,13 +40,16 @@
 	        <td> <a th:text="${actividad.precio}"> </a> € </td>
 	        <td><a class="btn btn-info" th:href="@{/actividad/actividadinfo/{id}(id=${actividad.id_actividad})}"
 	                                                          style="color:white;">Ver</a></td>
-	        <td th:if="${session.user!=null}"><a class="btn btn-info" th:href="@{/reserva/add}"
+	        <td th:if="${session.user!=null and session.user.getTipoUsuario()!='admin'}"><a class="btn btn-info" th:href="@{/reserva/add}"
 	                                                          style="color:white;">Reservar</a></td>
 	        <td th:if="${session.user==null}"><a class="btn btn-info" th:href="@{/login}"
 	                                                          style="color:white;">Reservar</a></td>
 	    </tr>
 	    </tbody>
 	</table>
+    <div>
+        <a href="javascript:history.back()" class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom"> Volver </a>
+    </div>
 </div>
 </body>
 </html>

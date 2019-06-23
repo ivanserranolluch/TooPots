@@ -55,6 +55,7 @@ public class ReservaController {
         Cliente cliente = clienteDao.getClienteEmail(user.getEmail());
         reserva.setDni(cliente.getDni());
 
+        System.out.println(".......................");
         System.out.print("Enviando datos a la PPS...");
         for (int i=0; i<5; i++){
             System.out.print(".");
@@ -70,7 +71,7 @@ public class ReservaController {
         reserva.setEstadoPago("confirmada");
 
         reservaDao.addReserva(reserva);
-        return "redirect:../success";
+        return "redirect:/reservaClienteActividad/listCliente";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)

@@ -90,11 +90,13 @@ public class SessionController {
 		switch (tipoUsuario) {
 		
 		case "cliente":
-			links.add(makeLink("Actividades", "/actividad/list"));
+			links.add(makeLink("Actividades", "/actividad/actividades"));
+			links.add(makeLink("Mis reservas", "/reservaClienteActividad/listCliente"));
 			break;
 			
 		case "monitor":
-			
+            links.add(makeLink("Gestion reservas", "/reservaClienteActividad/listaux"));
+            links.add(makeLink("Mis actividades", "/actividad/listActividades"));
 			break;
 		
 		case "administrador":

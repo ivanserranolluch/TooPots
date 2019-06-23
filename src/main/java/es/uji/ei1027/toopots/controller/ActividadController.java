@@ -64,7 +64,7 @@ public class ActividadController {
 
 	@RequestMapping(value="/list", method=RequestMethod.GET) 
 	public String listActivities(Model model) {
-		model.addAttribute("actividades", actividadDao.getActividad()); 
+		model.addAttribute("actividades", actividadDao.getActividad());
 		return "actividad/list"; 
 	}
 	
@@ -178,7 +178,7 @@ public class ActividadController {
         String url = "/images/" + actividad.getId_actividad() + actividad.getNombre() + ".jpg";
         imgActDao.addImagen(actividad.getId_actividad(),actividad.getId_actividad(), url);
 
-        return "redirect:/actividad/list";
+        return "redirect:/actividad/listActividades";
     }
 
 

@@ -71,6 +71,11 @@ public class ReservaClienteActividadController {
 		return "reservaClienteActividad/list"; 
 	}
 
+	@RequestMapping(value="/listaux")
+    public String redirect(){
+        return "redirect:/reservaClienteActividad/list?mon=true";
+    }
+
 	@RequestMapping(value="/listCliente", method=RequestMethod.GET) 
 	public String listActivitiesCliente(Model model,
                                  @RequestParam("estado") Optional<Integer> estado, HttpSession session){
