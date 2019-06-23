@@ -227,7 +227,25 @@ public class ActividadController {
     //LISTAR ACTIVIDADES POR TIPO	
 	@RequestMapping(value="/listaActividadesPorTipo/{tipo}", method=RequestMethod.GET)
 	public String pageActividadesTipo(Model model, @PathVariable String tipo) {
-		model.addAttribute("actividades", actividadDao.getActividadPorTipo(tipo));
+
+
+	    List<Actividad> listaActividades = actividadDao.getActividadPorTipo(tipo);
+	    List<ImgAct> listaImgAct = new ArrayList<>();
+
+	    for(Actividad actividad : listaActividades){
+	        ImgAct aux = imgActDao.getImageActividad(actividad.getId_actividad());
+
+	        if(aux.getUrl().equals("")) {
+                aux.setId_actividad(actividad.getId_actividad());
+                aux.setUrl("/images/default.jpg");
+            }
+            listaImgAct.add(aux);
+        }
+
+
+		model.addAttribute("actividades", listaActividades);
+		model.addAttribute("tipo", tipo);
+        model.addAttribute("imagenes", listaImgAct);
 		return "actividad/listaActividadesPorTipo";
 	}
 
@@ -243,7 +261,7 @@ public class ActividadController {
 	@RequestMapping(value="/actividadInfoReserva/{id}", method=RequestMethod.GET)
 	public String pageActividadReserva(Model model, @PathVariable int id) {
 		//System.out.println(id);
-		
+
 		model.addAttribute("actividad", actividadDao.getActividad(id));
 		model.addAttribute("imgurl", imgActDao.getImageActividad(id).getUrl());
 		return "actividad/actividadInfoReserva";
