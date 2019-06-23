@@ -1,5 +1,6 @@
 package es.uji.ei1027.toopots.controller;
 
+import es.uji.ei1027.toopots.dao.MonitorDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +30,8 @@ public class ReservaClienteActividadController {
 	
 	private ReservaClienteActividadDao reservaClienteActividadDao;
 	private ClienteDao clienteDao;
-	
+	private MonitorDao monitorDao;
+
 	@Autowired
 	public void setReservaClienteActividadDao(ReservaClienteActividadDao reservaClienteActividadDao) {
 		this.reservaClienteActividadDao = reservaClienteActividadDao; 
@@ -38,18 +40,33 @@ public class ReservaClienteActividadController {
 	public void setClienteDao(ClienteDao clienteDao) {
 		this.clienteDao = clienteDao; 
 	}
+
+	@Autowired
+	public void setMonitorDao(MonitorDao monitorDao){
+		this.monitorDao=monitorDao;
+	}
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET) 
 	public String listActivities(Model model,
-                                 @RequestParam("estado") Optional<Integer> estado){
+                                 @RequestParam("estado") Optional<Integer> estado,
+								@RequestParam("mon") Optional<Boolean> monitor,
+								 HttpSession session){
 
-	    if (estado.orElse(-1) == 1){
-            model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservaClienteActividadPendientes());
-        }else if (estado.orElse(-1) == 2){
-            model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservaClienteActividadAceptadas());
-        }else{
-	        model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservas());
-        }
+		if (monitor.orElse(false)){
+			User user = (User) session.getAttribute("user");
+			String email = user.getEmail();
+			model.addAttribute("reservasActividad", reservaClienteActividadDao.getReservasMonitor(monitorDao.getMonitorEmail(email).getId()));
+
+		}else {
+
+			if (estado.orElse(-1) == 1) {
+				model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservaClienteActividadPendientes());
+			} else if (estado.orElse(-1) == 2) {
+				model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservaClienteActividadAceptadas());
+			} else {
+				model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservas());
+			}
+		}
 
 		return "reservaClienteActividad/list"; 
 	}

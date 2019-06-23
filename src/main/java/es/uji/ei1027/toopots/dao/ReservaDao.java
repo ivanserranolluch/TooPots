@@ -38,6 +38,10 @@ public class ReservaDao {
         		reserva.getEstadoPago(), reserva.getFecha(), reserva.getNumAsistentes(), reserva.getPrecioPersona(),
         			reserva.getNumTransacciones(), reserva.getId_actividad(), reserva.getDni(), reserva.getId_reserva());
     }
+
+    public void updateEstado(int id, String estadoPago){
+	    jdbcTemplate.update("Update reserva SET estadoPago=? WHERE id_reserva=?", estadoPago, id);
+    }
 	
 	/* Borra las reservas a la base de datos */
 	public void deleteReserva(String id) {

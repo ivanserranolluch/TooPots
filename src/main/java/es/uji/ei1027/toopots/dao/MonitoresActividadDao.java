@@ -50,4 +50,13 @@ public class MonitoresActividadDao {
         }
     }
 
+    public List<MonitoresActividad> getActividadesMonitor(String id){
+    	try{
+    		return jdbcTemplate.query("SELECT * FROM monitoresactividad WHERE id_monitor=?", new MonitoresActividadRowMapper(), id);
+		}
+		catch(EmptyResultDataAccessException e) {
+			return new ArrayList<MonitoresActividad>();
+		}
+	}
+
 }

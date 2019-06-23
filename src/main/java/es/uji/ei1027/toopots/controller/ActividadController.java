@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 import es.uji.ei1027.toopots.dao.*;
 import es.uji.ei1027.toopots.model.*;
@@ -68,11 +69,6 @@ public class ActividadController {
 	}
 	
 	//Nuevo
-	@RequestMapping(value="/listActividades", method=RequestMethod.GET) 
-	public String listActivitiesMonitor(Model model) {
-		model.addAttribute("actividades", actividadDao.getActividad()); 
-		return "monitor/listActividades"; 
-	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public String getActividad(Model model, @PathVariable int id){
@@ -243,6 +239,21 @@ public class ActividadController {
 		return "actividad/actividadInfoReserva";
 	}
 
+	@RequestMapping(value="/listActividades", method=RequestMethod.GET)
+	public String listActivitiesMonitor(Model model, HttpSession session) {
+		//Añadir excepcion
+		User user = (User) session.getAttribute("user");
+		Monitor monitor = monitorDao.getMonitorEmail(user.getEmail());
+		List<MonitoresActividad> ma =  monitoresActividadDao.getActividadesMonitor(monitor.getId());
+		List<Actividad> actividades =  new ArrayList<>();
+		for (MonitoresActividad aux : ma){
+			actividades.add(actividadDao.getActividad(aux.getId_actividad()));
+		}
+
+		model.addAttribute("actividades", actividades);
+		return "actividad/listActividades";
+	}
+
 	@RequestMapping(value="/kayak") 
 	public String pageKayak(Model model) {
 		return "actividad/kayak"; 
@@ -267,6 +278,8 @@ public class ActividadController {
 	public String pageActividades(Model model) {
 		return "actividad/actividades"; 
 	}
+
+
 	
 	
 	

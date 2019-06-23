@@ -40,8 +40,8 @@
 	                                                          style="color:white;">Ver</a></td> -->
 	        <td th:if="${session.user!=null}"><a class="btn btn-info" th:href="@{/actividad/update/{id}(id=${actividad.id_actividad})}"
 	                                                          style="color:white;">Editar</a></td>
-	        <td ><a class="btn btn-danger" th:href="@{/actividad/delete/{id}(id=${actividad.id_actividad})}"
-	                                                          style="color:white;">Eliminar</a></td>
+	        <td th:if="${session.user!=null}"><a class="btn btn-danger" th:href="@{/actividad/delete/{id}(id=${actividad.id_actividad})}"
+	                                                          style="color:white;">Anular</a></td>
 	    </tr>
 	    </tbody>
 	</table>
