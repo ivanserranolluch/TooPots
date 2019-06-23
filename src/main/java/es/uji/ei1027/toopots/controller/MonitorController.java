@@ -86,7 +86,7 @@ public class MonitorController {
 		user.setTipoUsuario("monitor");
 		
 		monitor.setEstado("pendiente");
-        	
+
         monitorDao.addMonitor(monitor);
         userDao.addUsuario(user);
         
@@ -118,7 +118,7 @@ public class MonitorController {
         if (action.equals("vacio")) {
 			action = monitor.getEstado();
 		}
-        
+
 
         if (action.equals("aceptada"))
             monitor.setEstado("aceptada");
@@ -126,6 +126,7 @@ public class MonitorController {
             monitor.setEstado("rechazada");
 
 
+        monitor.setUrlImg("/fotosUsuarios/default.jpg");
         monitorDao.updateMonitor(monitor);
         
         if (monitor.getEstado().equals("aceptada")) {

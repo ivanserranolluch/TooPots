@@ -86,4 +86,15 @@ public class ActividadDao {
 		}
 	}
 
+	public List<Actividad> getActividadesMonitor(String id) {
+		try {
+			return jdbcTemplate.query("SELECT id_actividad, nombre, descripcion, duracionDias, fecha," +
+					" precio, minAsistentes, maxAsistentes, lugar, puntoEncuento, horaEncuentro, textoCliente," +
+					"estado, id_tipoactividad FROM actividad WHERE id_", new ActividadRowMapper(), id);
+		}
+		catch(EmptyResultDataAccessException e) {
+			return new ArrayList<Actividad>();
+		}
+	}
+
 }

@@ -73,17 +73,16 @@
                 </div>
 
 
-                <div th:if="${session.user!=null}" class="w3-container" style="margin-top: 6%">
+                <div th:if="${session.user!=null and session.user.getTipoUsuario()!='admin'}" class="w3-container" style="margin-top: 6%">
                     <input type="submit"  value="Reservar" th:href="@{/reserva/add}"
                            class="w3-button w3-block w3-light-grey w3-margin-bottom w3-wide w3-padding-large">
-                    <a href="javascript:history.back()" class="w3-btn w3-block w3-pale-green w3-margin-bottom w3-wide w3-padding-large"> Volver </a>
                 </div>
             </form>
             <div th:if="${session.user==null}" class="w3-container" style="margin-top: 6%">
                 <a th:href="@{/login}"
                    class="w3-button w3-block w3-light-grey w3-margin-bottom w3-wide w3-padding-large">Reservar</a>
-                <a href="javascript:history.back()" class="w3-btn w3-block w3-pale-green w3-margin-bottom w3-wide w3-padding-large"> Volver </a>
             </div>
+            <a href="javascript:history.back()" class="w3-btn w3-block w3-pale-green w3-margin-bottom w3-wide w3-padding-large"> Volver </a>
         </div>
     </div>
 </div>

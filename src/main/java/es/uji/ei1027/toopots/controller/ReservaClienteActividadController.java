@@ -1,5 +1,6 @@
 package es.uji.ei1027.toopots.controller;
 
+import es.uji.ei1027.toopots.dao.MonitorDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +17,8 @@ import es.uji.ei1027.toopots.model.User;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Date;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Optional;
 
@@ -29,7 +30,8 @@ public class ReservaClienteActividadController {
 	
 	private ReservaClienteActividadDao reservaClienteActividadDao;
 	private ClienteDao clienteDao;
-	
+	private MonitorDao monitorDao;
+
 	@Autowired
 	public void setReservaClienteActividadDao(ReservaClienteActividadDao reservaClienteActividadDao) {
 		this.reservaClienteActividadDao = reservaClienteActividadDao; 
@@ -38,21 +40,41 @@ public class ReservaClienteActividadController {
 	public void setClienteDao(ClienteDao clienteDao) {
 		this.clienteDao = clienteDao; 
 	}
+
+	@Autowired
+	public void setMonitorDao(MonitorDao monitorDao){
+		this.monitorDao=monitorDao;
+	}
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET) 
 	public String listActivities(Model model,
-                                 @RequestParam("estado") Optional<Integer> estado){
+                                 @RequestParam("estado") Optional<Integer> estado,
+								@RequestParam("mon") Optional<Boolean> monitor,
+								 HttpSession session){
 
-	    if (estado.orElse(-1) == 1){
-            model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservaClienteActividadPendientes());
-        }else if (estado.orElse(-1) == 2){
-            model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservaClienteActividadAceptadas());
-        }else{
-	        model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservas());
-        }
+		if (monitor.orElse(false)){
+			User user = (User) session.getAttribute("user");
+			String email = user.getEmail();
+			model.addAttribute("reservasActividad", reservaClienteActividadDao.getReservasMonitor(monitorDao.getMonitorEmail(email).getId()));
+
+		}else {
+
+			if (estado.orElse(-1) == 1) {
+				model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservaClienteActividadPendientes());
+			} else if (estado.orElse(-1) == 2) {
+				model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservaClienteActividadAceptadas());
+			} else {
+				model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservas());
+			}
+		}
 
 		return "reservaClienteActividad/list"; 
 	}
+
+	@RequestMapping(value="/listaux")
+    public String redirect(){
+        return "redirect:/reservaClienteActividad/list?mon=true";
+    }
 
 	@RequestMapping(value="/listCliente", method=RequestMethod.GET) 
 	public String listActivitiesCliente(Model model,
@@ -71,13 +93,19 @@ public class ReservaClienteActividadController {
 	public String deleteReserva(Model
 		model, @PathVariable String id) { 
 			ReservaClienteActividad r=reservaClienteActividadDao.getReservaClienteActividad(id);
-			Date fechaHoy= new Date();
-			Calendar calendar = new GregorianCalendar(r.getFechaActividad().getYear(), r.getFechaActividad().getMonth()-1, r.getFechaActividad().getDay());
-			java.sql.Date fecha = new java.sql.Date(calendar.getTimeInMillis());
-			int diasDiferencia = (int)(fechaHoy.getTime()-fecha.getTime());
-			System.out.println("%%%%%%%% Diferencia : "+diasDiferencia);
-			if (diasDiferencia>1000000000) {
-				reservaClienteActividadDao.deleteReserva(id);
+
+			Date fechaHoy = new Date(System.currentTimeMillis());
+
+			Date fecha = r.getFechaActividad();
+
+			long diferencia = Math.abs((fecha.getTime()-fechaHoy.getTime())/86400000);
+
+			System.out.println("%%%%%%%% Diferencia : " + diferencia);
+
+
+			if (diferencia > 10) {
+				//reservaClienteActividadDao.deleteReserva(id);
+                reservaClienteActividadDao.anulaReserva(id);
 				return "redirect:../listCliente";
 			}else {
 				return "redirect:../cancelacionCancelacion";

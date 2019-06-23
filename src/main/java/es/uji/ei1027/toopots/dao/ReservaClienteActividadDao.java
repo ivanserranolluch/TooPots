@@ -37,6 +37,10 @@ public class ReservaClienteActividadDao {
 	public void deleteReserva(String id) {
         jdbcTemplate.update("DELETE FROM Reserva WHERE id_reserva=?", Integer.parseInt(id));
     }
+
+    public void anulaReserva(String id) {
+        jdbcTemplate.update("UPDATE Reserva SET estadoPago='anulada' WHERE id_reserva=?", Integer.parseInt(id));
+    }
 	
 	/* Obtiene una reserva de la base de datos */
 	public ReservaClienteActividad getReservaClienteActividad() {
@@ -106,6 +110,20 @@ public class ReservaClienteActividadDao {
 							"c.fechanacimiento, c.sexo, r.id_Reserva, r.estadopago, r.numasistentes, r.preciopersona " +
 							"FROM cliente c join reserva r using(dni) join actividad a using(id_Actividad) where c.dni =?",
 						new ReservaClienteActividadRowMapper(),dni);
+		}
+		catch(EmptyResultDataAccessException e) {
+			return new ArrayList<ReservaClienteActividad>();
+		}
+	}
+
+	public List<ReservaClienteActividad> getReservasMonitor(String dni) {
+		try {
+			return jdbcTemplate.query("SELECT id_actividad, a.nombre as nombreActividad, a.descripcion, a.duraciondias, " +
+							"a.fecha as fechaActividad, a.precio, a.minasistentes, a.maxasistentes, a.lugar, a.puntoencuento, " +
+							"a.textocliente, a.estado, a.id_tipoactividad, c.nombre as nombreCliente, c.dni, c.email, " +
+							"c.fechanacimiento, c.sexo, r.id_Reserva, r.estadopago, r.numasistentes, r.preciopersona " +
+							"FROM cliente c join reserva r using(dni) join actividad a using(id_Actividad) JOIN monitoresactividad ma USING(id_actividad) where ma.id_monitor =?",
+					new ReservaClienteActividadRowMapper(), dni);
 		}
 		catch(EmptyResultDataAccessException e) {
 			return new ArrayList<ReservaClienteActividad>();

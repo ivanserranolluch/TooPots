@@ -1,7 +1,7 @@
 package es.uji.ei1027.toopots.model;
 
 import java.sql.Time;
-import java.util.Date;
+import java.sql.Date;
 
 public class ReservaClienteActividad {
 	

@@ -12,7 +12,7 @@
 <body>
 <div th:replace="/common/navbar" >...</div>
 
-<div th:if="${#lists.isEmpty(reservasClienteActividad)}">
+<div th:if="${#lists.isEmpty(reservasClienteActividad) and #lists.isEmpty(reservasActividad)}">
     No hay reservas en la base de datos
 </div>
 <div class="container">
@@ -69,8 +69,65 @@
 	    </tr>
 	    </tbody>
 	</table>
-	
-	<a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" href="/monitor/lobby" style="color:white;">Volver</a>
+
+	<table th:unless="${#lists.isEmpty(reservasActividad)}" class="table table-striped">
+		<thead>
+		<tr>
+
+			<th>Nombre Actividad</th>
+			<th>Fecha</th>
+			<th>Lugar</th>
+			<th>Nombre Cliente</th>
+			<th>Correo Cliente</th>
+			<th>Numero Asistentes</th>
+			<th>Precio Total</th>
+			<th>Asistentes Minimos</th>
+			<th>Asistentes Maximos</th>
+			<th>Estado</th>
+
+		</tr>
+		</thead>
+		<tbody>
+
+		<tr th:each="reserva: ${reservasActividad}" >
+
+
+			<td th:text="${reserva.nombreActividad}" ></td>
+			<td th:text="${reserva.fechaActividad}" ></td>
+			<td th:text="${reserva.lugar}" ></td>
+			<td th:text="${reserva.nombreCliente}" ></td>
+			<td th:text="${reserva.email}" ></td>
+			<td th:text="${reserva.numAsistentes}"></td>
+			<td th:text="${reserva.precio} * ${reserva.numAsistentes}" ></td>
+			<td th:text="${reserva.minAsistentes}"></td>
+			<td th:text="${reserva.maxAsistentes}"></td>
+			<td th:text="${reserva.estadoPago}" ></td>
+
+			<form action="#" th:action="@{/reserva/update/{id}(id=${reserva.id_reserva})}"
+				   method="post" enctype="multipart/form-data">
+
+
+				<td>
+                    <div>
+                        <input type="submit" class="w3-btn w3-pale-green w3-margin-top w3-margin-bottom w3-margin-right" th:name="action" th:value="aceptar" th:if="${reserva.estadoPago} == confirmada">
+                    </div>
+                </td>
+			</form>
+
+			<!--  <td th:text="${monitor.id}" th:class="${strings.equals(busca,monitor.id)}? 'bg-secondary text-blue'"></td>
+                  <td th:text="${monitor.nombre}" th:class="${strings.equals(busca,monitor.nombre)}? 'bg-secondary text-blue'"></td>
+                  <td th:text="${monitor.domicilio}" th:class="${strings.equals(busca,monitor.domicilio)}? 'bg-secondary text-blue'"></td>
+                  <td th:text="${monitor.email}" th:class="${strings.equals(busca,monitor.email)}? 'bg-secondary text-blue'"></td>
+                  <td th:text="${monitor.iban}" th:class="${strings.equals(busca,monitor.iban)}? 'bg-secondary text-blue'"></td>
+                  <td th:text="${monitor.estado}"th:class="${strings.equals(busca,monitor.estado)}? 'bg-secondary text-blue'"></td>
+             -->
+
+		</tr>
+		</tbody>
+	</table>
+
+    <a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" href="javascript:history.back()" style="color:white;">Volver</a>
+
 </div>
 </body>
 </html>
