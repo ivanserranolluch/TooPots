@@ -22,8 +22,8 @@
 
 
 			<div class="w3-container">
-                <label for="nombre">Id_tipoActividad</label>
-                <input class="w3-input w3-section w3-border" type="number" th:field="*{id}" required>
+                <!--  <label for="nombre">Id_tipoActividad</label>-->
+                <input class="w3-input w3-section w3-border" type="hidden" th:field="*{id}" required>
 
             </div>
 
@@ -34,7 +34,7 @@
             </div>
 
             <div class="w3-container">
-                <label for="adr">Email</label>
+                <label for="adr">Nivel</label>
                 <input class="w3-input w3-section w3-border"  type="text" th:field="*{nivel}" placeholder="medio" required>
 
             </div>
