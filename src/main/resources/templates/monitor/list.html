@@ -17,7 +17,7 @@
 </div>
 <div class="container">
 	<div class="w3-container w3-padding-64" id="projects">
-    	<h1 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center w3-wide">Listado de monitores</h1>
+    	<h1 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center w3-wide" th:text="${'Listado monitores ' }"></h1>
     	
     	<form class="form-inline w3-margin-top" action="#" th:action="@{/monitor/list}">
     		<input class="form-control" type="search" name="busca" placeholder="Busqueda por nombre">
@@ -60,14 +60,14 @@
 			<td><a class="w3-button w3-round w3-medium w3-pale-blue w3-text-black w3-hover-blue" th:href="@{/monitor/pdf/{id}(id=${monitor.id})}"
 				   style="color:white;">Ver pdf</a></td>
 
-			<td><a class="w3-button w3-round w3-medium w3-pale-blue w3-text-black w3-hover-blue" th:href="@{/monitor/update/{id}(id=${monitor.id})}"
+			<td><a class="w3-button w3-round w3-medium w3-light-blue w3-text-black w3-hover-blue" th:href="@{/monitor/update/{id}(id=${monitor.id})}"
 	                                                          style="color:white;">Editar</a></td>
 
 	    </tr>
 	    </tbody>
 	</table>
 <!--	<a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" href="add" style="color:white;">Añade monitor</a> -->
-    <a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" href="/administrador/lobby" style="color:white;">Volver</a>
+    <a class="w3-button w3-round w3-medium w3-black w3-hover-grey w3-margin-bottom" href="/administrador/lobby">Volver</a>
 </div>
 </body>
 </html>

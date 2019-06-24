@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="w3-container">
-                    <a>Num transccion</a>
+                    <a>Num transacción</a>
                     <input th:type="number" th:field="*{numTransacciones}" class="form-control input_pass w3-input w3-section w3-border" placeholder="Lo envio la plataforma de pago" required>
                 </div>
 
@@ -80,9 +80,13 @@
             </form>
             <div th:if="${session.user==null}" class="w3-container" style="margin-top: 6%">
                 <a th:href="@{/login}"
-                   class="w3-button w3-block w3-light-grey w3-margin-bottom w3-wide w3-padding-large">Reservar</a>
+                   class="w3-button w3-block w3-pale-green w3-hover-green w3-wide w3-padding-large">Reservar</a>
             </div>
-            <a href="javascript:history.back()" class="w3-btn w3-block w3-pale-green w3-margin-bottom w3-wide w3-padding-large"> Volver </a>
+            
+            <div class="w3-container" style="margin-top: 6%">
+                <a href="javascript:history.back()" class="w3-button w3-block w3-grey w3-hover-light-grey  w3-margin-bottom w3-wide w3-padding-large"> Volver </a>
+            </div>
+            
         </div>
     </div>
 </div>

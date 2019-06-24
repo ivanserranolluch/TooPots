@@ -7,8 +7,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.uji.ei1027.toopots.dao.*;
-import es.uji.ei1027.toopots.model.*;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -21,8 +21,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.jws.soap.SOAPBinding;
-import javax.servlet.http.HttpSession;
+import es.uji.ei1027.toopots.dao.ActividadDao;
+import es.uji.ei1027.toopots.dao.ImgActDao;
+import es.uji.ei1027.toopots.dao.MonitorDao;
+import es.uji.ei1027.toopots.dao.MonitoresActividadDao;
+import es.uji.ei1027.toopots.dao.SerialActividadDao;
+import es.uji.ei1027.toopots.dao.TipoActividadDao;
+import es.uji.ei1027.toopots.model.Actividad;
+import es.uji.ei1027.toopots.model.ImgAct;
+import es.uji.ei1027.toopots.model.Monitor;
+import es.uji.ei1027.toopots.model.MonitoresActividad;
+import es.uji.ei1027.toopots.model.Reserva;
+import es.uji.ei1027.toopots.model.SerialActividad;
+import es.uji.ei1027.toopots.model.TipoActividad;
+import es.uji.ei1027.toopots.model.User;
 
 @Controller
 @RequestMapping("/actividad")
@@ -303,7 +315,8 @@ public class ActividadController {
 	}
 	
 	@RequestMapping(value="/actividades") 
-	public String pageActividades(Model model) {
+	public String pageActividades(Model model, HttpSession session) {
+		model.addAttribute("session",session);
 
 	    List<TipoActividad> listaTipos = tipoActividadDao.getTiposActividadesNoVacios();
 	    List<ImgAct> listaImg = new ArrayList<>();
@@ -333,19 +346,5 @@ public class ActividadController {
 
 	    return "actividad/actividades";
 	}
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

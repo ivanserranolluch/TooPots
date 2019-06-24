@@ -17,7 +17,7 @@
 </div>
 <div class="container">
 	<div class="w3-container w3-padding-64" id="projects">
-    	<h1 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center w3-wide">Listado de Tipos de Actividades</h1>
+    	<h1 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center w3-wide">Listado Tipos de Actividades</h1>
     	
     
     	
@@ -49,15 +49,15 @@
 	   
 			<td><a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" th:href="@{/tipoActividadCertificacionMonitor/list/{id}(id=${ta.id})}" style="color:white;">Gestionar Certificaciones</a></td>
 			-->
-			<td><a class="w3-button w3-round w3-medium w3-pale-blue w3-text-black w3-hover-blue" th:href="@{/tipoActividad/update/{id}(id=${ta.id})}"
-	                                                          style="color:white;">Editar</a></td>
-	        <td><a onclick="return confirm('¿Seguro que quieres borrar el monitor?')" class="w3-button w3-round w3-medium w3-pale-red w3-text-black w3-hover-red " th:href="@{/tipoActividad/delete/{id}(id=${ta.id})}"
-	                                                            style="color:white;">Borrar</a></td>
+			<td><a class="w3-button w3-round w3-medium w3-light-blue w3-text-black w3-hover-blue" th:href="@{/tipoActividad/update/{id}(id=${ta.id})}"
+	                                                          >Editar</a></td>
+	        <td><a onclick="return confirm('¿Seguro que quieres borrar el tipo de actividad?')" class="w3-button w3-round w3-medium w3-pale-red w3-text-black w3-hover-red " th:href="@{/tipoActividad/delete/{id}(id=${ta.id})}"
+	                                                            >Borrar</a></td>
 	    </tr>
 	    </tbody>
 	</table>
 	<a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" href="add" style="color:white;">Nuevo Tipo Actividad</a>
-    <a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" href="/administrador/lobby" style="color:white;">Volver</a>
+    <a class="w3-button w3-round w3-medium w3-black w3-hover-grey w3-margin-bottom w3-margin-left" href="/administrador/lobby" style="color:white;">Volver</a>
 </div>
 </body>
 </html>

@@ -26,9 +26,12 @@ p{
 <div class="container">
    <div class="w3-padding-64 w3-center">
      <h1 th:text="${'Bienvenido a tu perfil ' + session.nombre}" ></h1>
+          
      <img th:src="${monitor.urlImg}" class="w3-margin w3-circle" style="width:20%;" alt="Person" >
+    
+     
      <div class="w3-left-align w3-padding-large">
-       <p> Aqui puedes modificar tus datos </p>
+       <p> <b>Aqui puedes modificar tus datos</b> </p>
 
      <form action="#" th:action="@{/monitor/perfil/update/{id}(id=${monitor.id})}"
 	      th:object="${monitor}" method="post" enctype="multipart/form-data">
@@ -76,11 +79,9 @@ p{
             
             
             <div class="w3-container w3-margin-top">
-                <input type="submit" class=" w3-btn w3-pale-green w3-margin-top w3-margin-bottom w3-margin-right w3-hover-green" value="Modificar datos"/>
-                <a href="javascript:history.back()" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black w3-hover-red"> Volver</a>
+                <input type="submit" class=" w3-button w3-pale-green w3-margin-top w3-margin-bottom w3-margin-right w3-hover-green" value="Modificar datos"/>
+                <a href="javascript:history.back()" class="w3-button w3-black w3-margin-top w3-margin-bottom w3-hover-grey"> Volver</a>
             </div>
-            
-            
             
 		</div>
 	</form>
