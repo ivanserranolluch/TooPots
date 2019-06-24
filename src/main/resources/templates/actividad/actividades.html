@@ -21,11 +21,10 @@
 </div>
 
 <div class="container" th:unless="${#lists.isEmpty(tipos)}">
-    <div class="w3-row-padding">
+	
+    <div class="w3-row-padding" >
 
         <div class="w3-col l3 m6 w3-margin-bottom" th:each="tipo : ${tipos}">
-
-
                 <div class="w3-display-container" th:each="imagen : ${imagenes}" th:if="${imagen.id_actividad == tipo.id}">
                     <p>
                         <a th:href="@{/actividad/listaActividadesPorTipo/{nombre}(nombre=${tipo.nombre})}">
@@ -42,6 +41,7 @@
         </div>
 
     </div>
+    
     <div th:if="${session?.user == 'true'}" class="w3-container" >
    		<a th:href="@{/}" class="w3-button w3-round w3-medium w3-black w3-hover-grey w3-margin-bottom w3-margin-left">Volver</a>
 	</div>
