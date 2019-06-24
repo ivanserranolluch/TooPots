@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
+</head>
+<body>
+	<div th:replace="/common/navbar" >...</div>
+	
+	<div class="container">
+		<div class="w3-container">
+	        <h1 class="w3-border-bottom w3-border-light-grey w3-padding-64 w3-margin-top"> <b>Problema</b> </h1>
+	    </div>
+	    
+		<div class="w3-panel w3-pale-green w3-border ">
+	  		<div class="w3-container">
+	        	<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-margin-top">Tipo de Actividad ya existente</h3>
+	        	
+	        	<p>EL tipo de Actividad Introducido ya existe, pruebe con otro</p>
+	  			<p>Presione el botón para acceder para volver a añadir otro tipo de actividad</p>
+	  		
+	  			<a href="/tipoActividad/add" class="w3-button w3-round w3-medium w3-green w3-text-white w3-hover-green w3-margin-bottom w3-margin-top"> Acceder </a>
+	    	</div>
+	  	
+		</div>
+	</div>
+	
+</body>
+
+</html>
