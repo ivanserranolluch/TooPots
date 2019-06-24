@@ -142,7 +142,7 @@ public class ReservaClienteActividadDao {
 							"a.textocliente, a.estado, a.id_tipoactividad, c.nombre as nombreCliente, c.dni, c.email, " +
 							"c.fechanacimiento, c.sexo, r.id_Reserva, r.estadopago, r.numasistentes, r.preciopersona " +
 							"FROM cliente c join reserva r using(dni) join actividad a using(id_Actividad) JOIN monitoresactividad ma USING(id_actividad) where ma.id_monitor =?" +
-							"ORDER BY a.precio",
+							"ORDER BY a.precio DESC ",
 					new ReservaClienteActividadRowMapper(), dni);
 		}
 		catch(EmptyResultDataAccessException e) {

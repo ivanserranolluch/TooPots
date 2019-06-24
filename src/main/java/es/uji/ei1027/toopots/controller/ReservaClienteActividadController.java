@@ -1,6 +1,7 @@
 package es.uji.ei1027.toopots.controller;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
@@ -49,21 +50,21 @@ public class ReservaClienteActividadController {
 								@RequestParam(value="order", defaultValue="nada") String ordenar,
 								 HttpSession session){
 
-		System.out.println(ordenar);
-		System.out.println(monitor);
+
 		if (monitor.orElse(false)){
 			User user = (User) session.getAttribute("user");
 			String email = user.getEmail();
 			model.addAttribute("titulo", "Listado de reservas");
 			
-			if (ordenar == "fecha") {
+			if (ordenar.equals("fecha")) {
 				model.addAttribute("reservasActividad", reservaClienteActividadDao.getReservasMonitorFecha(monitorDao.getMonitorEmail(email).getId()));
 
-			} else if (ordenar == "precio") {
+			} else if (ordenar.equals("precio")) {
 				model.addAttribute("reservasActividad", reservaClienteActividadDao.getReservasMonitorPrecio(monitorDao.getMonitorEmail(email).getId()));
 
 			}
-			else if (ordenar == "estado") {
+			else if (ordenar.equals("estado")) {
+			    List<ReservaClienteActividad> lista =  reservaClienteActividadDao.getReservasMonitorEstado(monitorDao.getMonitorEmail(email).getId());
 				model.addAttribute("reservasActividad", reservaClienteActividadDao.getReservasMonitorEstado(monitorDao.getMonitorEmail(email).getId()));
 
 			} else {
