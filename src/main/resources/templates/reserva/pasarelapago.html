@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pasarela de pago</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></head>
+    
+<body>
+
+<div th:replace="/common/navbar" >...</div>
+
+<div class="row ">
+  <div class="col-50 ">
+    <div class="w3-diplay-container w3-margin-bottom" style="max-height:2000px;">
+      <form action="#">
+        <div class="w3-row">
+          <div class="w3-col w3-container m6">
+            <div class="w3-container">
+                <h3 class="w3-border-bottom w3-border-light-grey w3-padding-64 w3-margin-top">Introduce tus datos</h3>
+            </div>
+            <div class="w3-container">
+                <label for="fname"><i class="fa fa-user"></i> Nombre y apellidos</label>
+                <input class="w3-input w3-section w3-border" type="text" id="fname" name="firstname" placeholder="John M. Doe" required>
+                <br>
+            </div>
+            
+            <div class="w3-container">
+                <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                <input class="w3-input w3-section w3-border"  type="text" id="email" name="email" placeholder="john@ejemplo.com" required>
+                <br>
+            </div>
+            
+            <div class="w3-container">
+                <label for="adr"><i class="fa fa-address-card-o"></i> Dirección</label>
+                <input class="w3-input w3-section w3-border"  type="text" id="adr" name="address" placeholder="Calle xxxx" required>
+                <br>
+            </div>
+            
+            <div class="w3-container">
+                <label for="city"><i class="fa fa-institution"></i> Ciudad</label>
+                <input class="w3-input w3-section w3-border"  type="text" id="city" name="city" placeholder="Castellón" required>
+            </div>
+          </div>
+
+          <div class="w3-col w3-container m6 ">
+            <div class="w3-container">
+                <h3 class="w3-border-bottom w3-border-light-grey w3-padding-64 w3-margin-top ">Realizar pago</h3>
+            </div>
+            <div class="w3-container">
+                <label for="cname">Nombre de la tarjeta</label>
+                <input class="w3-input w3-section w3-border"  type="text" id="cname" name="cardname" placeholder="John More Doe" required>
+                <br>
+            </div>
+            
+            <div class="w3-container">
+                <label for="ccnum">Número de la tarjeta</label>
+                <input class="w3-input w3-section w3-border"  type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required>
+                <br>
+            </div>
+            
+            <div class="w3-container">
+                <label for="expmonth">Caduda en</label>
+                <input class="w3-input w3-section w3-border" type="text" id="expmonth" name="expmonth" placeholder="September" required>
+                <br>
+            </div>
+            
+            <div class="w3-row-padding">
+              <div class="w3-third">
+                <label for="expyear">Año de expiración</label>
+                <input class="w3-input w3-section w3-border" type="text" id="expyear" name="expyear" placeholder="2018" required>
+              </div>
+              <div class="w3-third">
+                <label for="cvv">CVV</label>
+                <input class="w3-input w3-section w3-border"  type="text" id="cvv" name="cvv" placeholder="352" required>
+              </div>
+            </div>
+            <div class="w3-container">
+                <button class="w3-button w3-pale-green w3-hover-green w3-section" type="submit">Realizar pago</button>
+            </div>
+          </div>          
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
