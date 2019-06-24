@@ -1,6 +1,6 @@
 package es.uji.ei1027.toopots.model;
 
-import org.springframework.context.annotation.Bean;
+import es.uji.ei1027.toopots.controller.DescuentoController;
 
 public class DescuentoManager {
 	
@@ -32,9 +32,9 @@ public class DescuentoManager {
 	}
 	
 	private static void settingDescuentos(){
-		Descuento d = new Descuento();
-		d.setDiscountValue(0.5f);
-		dm.setDescuento(d);
+		for(Descuento descuento: DescuentoController.getDiscounts()){
+			dm.setDescuento(descuento);
+		}
 	}
 
 }

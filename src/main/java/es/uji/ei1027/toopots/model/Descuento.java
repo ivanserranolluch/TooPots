@@ -23,7 +23,7 @@ public class Descuento {
 		return price;
 	}
 	
-	private boolean isValidDiscount(Cliente cliente){
+	private boolean isValidDiscount(Cliente cliente){;
 		Method method = getMethod(cliente, field);
 		String clientValue = invokeMethod(cliente, method);
 		return value.equals(clientValue);
@@ -58,7 +58,12 @@ public class Descuento {
 	}
 
 	public void setAnotherDiscount(Descuento anotherDiscount) {
-		this.anotherDiscount = anotherDiscount;
+		if(this.anotherDiscount == null){
+			this.anotherDiscount = anotherDiscount;
+		} else {
+			this.anotherDiscount.setAnotherDiscount(anotherDiscount);
+		}
+		
 	}
 	
 	
@@ -66,7 +71,7 @@ public class Descuento {
 		Method method = null;
 		methodName = "get" + methodName;
 		try {
-		  method = cliente.getClass().getMethod(methodName);
+		  method = cliente.getClass().getMethod("getSexo", null);
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {

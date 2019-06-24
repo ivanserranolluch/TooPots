@@ -22,12 +22,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.uji.ei1027.toopots.dao.ActividadDao;
+import es.uji.ei1027.toopots.dao.ClienteDao;
 import es.uji.ei1027.toopots.dao.ImgActDao;
 import es.uji.ei1027.toopots.dao.MonitorDao;
 import es.uji.ei1027.toopots.dao.MonitoresActividadDao;
 import es.uji.ei1027.toopots.dao.SerialActividadDao;
 import es.uji.ei1027.toopots.dao.TipoActividadDao;
 import es.uji.ei1027.toopots.model.Actividad;
+import es.uji.ei1027.toopots.model.Cliente;
 import es.uji.ei1027.toopots.model.ImgAct;
 import es.uji.ei1027.toopots.model.Monitor;
 import es.uji.ei1027.toopots.model.MonitoresActividad;
@@ -46,6 +48,12 @@ public class ActividadController {
 	private MonitoresActividadDao monitoresActividadDao;
 	private MonitorDao monitorDao;
 	private SerialActividadDao serialActividadDao;
+	private ClienteDao clienteDao;
+	
+	@Autowired
+	public void setClienteDao(ClienteDao clienteDao) {
+		this.clienteDao=clienteDao;
+	}
 	
 	@Value("${upload.file.directory}")
     private String uploadDirectory;
@@ -170,7 +178,8 @@ public class ActividadController {
     	int hora = Integer.parseInt(hour[0]);
     	int minuto = Integer.parseInt(hour[1]);
     	
-    	java.sql.Time timeValue = new java.sql.Time(hora, minuto, 00);
+    	@SuppressWarnings("deprecation")
+		java.sql.Time timeValue = new java.sql.Time(hora, minuto, 00);
     	
     	actividad.setHoraEncuentro(timeValue);
     	
@@ -242,7 +251,7 @@ public class ActividadController {
     
     //LISTAR ACTIVIDADES POR TIPO	
 	@RequestMapping(value="/listaActividadesPorTipo/{tipo}", method=RequestMethod.GET)
-	public String pageActividadesTipo(Model model, @PathVariable String tipo) {
+	public String pageActividadesTipo(Model model, @PathVariable String tipo, HttpSession session) {
 
 
 	    List<Actividad> listaActividades = actividadDao.getActividadPorTipo(tipo);
@@ -257,6 +266,16 @@ public class ActividadController {
             }
             listaImgAct.add(aux);
         }
+	    
+        User user = (User) session.getAttribute("user");
+        if (user != null){
+        	Cliente cliente = clienteDao.getClienteEmail(user.getEmail());
+            
+            for (Actividad act: listaActividades){
+            	act.setCliente(cliente);
+            }
+        }
+        
 
 
 		model.addAttribute("actividades", listaActividades);
