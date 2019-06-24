@@ -92,6 +92,7 @@ public class SessionController {
 		case "cliente":
 			links.add(makeLink("Actividades", "/actividad/actividades"));
 			links.add(makeLink("Mis reservas", "/reservaClienteActividad/listCliente"));
+			links.add(makeLink("Ofertas", "/descuento/all"));
 			break;
 			
 		case "monitor":
