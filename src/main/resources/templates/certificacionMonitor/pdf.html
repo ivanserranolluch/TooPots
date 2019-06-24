@@ -25,7 +25,7 @@
             <input type="hidden" th:value="${certificacion.domicilio}" th:field="*{domicilio}" />
           
             <input type="submit"  th:name="action"  th:field="*{estado}" th:value="'aceptada'"  class="w3-button w3-round w3-medium w3-pale-green w3-hover-green w3-margin-bottom w3-margin-top w3-margin-right" />
-            <input type="submit"  th:name="action"  th:field="*{estado}" th:value="'rechazada'"  class="w3-button w3-round w3-medium w3-pale-red w3-hover-red w3-margin-bottom w3-margin-top w3-margin-right" href="javascript:history.back())" />
+            <input onclick="return confirm('¿Seguro que quieres recharaz la certificacion del monitor para ese tipo de actividad?')"  type="submit"  th:name="action"  th:field="*{estado}" th:value="'rechazada'"  class="w3-button w3-round w3-medium w3-pale-red w3-hover-red w3-margin-bottom w3-margin-top w3-margin-right" href="javascript:history.back())" />
          	
          	<a class="w3-button w3-round w3-medium w3-black w3-hover-grey w3-margin-left " href="javascript:history.back()"
                style="color:white;">Volver</a>
