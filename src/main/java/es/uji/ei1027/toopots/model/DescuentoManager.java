@@ -1,5 +1,7 @@
 package es.uji.ei1027.toopots.model;
 
+import es.uji.ei1027.toopots.controller.DescuentoController;
+
 public class DescuentoManager {
 	
 	private static DescuentoManager dm;
@@ -30,11 +32,9 @@ public class DescuentoManager {
 	}
 	
 	private static void settingDescuentos(){
-		Descuento d = new Descuento();
-		d.setDiscountValue(0.5f);
-		d.setField("Sexo");
-		d.setValue("M");
-		dm.setDescuento(d);
+		for(Descuento descuento: DescuentoController.getDiscounts()){
+			dm.setDescuento(descuento);
+		}
 	}
 
 }

@@ -58,7 +58,12 @@ public class Descuento {
 	}
 
 	public void setAnotherDiscount(Descuento anotherDiscount) {
-		this.anotherDiscount = anotherDiscount;
+		if(this.anotherDiscount == null){
+			this.anotherDiscount = anotherDiscount;
+		} else {
+			this.anotherDiscount.setAnotherDiscount(anotherDiscount);
+		}
+		
 	}
 	
 	
