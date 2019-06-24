@@ -232,7 +232,11 @@ public class ActividadController {
     //BORRAR ACTIVIDAD
     @RequestMapping(value="/delete/{id}")
     public String deleteActividad(Model model, @PathVariable String id) {
-        actividadDao.deleteActividad(Integer.parseInt(id));
+	    try {
+            actividadDao.deleteActividad(Integer.parseInt(id));
+        }catch (Exception e){
+	        return "/errores/monitorDeleteActividad";
+        }
         return "/actividad/list";
     }
     

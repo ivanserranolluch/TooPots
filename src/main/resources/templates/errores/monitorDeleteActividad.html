@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+</head>
+<body>
+<div th:replace="/common/navbar" >...</div>
+
+<div class="container">
+    <div class="w3-container">
+        <h1 class="w3-border-bottom w3-border-light-grey w3-padding-64 w3-margin-top"> <b>Problema</b> </h1>
+    </div>
+
+    <div class="w3-panel w3-red w3-border ">
+        <div class="w3-container">
+            <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-margin-top">No se puede borrar la actividad, ya existen reservas</h3>
+
+            <p>Para borrar presente a un encargado el motivo de esta decisión</p>
+            <p>Presione el botón para volver al lobby</p>
+
+            <a href="/monitor/lobby" class="w3-button w3-round w3-medium w3-green w3-text-white w3-hover-green w3-margin-bottom w3-margin-top"> Volver </a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+
+</html>
