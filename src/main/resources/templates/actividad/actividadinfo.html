@@ -77,7 +77,7 @@
 
                 <div class="w3-container">
                     <label class="w3-margin-top w3-wide" >Asistentes</label>
-                    <input th:type="number" th:min="${actividad.minAsistentes}" th:max="${actividad.maxAsistentes}" th:field="*{numAsistentes}" class="form-control input_pass w3-input w3-section w3-border" value=1 required>
+                    <input th:type="number" min="1" th:max="${actividad.maxAsistentes}" th:field="*{numAsistentes}" class="form-control input_pass w3-input w3-section w3-border" value=1 required>
                 </div>
 
                 <div class="w3-container">
