@@ -135,8 +135,8 @@
 		</tbody>
 	</table>
 
-    <a class="w3-button w3-round w3-medium w3-black w3-hover-grey w3-margin-bottom" href="javascript:history.back()" style="color:white;">Volver</a>
-
+    <a th:if="${session.user.getTipoUsuario() == 'admin'}" class="w3-button w3-round w3-medium w3-black w3-hover-grey w3-margin-bottom" href="javascript:history.back()" style="color:white;">Volver</a>
+    <a th:if="${session.user.getTipoUsuario() != 'admin'}" class="w3-button w3-round w3-medium w3-black w3-hover-grey w3-margin-bottom" href="/monitor/lobby" style="color:white;">Volver</a>
 </div>
 </body>
 </html>
