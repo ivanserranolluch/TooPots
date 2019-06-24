@@ -56,15 +56,18 @@ public class ReservaClienteActividadController {
 			User user = (User) session.getAttribute("user");
 			String email = user.getEmail();
 			model.addAttribute("reservasActividad", reservaClienteActividadDao.getReservasMonitor(monitorDao.getMonitorEmail(email).getId()));
+			
 
 		}else {
 
 			if (estado.orElse(-1) == 1) {
 				//model.addAttribute("states","pendientes");
 				model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservaClienteActividadPendientes());
+				model.addAttribute("titulo", "Listado de reservas pendientes");
 			} else if (estado.orElse(-1) == 2) {
 				//model.addAttribute("states","aceptados");
 				model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservaClienteActividadAceptadas());
+				model.addAttribute("titulo", "Listado de reservas aceptadas");
 			} else {
 
 				model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservas());

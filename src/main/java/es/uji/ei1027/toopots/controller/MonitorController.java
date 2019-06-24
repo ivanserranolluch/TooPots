@@ -198,6 +198,7 @@ public class MonitorController {
             model.addAttribute("pen", "0");
             session.setAttribute("bus", 0);
             //model.addAttribute("states","aceptados");
+            model.addAttribute("titulo","Listado monitores en activo");
             
             
         }else if(pen.orElse(1) == 1) {
@@ -205,6 +206,7 @@ public class MonitorController {
             model.addAttribute("pen", "1");
             session.setAttribute("pen", 1);
             //model.addAttribute("states","pendientes");
+            model.addAttribute("titulo","Solicitudes de monitores");
 
 
             
@@ -213,7 +215,8 @@ public class MonitorController {
             session.setAttribute("pen", 2);
             //model.addAttribute("states","rechazados");
 
-            model.addAttribute("state", monitorDao.getMonitoresRechazados());
+            model.addAttribute("monitores", monitorDao.getMonitoresRechazados());
+            model.addAttribute("titulo","Listado monitores rechazados");
         }
         
         return "monitor/list";
