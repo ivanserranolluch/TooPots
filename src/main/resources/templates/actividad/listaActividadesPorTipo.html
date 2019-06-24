@@ -56,39 +56,12 @@
 
             </div>
         </div>
+        <div class="w3-container w3-margin-left">
+    		<a class="w3-button w3-round w3-medium w3-black w3-hover-grey w3-margin-bottom" href="/actividad/actividades" style="color:white;">Volver</a>
+    	</div>
     </div>
-<<<<<<< HEAD
-    <table th:unless="${#lists.isEmpty(actividades)}" class="table table-striped">
-        <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Fecha</th>
-            <th>Duración</th>
-            <th>Lugar</th>
-            <th>Precio</th>
-            <th> </th>
-            <th> </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="actividad : ${actividades}">
-            <td th:text="${actividad.nombre}"></td>
-            <td th:text="${actividad.fecha}"></td>
-            <td> <a th:text="${actividad.duracionDias}"> </a> Dias</td>
-            <td th:text="${actividad.lugar}"></td>
-            <td> <a th:text="${actividad.precio}"> </a> € </td>
-            <td><a class="w3-button w3-round w3-medium w3-pale-blue w3-text-black w3-hover-blue" th:href="@{/actividad/actividadinfo/{id}(id=${actividad.id_actividad})}"
-                   style="color:white;">Ver</a></td>
-            <td th:if="${session.user!=null}"><a class="w3-button w3-round w3-medium w3-light-blue w3-text-black w3-hover-blue" th:href="@{/actividad/actividadinfo/{id}(id=${actividad.id_actividad})}"
-                                                 style="color:white;">Reservar</a></td>
-            <td th:if="${session.user==null}"><a class="w3-button w3-round w3-medium w3-light-blue w3-text-black w3-hover-blue" th:href="@{/login}"
-                                                 style="color:white;">Reservar</a></td>
-        </tr>
-        </tbody>
-        
-    </table>
     
-   <a class="w3-button w3-round w3-medium w3-black w3-hover-grey w3-margin-bottom" href="/actividad/actividades" style="color:white;">Volver</a>
+
 </div>
 
 </body>
