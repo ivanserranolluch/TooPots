@@ -29,9 +29,16 @@
             
             
             <div class="w3-container">
-                <label for="city">Nivel</label>
-                <input class="w3-input w3-section w3-border"  type="text" th:field="*{nivel}" maxlength="50" placeholder="medio" >
-            </div>
+	            <label for="city">Nivel</label>
+		        <select class="custom-select w3-margin-bottom w3-margin-top" name="tipo" th:field="*{nivel}"  >
+					<option value="----- Elige el nivel -----" selected="selected" disabled="disabled">----- Elige el nivel -----</option >
+					<option value="extremo" >Extremo</option>
+					<option value="alto" >Alto</option>
+					<option value="medio" >Medio</option>
+					<option value="bajo" >Bajo</option>
+					
+				</select>
+	    	</div>
             
             
             

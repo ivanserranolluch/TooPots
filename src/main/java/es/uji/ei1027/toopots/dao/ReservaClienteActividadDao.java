@@ -67,7 +67,7 @@ public class ReservaClienteActividadDao {
 					"a.textocliente, a.estado, a.id_tipoactividad, c.nombre as nombreCliente, c.dni, c.email, " +
 					"c.fechanacimiento, c.sexo, r.id_Reserva, r.estadopago, r.numasistentes, r.preciopersona " +
 					"FROM cliente c join reserva r using(dni) join actividad a using(id_Actividad) " +
-					"where r.estadoPago='pendiente'", new ReservaClienteActividadRowMapper());
+					"where r.estadoPago='confirmada'", new ReservaClienteActividadRowMapper());
         }catch (EmptyResultDataAccessException e){
 			return new ArrayList<ReservaClienteActividad>();
         }
