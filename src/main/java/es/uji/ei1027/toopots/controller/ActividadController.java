@@ -235,7 +235,7 @@ public class ActividadController {
 	    for(Actividad actividad : listaActividades){
 	        ImgAct aux = imgActDao.getImageActividad(actividad.getId_actividad());
 
-	        if(aux.getUrl().equals("")) {
+	        if(aux.getUrl().equals(" ")) {
                 aux.setId_actividad(actividad.getId_actividad());
                 aux.setUrl("/images/default.jpg");
             }
@@ -304,7 +304,34 @@ public class ActividadController {
 	
 	@RequestMapping(value="/actividades") 
 	public String pageActividades(Model model) {
-		return "actividad/actividades"; 
+
+	    List<TipoActividad> listaTipos = tipoActividadDao.getTiposActividadesNoVacios();
+	    List<ImgAct> listaImg = new ArrayList<>();
+	    
+	    if(listaTipos.isEmpty()){
+	        model.addAttribute("tipos", listaTipos);
+            return "actividad/actividades";
+        }
+
+        ImgAct auxImg;
+        List<ImgAct> aux;
+        for(TipoActividad tipo : listaTipos){
+            aux = imgActDao.getImageTipoActividad(tipo.getNombre());
+            if(aux.isEmpty()){
+                auxImg = new ImgAct();
+                auxImg.setId_actividad(tipo.getId());
+                auxImg.setUrl("/images/default.jpg");
+            }else{
+                auxImg = aux.get(0);
+                auxImg.setId_actividad(tipo.getId());
+            }
+            listaImg.add(auxImg);
+        }
+
+        model.addAttribute("tipos", listaTipos);
+        model.addAttribute("imagenes", listaImg);
+
+	    return "actividad/actividades";
 	}
 
 

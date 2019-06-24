@@ -59,4 +59,13 @@ public class TipoActividadDao {
             return  new ArrayList<TipoActividad>();
         }
     }
+
+    public List<TipoActividad> getTiposActividadesNoVacios() {
+        try{
+            return jdbcTemplate.query("select DISTINCT(t.id_tipoactividad), t.nombre, t.nivel from actividad a join tipoactividad t using(id_tipoactividad);",
+                    new TipoActividadRowMapper());
+        }catch (EmptyResultDataAccessException e){
+            return  new ArrayList<TipoActividad>();
+        }
+    }
 }

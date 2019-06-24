@@ -51,7 +51,9 @@ public class ImgActDao {
 		try{
 			return jdbcTemplate.queryForObject("SELECT DISTINCT(id_actividad), url, id_imagen FROM imgact where id_actividad=?", new ImgActRowMapper(), id);
 		}catch (EmptyResultDataAccessException e){
-			return new ImgAct();
+		    ImgAct vacia = new ImgAct();
+		    vacia.setUrl(" ");
+			return vacia;
 		}
 	}
 
