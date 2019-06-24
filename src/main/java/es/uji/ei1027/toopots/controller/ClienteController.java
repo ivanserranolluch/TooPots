@@ -1,5 +1,7 @@
 package es.uji.ei1027.toopots.controller;
 
+import java.util.Optional;
+
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import es.uji.ei1027.toopots.dao.ClienteDao;
 import es.uji.ei1027.toopots.dao.UsuariosRegistradosDao;
@@ -33,7 +36,16 @@ public class ClienteController {
 	}
 	
 	@RequestMapping("/list")
-	public String listCliente(Model model) {
+	public String listCliente(Model model, @RequestParam("busca") Optional<String> busca) {
+		
+		String buscar = busca.orElse("None");
+    	
+    	if (!buscar.isEmpty()) {
+    		model.addAttribute("busca", buscar);
+    	} else {
+    		//No se como NO COLOREAR si se pone vacio
+    		model.addAttribute("busca", "|");
+    	}
 		model.addAttribute("clientes",clienteDao.getClientes());
 		return "cliente/list";
 	}
