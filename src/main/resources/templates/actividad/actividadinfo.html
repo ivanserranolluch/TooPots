@@ -28,7 +28,34 @@
             <header class="w3-container">
                 <h5 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-wide w3-center">Elige tu experiencia</h5>
             </header>
+            
+            <div class="w3-cell-row">
 
+			    <div class="w3-container w3-cell">
+			    	<label class="w3-margin-top w3-wide">Fecha</label>
+                	<input type="text" th:value="${actividad.fecha}" class="form-control input_user w3-input w3-section w3-border" readonly>
+                	
+                	<label class="w3-margin-top w3-wide" >Duración</label>
+                	<input type="text" th:value="${actividad.duracionDias + ' hora/s'}" class="form-control input_pass w3-input w3-section w3-border" readonly>
+			   		
+			   		<label class="w3-margin-top w3-wide" >Mínimo de Asistentes</label>
+                	<input type="text" th:value="${actividad.minAsistentes}" class="form-control input_pass w3-input w3-section w3-border" readonly>
+			    </div>
+			
+			    <div class="w3-container w3-cell">
+			    	<label class="w3-margin-top w3-wide">Hora</label>
+                	<input type="text" th:value="${actividad.horaEncuentro}" class="form-control input_user w3-input w3-section w3-border" readonly>
+                	
+                	<label class="w3-margin-top w3-wide" >Punto encuentro</label>
+                	<input type="text" th:value="${actividad.puntoEncuentro}" class="form-control input_pass w3-input w3-section w3-border" readonly>
+                	
+                	<label class="w3-margin-top w3-wide" >Máximo de Asistentes</label>
+                	<input type="text" th:value="${actividad.maxAsistentes}" class="form-control input_pass w3-input w3-section w3-border" readonly>
+			    	
+			    </div>
+		
+			</div>
+<!-- 
             <div class="w3-container">
                 <label class="w3-margin-top w3-wide">Fecha</label>
                 <input type="text" th:value="${actividad.fecha + ' a las ' + actividad.horaEncuentro}"  class="form-control input_user w3-input w3-section w3-border" readonly>
@@ -44,7 +71,7 @@
                 <label class="w3-margin-top w3-wide" >Encuentro</label>
                 <input type="text" th:value="${'Punto de encuentro en ' + actividad.puntoEncuentro + ' a las ' + actividad.horaEncuentro}" class="form-control input_pass w3-input w3-section w3-border" readonly>
             </div>
-
+ -->
             <form action="#" th:action="@{/reserva/add}"
                   th:object="${reserva}" method="post" enctype="multipart/form-data">
 
@@ -60,7 +87,7 @@
                 </div>
 
                 <div class="w3-container">
-                    <a>Num transacción</a>
+                    <a class="w3-margin-top w3-wide"> <b>Num transacción</b> </a>
                     <input th:type="number" th:field="*{numTransacciones}" class="form-control input_pass w3-input w3-section w3-border" placeholder="Lo envio la plataforma de pago" required>
                 </div>
 
@@ -75,7 +102,7 @@
 
                 <div th:if="${session.user!=null and session.user.getTipoUsuario()!='admin'}" class="w3-container" style="margin-top: 6%">
                     <input type="submit"  value="Reservar" th:href="@{/reserva/add}"
-                           class="w3-button w3-block w3-light-grey w3-margin-bottom w3-wide w3-padding-large">
+                           class="w3-button w3-block w3-pale-green w3-hover-green w3-wide w3-padding-large">
                 </div>
             </form>
             <div th:if="${session.user==null}" class="w3-container" style="margin-top: 6%">
