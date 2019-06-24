@@ -285,7 +285,8 @@ public class ActividadController {
 	}
 	
 	@RequestMapping(value="/actividades") 
-	public String pageActividades(Model model) {
+	public String pageActividades(Model model, HttpSession session) {
+		model.addAttribute("session",session);
 		return "actividad/actividades"; 
 	}
 

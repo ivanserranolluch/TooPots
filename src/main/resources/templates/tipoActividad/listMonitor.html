@@ -17,7 +17,7 @@
 </div>
 <div class="container">
 	<div class="w3-container w3-padding-64" id="projects">
-    	<h1 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center w3-wide">Selecciona el tipo de actividad para el que quieres certificarte</h1>
+    	<h1 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center w3-wide">Selecciona el tipo de actividad para la que quieres certificarte</h1>
     	
     
     	
@@ -47,13 +47,13 @@
 	        <td th:text="${monitor.iban}" th:class="${strings.equals(busca,monitor.iban)}? 'bg-secondary text-blue'"></td>
 	        <td th:text="${monitor.estado}"th:class="${strings.equals(busca,monitor.estado)}? 'bg-secondary text-blue'"></td>
 	   -->
-			<td><a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" th:href="@{/certificacionMonitor/add/{id}(id=${ta.id})}" style="color:white;">Gestionar Certificaciones</a></td>
+			<td><a class="w3-button w3-round w3-medium w3-light-blue w3-hover-blue w3-margin-bottom" th:href="@{/certificacionMonitor/add/{id}(id=${ta.id})}" style="color:white;">Gestionar Certificaciones</a></td>
 			
 	    </tr>
 	    </tbody>
 	</table>
 	
-	<a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" href="/monitor/lobby" style="color:white;">Volver</a>
+	<a class="w3-button w3-round w3-medium w3-black w3-hover-grey w3-margin-bottom" href="/monitor/lobby" style="color:white;">Volver</a>
 </div>
 </body>
 </html>

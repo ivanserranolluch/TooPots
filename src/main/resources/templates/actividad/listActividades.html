@@ -9,11 +9,14 @@
 <body>
 <div th:replace="/common/navbar" >...</div>
 
-<h1>Lista de actividades</h1>
 <div th:if="${#lists.isEmpty(actividades)}">
 	    No hay actividades disponibles en estos momentos
 </div>
 
+<div class="container">
+	<div class="w3-container w3-padding-64" id="projects">
+    	<h1 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center w3-wide">Lista de actividades</h1>
+    </div>	
 	<table th:unless="${#lists.isEmpty(actividades)}" class="table table-striped">
 	    <thead>
 	    <tr>
@@ -38,16 +41,19 @@
 	
 	       <!--  <td><a class="btn btn-info" th:href="@{/actividad/{id}(id=${actividad.id_actividad})}"
 	                                                          style="color:white;">Ver</a></td> -->
-	        <td th:if="${session.user!=null}"><a class="btn btn-info" th:href="@{/actividad/update/{id}(id=${actividad.id_actividad})}"
+	        <td th:if="${session.user!=null}"><a class="w3-button w3-round w3-medium w3-pale-blue w3-text-black w3-hover-blue" th:href="@{/actividad/update/{id}(id=${actividad.id_actividad})}"
 	                                                          style="color:white;">Editar</a></td>
-	        <td th:if="${session.user!=null}"><a class="btn btn-danger" th:href="@{/actividad/delete/{id}(id=${actividad.id_actividad})}"
+	        <td th:if="${session.user!=null}"><a class="w3-button w3-round w3-medium w3-pale-red w3-text-black w3-hover-red" th:href="@{/actividad/delete/{id}(id=${actividad.id_actividad})}"
 	                                                          style="color:white;">Anular</a></td>
 	    </tr>
 	    </tbody>
 	</table>
-	<div class="col-sm-3"></div>
-   		<a class=" btn btn-danger col-sm-1" href="/"> Volver </a>
-    <div class="col-sm-4"></div>
-	<a class="btn btn-success" th:href="@{/actividad/add}" style="color:white;">Añadir Actividad</a>
+	<div class="w3-container">
+		<a class="w3-button w3-medium w3-pale-green w3-hover-green w3-margin-bottom" th:href="@{/actividad/add}">Añadir Actividad</a>
+		<a class="w3-button w3-medium w3-black w3-hover-grey w3-margin-bottom w3-margin-left" href="/"> Volver </a>
+		
+   </div>
+	
+</div>
 </body>
 </html>

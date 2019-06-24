@@ -60,10 +60,13 @@ public class ReservaClienteActividadController {
 		}else {
 
 			if (estado.orElse(-1) == 1) {
+				//model.addAttribute("states","pendientes");
 				model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservaClienteActividadPendientes());
 			} else if (estado.orElse(-1) == 2) {
+				//model.addAttribute("states","aceptados");
 				model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservaClienteActividadAceptadas());
 			} else {
+
 				model.addAttribute("reservasClienteActividad", reservaClienteActividadDao.getReservas());
 			}
 		}

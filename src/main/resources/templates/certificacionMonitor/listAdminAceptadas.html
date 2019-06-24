@@ -47,12 +47,12 @@
 	        
 	        <td th:text="${certificacion.domicilio}"></td>
 	       
-	        <td><a class="btn btn-info" th:href="@{/certificacionMonitor/pdf2/{id}(id=${certificacion.id_certificacion})}"
-	                                                          style="color:white;">Ver pdf</a></td>  
+	        <td><a class="w3-button w3-round w3-medium w3-pale-blue w3-text-black w3-hover-blue" th:href="@{/certificacionMonitor/pdf2/{id}(id=${certificacion.id_certificacion})}"
+	                                                          >Ver pdf</a></td>  
 	    </tr>
 	    </tbody>
 	</table>
-    <a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" href="/administrador/lobby" style="color:white;">Volver</a>
+    <a class="w3-button w3-round w3-medium w3-black w3-hover-grey w3-margin-bottom" href="/administrador/lobby" >Volver</a>
 </div>
 </body>
 </html>

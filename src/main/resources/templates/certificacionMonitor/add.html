@@ -14,22 +14,21 @@
  
   <form action="#" th:action="@{/certificacionMonitor/add/{id}(id=${id_tipoActividad})}"
           th:object="${certificacionMonitor}" method="post" enctype="multipart/form-data">
-          
-          <br><br><br><br><br>
-          <h1 class="w3-container">Añade el pdf de la certificación para su posteriór evaluación</h1>
-          <br><br>
+       
+         
       <div class="container ">
-            
-
            
-
-            <div class="w3-container">
+           <div class="w3-container">
+               <h1 class="w3-border-bottom w3-border-light-grey w3-padding-64 w3-margin-top">Añade el pdf de la certificación para su posterior evaluación</h1>
+            </div>
+                    
+            <div class="w3-container w3-margin-top">
                 <!-- <label class="w3-cell w3-margin-right">Id Certificacion</label> -->
                 <input class="w3-input w3-section w3-border" type="hidden" th:field="*{id_certificacion}" maxlength="60" placeholder="Avenida xxxxx" required>
             </div>
 
 
-            <div class="w3-container">
+            <div class="w3-container w3-margin-top">
                 <label class="w3-cell w3-margin-right">Curriculum Vitae</label>
                 <div class="w3-cell w3-margin-left ">
                     <input class="w3-margin-left" type="file" name="file" id="file" required>
@@ -38,9 +37,9 @@
             
            
 
-            <div class="w3-container">
-                <input type="submit" class=" w3-btn w3-pale-green w3-margin-top w3-margin-bottom w3-margin-right" value="Añadir certificacion"/>
-                <a href="/monitor/lobby" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black"> Volver</a>                
+            <div class="w3-container w3-margin-top">
+                <input type="submit" class=" w3-button w3-pale-green w3-hover-green w3-margin-top w3-margin-bottom w3-margin-right" value="Añadir certificacion"/>
+                <a href="/monitor/lobby" class="w3-button w3-pale-red w3-hover-red w3-margin-top w3-margin-bottom w3-text-black"> Volver</a>                
             </div>
             
     </div>
