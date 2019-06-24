@@ -14,7 +14,7 @@
 <div class="row ">
   <div class="col-50 ">
     <div class="w3-diplay-container w3-margin-bottom" style="max-height:2000px;">
-      <form action="#">
+      <form action="#" th:action="@{/reserva/add}" method="post" enctype="multipart/form-data" th:object="${reserva}">
         <div class="w3-row">
           <div class="w3-col w3-container m6">
             <div class="w3-container">
@@ -56,7 +56,7 @@
             
             <div class="w3-container">
                 <label for="ccnum">Número de la tarjeta</label>
-                <input class="w3-input w3-section w3-border"  type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required>
+                <input class="w3-input w3-section w3-border"  type="number" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required>
                 <br>
             </div>
             
@@ -69,13 +69,16 @@
             <div class="w3-row-padding">
               <div class="w3-third">
                 <label for="expyear">Año de expiración</label>
-                <input class="w3-input w3-section w3-border" type="text" id="expyear" name="expyear" placeholder="2018" required>
+                <input class="w3-input w3-section w3-border" type="date" id="expyear" name="expyear" placeholder="2018" required>
               </div>
               <div class="w3-third">
                 <label for="cvv">CVV</label>
-                <input class="w3-input w3-section w3-border"  type="text" id="cvv" name="cvv" placeholder="352" required>
+                <input class="w3-input w3-section w3-border"  min="000" max="999" type="number" id="cvv" name="cvv" placeholder="352" required>
               </div>
             </div>
+              <input th:type="hidden" id="numAsistentes" name="numAsistentes" th:value="${aux.numAsistentes}"></input>
+              <input th:type="hidden" id="id_actividad" name="id_actividad" th:value="${aux.id_actividad}"></input>
+              <input th:type="hidden" id="precioPersona" name="precioPersona" th:value="${aux.precioPersona}"></input>
             <div class="w3-container">
                 <button class="w3-button w3-pale-green w3-hover-green w3-section" type="submit">Realizar pago</button>
             </div>

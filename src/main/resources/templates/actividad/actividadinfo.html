@@ -72,23 +72,12 @@
                 <input type="text" th:value="${'Punto de encuentro en ' + actividad.puntoEncuentro + ' a las ' + actividad.horaEncuentro}" class="form-control input_pass w3-input w3-section w3-border" readonly>
             </div>
  -->
-            <form action="#" th:action="@{/reserva/add}"
-                  th:object="${reserva}" method="post" enctype="multipart/form-data">
+            <form th:action="@{'/../../reserva/pasarelapago'}"
+                  th:object="${reserva}" method="" enctype="multipart/form-data">
 
                 <div class="w3-container">
                     <label class="w3-margin-top w3-wide" >Asistentes</label>
                     <input th:type="number" th:min="${actividad.minAsistentes}" th:max="${actividad.maxAsistentes}" th:field="*{numAsistentes}" class="form-control input_pass w3-input w3-section w3-border" value=1 required>
-                </div>
-
-
-                <div class="w3-container">
-                  <!--   <a>Id reserva</a> -->
-                    <input th:type="hidden" th:field="*{id_reserva}" class="form-control input_pass w3-input w3-section w3-border" placeholder="Cambiar a serial" required>
-                </div>
-
-                <div class="w3-container">
-                    <a class="w3-margin-top w3-wide"> <b>Num transacción</b> </a>
-                    <input th:type="number" th:field="*{numTransacciones}" class="form-control input_pass w3-input w3-section w3-border" placeholder="Lo envio la plataforma de pago" required>
                 </div>
 
                 <div class="w3-container">
@@ -100,11 +89,12 @@
                 </div>
 
 
-                <div th:if="${session.user!=null and session.user.getTipoUsuario()!='admin'}" class="w3-container" style="margin-top: 6%">
-                    <input type="submit"  value="Reservar" th:href="@{/reserva/add}"
+                <div th:if="${session.user!=null and session.user.getTipoUsuario() !='admin'}" class="w3-container" style="margin-top: 6%">
+                    <input type="submit"  value="Reservar" th:href="@{/pasarelapago/{res}(res=${reserva})}"
                            class="w3-button w3-block w3-pale-green w3-hover-green w3-wide w3-padding-large">
                 </div>
             </form>
+
             <div th:if="${session.user==null}" class="w3-container" style="margin-top: 6%">
                 <a th:href="@{/login}"
                    class="w3-button w3-block w3-pale-green w3-hover-green w3-wide w3-padding-large">Reservar</a>

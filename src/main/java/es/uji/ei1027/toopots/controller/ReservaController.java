@@ -4,6 +4,8 @@ import es.uji.ei1027.toopots.dao.ClienteDao;
 import es.uji.ei1027.toopots.model.Actividad;
 import es.uji.ei1027.toopots.model.Cliente;
 import es.uji.ei1027.toopots.model.User;
+import es.uji.ei1027.toopots.service.Payment;
+import es.uji.ei1027.toopots.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +44,22 @@ public class ReservaController {
         return "reserva/add";
     }
 
+
+    @RequestMapping(value = "/pasarelapago", method=RequestMethod.GET)
+    public String procesoPago(Model model,
+            @RequestParam("numAsistentes") int numAsis,
+            @RequestParam("precioPersona") double precio,
+            @RequestParam("id_actividad") int id){
+
+        Reserva reserva = new Reserva();
+        reserva.setId_actividad(id);
+        reserva.setPrecioPersona(precio);
+        reserva.setNumAsistentes(numAsis);
+        model.addAttribute("reserva", new Reserva());
+        model.addAttribute("aux", reserva);
+        return "/reserva/pasarelapago";
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("reserva") Reserva reserva, HttpSession session,
                                    BindingResult bindingResult) {
@@ -56,17 +74,10 @@ public class ReservaController {
         reserva.setDni(cliente.getDni());
 
         System.out.println(".......................");
-        System.out.print("Enviando datos a la PPS...");
-        for (int i=0; i<5; i++){
-            System.out.print(".");
-
-            try {
-                TimeUnit.SECONDS.sleep((long)1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        System.out.println("Enviando datos a la PPS...");
         System.out.println(" ");
+        PaymentService service = new Payment();
+        reserva.setNumTransacciones(service.getConfirmacion());
         System.out.println("Datos Correctos, guardando numero transaccion");
         reserva.setEstadoPago("confirmada");
 
