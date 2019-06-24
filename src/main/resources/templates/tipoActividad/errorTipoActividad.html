@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
+</head>
+<body>
+	<div th:replace="/common/navbar" >...</div>
+	
+	<div class="container">
+	
+		<div class="w3-container">
+	        <h1 class="w3-border-bottom w3-border-light-grey w3-padding-64 w3-padding-1 w3-margin-top">Error</h1>
+	        
+	        <div class="w3-panel w3-red w3-border ">
+	        
+		  		<div class="w3-container">
+		        	<h2 class="w3-border-bottom w3-text-black w3-border-light-grey w3-padding-16 w3-margin-top">Acción prohibida</h2>
+		            <p class="w3-text-black">No puedes puedes borrar un tipo de actividad que tiene asginada una actividad </p>
+		            <a href="javascript:history.back(2)" class="w3-button w3-round w3-medium w3-black w3-hover-grey w3-margin-bottom w3-margin-top"> Volver a lista tipo actividades </a>	  
+		    	</div>
+		    	
+			</div>
+	    </div>
+	    
+	    
+	</div>
+	
+</body>
+</html>
