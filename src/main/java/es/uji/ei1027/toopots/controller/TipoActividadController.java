@@ -51,6 +51,7 @@ public class TipoActividadController {
 	        }*/
 	        List<TipoActividad> listaTa=tipoActividadDao.getTiposActividades();
 	        
+	        
 	        for( TipoActividad ta : listaTa ) {
 	        		
 	        		if(ta.getNombre().equals(tipoActividad.getNombre()) && ta.getNivel().equals(tipoActividad.getNivel())) {
@@ -67,7 +68,6 @@ public class TipoActividadController {
 	 
 	 @RequestMapping(value="/update/{id}", method=RequestMethod.GET)
 	    public String updateActividad(Model model, @PathVariable String id) {
-	    	System.out.println("HOA");
 	        model.addAttribute("tipoActividad", tipoActividadDao.getTipoActividad(id));
 	        return "tipoActividad/update";
 	    }
@@ -92,7 +92,12 @@ public class TipoActividadController {
 	 
 	 @RequestMapping(value="/delete/{id}")
 	    public String deleteActividad(Model model, @PathVariable String id) {
-	        tipoActividadDao.deleteTipoActividad(id);
+		 	try {
+		 		tipoActividadDao.deleteTipoActividad(id);
+			} catch (Exception e) {
+				// TODO: handle exception
+				return "/tipoActividad/errorTipoActividad"; 
+			}
 	        return "redirect:../list";
 	    }
 	 

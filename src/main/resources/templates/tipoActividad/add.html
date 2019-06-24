@@ -33,16 +33,23 @@
 
             </div>
 
+           
             <div class="w3-container">
-                <label for="adr">Nivel</label>
-                <input class="w3-input w3-section w3-border"  type="text" th:field="*{nivel}" placeholder="medio" required>
-
-            </div>
+	            <label for="city">Nivel</label>
+		        <select class="custom-select w3-margin-bottom w3-margin-top" name="tipo" th:field="*{nivel}"  >
+					<option value="----- Elige el nivel -----" selected="selected" disabled="disabled">----- Elige el nivel -----</option >
+					<option value="extremo" >Extremo</option>
+					<option value="alto" >Alto</option>
+					<option value="medio" >Medio</option>
+					<option value="bajo" >Bajo</option>
+					
+				</select>
+	    	</div>
 
 
             <div class="w3-container">
-                <input type="submit" class=" w3-btn w3-pale-green w3-margin-top w3-margin-bottom w3-margin-right" value="Añadir nuevo tipo"/>
-                <a href="/administrador/lobby" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black"> Volver</a>
+                <input type="submit" class=" w3-btn w3-pale-green w3-hover-green w3-margin-top w3-margin-bottom w3-margin-right" value="Añadir nuevo tipo"/>
+                <a href="javascript:history.back()" class="w3-btn w3-black w3-hover-grey w3-margin-top w3-margin-bottom"> Volver</a>
                 
         
             </div>
