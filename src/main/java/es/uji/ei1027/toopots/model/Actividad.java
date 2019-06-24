@@ -18,8 +18,17 @@ public class Actividad {
 	private String textoCliente;
 	private String estado;
 	private int id_tipoActividad;
+	private Cliente cliente = null;
 	
 	private DescuentoManager dm = DescuentoManager.getDescuentoManager();
+	
+	public Cliente getCliente(){
+		return cliente;
+	}
+	
+	public void setCliente(Cliente cliente){
+		this.cliente = cliente;
+	}
     
 	public int getId_actividad() {
 		return id_actividad;
@@ -52,7 +61,7 @@ public class Actividad {
 		this.fecha = fecha;
 	}
 	public float getPrecio() {
-		return dm.getPriceWithDiscount(null, this.precio);
+		return dm.getPriceWithDiscount(cliente, this.precio);
 	}
 	public void setPrecio(int precio) {
 		this.precio = precio;

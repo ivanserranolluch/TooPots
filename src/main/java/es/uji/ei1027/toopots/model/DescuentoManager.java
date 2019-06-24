@@ -1,7 +1,5 @@
 package es.uji.ei1027.toopots.model;
 
-import org.springframework.context.annotation.Bean;
-
 public class DescuentoManager {
 	
 	private static DescuentoManager dm;
@@ -34,6 +32,8 @@ public class DescuentoManager {
 	private static void settingDescuentos(){
 		Descuento d = new Descuento();
 		d.setDiscountValue(0.5f);
+		d.setField("Sexo");
+		d.setValue("M");
 		dm.setDescuento(d);
 	}
 
