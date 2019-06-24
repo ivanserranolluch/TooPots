@@ -17,11 +17,20 @@
 </div>
 <div class="container">
 	<div class="w3-container w3-padding-64" id="projects">
-    	<h1 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center w3-wide" th:text="${titulo}"></h1>
-    	
-    
-    	
-    	
+    	<h1 class="w3-border-bottom w3-border-light-grey w3-padding-32 w3-center w3-wide" th:text="${titulo}"></h1>    
+    		
+    	<form class="form-inline w3-margin-top" action="#" th:action="@{/reservaClienteActividad/list}">
+	    	<div class="w3-dropdown-hover w3-grey">
+			    <button class="w3-button">Ordenar por</button>
+			    <div class="w3-dropdown-content w3-bar-block w3-card-4">
+			      <input id="mon" name="mon" value="true" hidden="hidden">
+			    
+			      <input type="submit"  id="order" name="order" value="fecha" class="w3-bar-item w3-button " />
+			      <input type="submit"  id="order" name="order" value="precio" class="w3-bar-item w3-button" />
+			      <input type="submit"  id="order" name="order" value="estado" class="w3-bar-item w3-button" />
+			    </div>
+	  		</div>
+  		</form>
     </div>	  
 	<table th:unless="${#lists.isEmpty(reservasClienteActividad)}" class="table table-striped">
 	    <thead>
@@ -109,7 +118,7 @@
 
 				<td>
                     <div>
-                        <input type="submit" class="w3-btn w3-pale-green w3-hover-green w3-margin-top w3-margin-bottom w3-margin-right" th:name="action" th:value="aceptar" th:if="${reserva.estadoPago} == confirmada">
+                        <input type="submit" class="w3-btn w3-pale-green w3-hover-green  w3-margin-bottom w3-margin-right" th:name="action" th:value="aceptar" th:if="${reserva.estadoPago} == confirmada">
                     </div>
                 </td>
 			</form>
