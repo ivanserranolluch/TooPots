@@ -63,8 +63,13 @@ public class ClienteController {
 		user.setPassword(passwordEncryptor.encryptPassword(cliente.getPasswd()));
 		user.setTipoUsuario("cliente");
 		
-        clienteDao.addCliente(cliente);
-        userDao.addUsuario(user);
+		try {
+			clienteDao.addCliente(cliente);
+	        userDao.addUsuario(user);
+		}catch(Exception e) {
+			return "errores/clienteAdd";
+		}
+        
         
 		return "cliente/success";
 	}

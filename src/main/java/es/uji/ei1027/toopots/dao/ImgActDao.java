@@ -51,10 +51,20 @@ public class ImgActDao {
 		try{
 			return jdbcTemplate.queryForObject("SELECT DISTINCT(id_actividad), url, id_imagen FROM imgact where id_actividad=?", new ImgActRowMapper(), id);
 		}catch (EmptyResultDataAccessException e){
-			e.printStackTrace();
-			return null;
+		    ImgAct vacia = new ImgAct();
+		    vacia.setUrl(" ");
+			return vacia;
 		}
 	}
+
+    public List<ImgAct> getImageTipoActividad(String tipo){
+        try{
+            return jdbcTemplate.query("SELECT DISTINCT(id_actividad), url, id_imagen FROM imgact i JOIN actividad a USING(id_actividad)" +
+                    " JOIN tipoactividad t USING(id_tipoactividad) where lower(t.nombre)=lower(?)", new ImgActRowMapper(), tipo);
+        }catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
 	
     /* Obté totes les Imagens. Torna una llista buida si no n'hi ha cap. */
     public List<ImgAct> getActividad() {

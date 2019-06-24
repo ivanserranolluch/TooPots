@@ -87,8 +87,13 @@ public class MonitorController {
 		
 		monitor.setEstado("pendiente");
 
-        monitorDao.addMonitor(monitor);
-        userDao.addUsuario(user);
+		try {
+			monitorDao.addMonitor(monitor);
+	        userDao.addUsuario(user);
+		}catch(Exception e) {
+			return "errores/monitorAdd";
+		}
+        
         
         return "monitor/success";
     }

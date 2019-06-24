@@ -7,8 +7,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.uji.ei1027.toopots.dao.*;
-import es.uji.ei1027.toopots.model.*;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -21,8 +21,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.jws.soap.SOAPBinding;
-import javax.servlet.http.HttpSession;
+import es.uji.ei1027.toopots.dao.ActividadDao;
+import es.uji.ei1027.toopots.dao.ImgActDao;
+import es.uji.ei1027.toopots.dao.MonitorDao;
+import es.uji.ei1027.toopots.dao.MonitoresActividadDao;
+import es.uji.ei1027.toopots.dao.SerialActividadDao;
+import es.uji.ei1027.toopots.dao.TipoActividadDao;
+import es.uji.ei1027.toopots.model.Actividad;
+import es.uji.ei1027.toopots.model.ImgAct;
+import es.uji.ei1027.toopots.model.Monitor;
+import es.uji.ei1027.toopots.model.MonitoresActividad;
+import es.uji.ei1027.toopots.model.Reserva;
+import es.uji.ei1027.toopots.model.SerialActividad;
+import es.uji.ei1027.toopots.model.TipoActividad;
+import es.uji.ei1027.toopots.model.User;
 
 @Controller
 @RequestMapping("/actividad")
@@ -227,7 +239,25 @@ public class ActividadController {
     //LISTAR ACTIVIDADES POR TIPO	
 	@RequestMapping(value="/listaActividadesPorTipo/{tipo}", method=RequestMethod.GET)
 	public String pageActividadesTipo(Model model, @PathVariable String tipo) {
-		model.addAttribute("actividades", actividadDao.getActividadPorTipo(tipo));
+
+
+	    List<Actividad> listaActividades = actividadDao.getActividadPorTipo(tipo);
+	    List<ImgAct> listaImgAct = new ArrayList<>();
+
+	    for(Actividad actividad : listaActividades){
+	        ImgAct aux = imgActDao.getImageActividad(actividad.getId_actividad());
+
+	        if(aux.getUrl().equals(" ")) {
+                aux.setId_actividad(actividad.getId_actividad());
+                aux.setUrl("/images/default.jpg");
+            }
+            listaImgAct.add(aux);
+        }
+
+
+		model.addAttribute("actividades", listaActividades);
+		model.addAttribute("tipo", tipo);
+        model.addAttribute("imagenes", listaImgAct);
 		return "actividad/listaActividadesPorTipo";
 	}
 
@@ -243,7 +273,7 @@ public class ActividadController {
 	@RequestMapping(value="/actividadInfoReserva/{id}", method=RequestMethod.GET)
 	public String pageActividadReserva(Model model, @PathVariable int id) {
 		//System.out.println(id);
-		
+
 		model.addAttribute("actividad", actividadDao.getActividad(id));
 		model.addAttribute("imgurl", imgActDao.getImageActividad(id).getUrl());
 		return "actividad/actividadInfoReserva";
@@ -287,21 +317,34 @@ public class ActividadController {
 	@RequestMapping(value="/actividades") 
 	public String pageActividades(Model model, HttpSession session) {
 		model.addAttribute("session",session);
-		return "actividad/actividades"; 
+
+	    List<TipoActividad> listaTipos = tipoActividadDao.getTiposActividadesNoVacios();
+	    List<ImgAct> listaImg = new ArrayList<>();
+	    
+	    if(listaTipos.isEmpty()){
+	        model.addAttribute("tipos", listaTipos);
+            return "actividad/actividades";
+        }
+
+        ImgAct auxImg;
+        List<ImgAct> aux;
+        for(TipoActividad tipo : listaTipos){
+            aux = imgActDao.getImageTipoActividad(tipo.getNombre());
+            if(aux.isEmpty()){
+                auxImg = new ImgAct();
+                auxImg.setId_actividad(tipo.getId());
+                auxImg.setUrl("/images/default.jpg");
+            }else{
+                auxImg = aux.get(0);
+                auxImg.setId_actividad(tipo.getId());
+            }
+            listaImg.add(auxImg);
+        }
+
+        model.addAttribute("tipos", listaTipos);
+        model.addAttribute("imagenes", listaImg);
+
+	    return "actividad/actividades";
 	}
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

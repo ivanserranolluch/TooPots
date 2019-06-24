@@ -1,5 +1,7 @@
 package es.uji.ei1027.toopots.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,7 +49,15 @@ public class TipoActividadController {
 	       /* if (bindingResult.hasErrors()){
 				return "tipoActividad/add";
 	        }*/
+	        List<TipoActividad> listaTa=tipoActividadDao.getTiposActividades();
 	        
+	        for( TipoActividad ta : listaTa ) {
+	        		
+	        		if(ta.getNombre().equals(tipoActividad.getNombre()) && ta.getNivel().equals(tipoActividad.getNivel())) {
+	        			return "/errores/tipoActividadAdd";
+	        		}
+	        		
+	        }
 		
 	        tipoActividadDao.addTipoActividad(tipoActividad);
 	        
