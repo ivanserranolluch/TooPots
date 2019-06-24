@@ -13,6 +13,11 @@
 	<div class="w3-container" style="margin-left:5%;margin-right: 5%">
 		<div class="w3-container w3-padding-64" id="projects">
     		<h1 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center w3-wide">Listado de clientes</h1>
+    		
+    		<form class="form-inline w3-margin-top" action="#" th:action="@{/cliente/list}">
+	    		<input class="form-control" type="search" name="busca" placeholder="Busqueda por nombre">
+	    		<input class="w3-button w3-small w3-black w3-text-white w3-hover-light-grey w3-margin-left " type="submit" value="Buscar"> 
+    		</form>
   		</div>	  
 	  	<table class="table table-striped">
 		     <thead>
@@ -25,7 +30,7 @@
 		       </tr>
 		     </thead>
 		     <tbody>
-		       <tr th:each="cliente: ${clientes}"> 
+		       <tr th:each="cliente: ${clientes}" th:class="${#strings.startsWith(cliente.nombre.toLowerCase(),busca.toLowerCase())}? 'w3-blue-grey'"> 
 		         <td th:text="${cliente.dni}"></td> 
 		         <td th:text="${cliente.nombre}"></td>
 		         <td th:text="${cliente.email}"></td>
