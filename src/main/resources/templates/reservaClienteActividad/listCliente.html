@@ -49,8 +49,8 @@
 	        <td th:text="${reserva.lugar}" ></td>
 	        <td th:text="${reserva.puntoEncuentro}" ></td>
 	        <td th:text="${reserva.estadoPago}" ></td>
-	        <td><a class="w3-button w3-round w3-medium w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" th:href="@{/actividad/actividadInfoReserva/{id}(id=${reserva.id_actividad})}" style="color:white;">Ver</a></td>
-	        <td th:if="${reserva.estadoPago != 'anulada'}"><a th:href="@{/reservaClienteActividad/cancelar/{id}(id=${reserva.id_reserva})}" class="w3-btn w3-pale-red w3-margin-top w3-margin-bottom w3-text-black w3-hover-red"> Anular </a></td>
+	        <td><a class="w3-button w3-pale-green w3-text-black w3-hover-green w3-margin-bottom" th:href="@{/actividad/actividadInfoReserva/{id}(id=${reserva.id_actividad})}" >Ver</a></td>
+	        <td th:if="${reserva.estadoPago != 'anulada'}"><a th:href="@{/reservaClienteActividad/cancelar/{id}(id=${reserva.id_reserva})}" class="w3-button w3-pale-red w3-margin-bottom w3-text-black w3-hover-red"> Anular </a></td>
 	        
 	       
 	        

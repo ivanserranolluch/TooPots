@@ -4,9 +4,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>>
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+<style>
+p{
+	
+
+}
+</style>
 
 <body>
+
 
 <!-- Navbar (sit on top) -->
 <div th:replace="/common/navbar" >...</div>
@@ -19,7 +26,7 @@
 
     <div class="container">
         <div class="w3-container w3-padding-32" id="projects">
-            <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" th:text="${'Actividades de ' + tipo}"></h3>
+            <h1 class="w3-border-bottom w3-border-light-grey w3-padding-16" th:text="${'Actividades de ' + tipo}"></h1>
         </div>
     </div>
 
@@ -38,15 +45,41 @@
 
                     <div class="w3-col l9 m6 w3-margin-top">
                         <div class="w3-display-container">
-                            <p> Aqui puedes poner una ligera descripcion de lo que se va
-                                a hacer en la actividad de paracaidismo sin ningun problema </p>
+                            <h3 class="w3-center" th:text="${actividad.nombre}"></h3>
+                            <p th:text="${'Descripción: ' + actividad.descripcion}" ></p>
+                            
+                            <div class="w3-cell-row w3-margin-bottom">
+
+								<div class="w3-container w3-cell">
+									<label> <b>Lugar</b> </label>
+									<p th:text="${actividad.Lugar}"></p>
+									<label> <b>Mínimo de Asistentes</b> </label>
+									<p  th:text="${actividad.minAsistentes}"></p>
+								 
+								</div>
+								
+								<div class="w3-container w3-cell w3-cell-middle w3-margin-rigth">
+									<label> <b>Hora</b> </label>
+									<p th:text="${actividad.horaEncuentro}"></p>
+									<label> <b>Máximo de Asistentes</b> </label>
+									<p th:text="${actividad.maxAsistentes}"></p>
+									
+								</div>
+								
+								<div class="w3-container w3-cell w3-cell-top w3-margin-top">
+									<label> <b>Precio</b> </label>
+									<p th:text="${actividad.precio}"></p>
+								</div>
+								
+							</div>
+								                            
                         </div>
                     </div>
 
                     <div class="w3-col l12 m6">
                         <div class="w3-display-container ">
                             <div class="w3-display-bottomright w3-margin-bottom">
-                                <a class="w3-button w3-pale-green w3-hover-green w3-xlarge"
+                                <a class="w3-button w3-light-blue w3-hover-blue w3-large"
                                         th:href="@{/actividad/actividadinfo/{id}(id=${actividad.id_actividad})}" th:text="${'Ver mas'}"></a>
 
                             </div>
