@@ -183,9 +183,9 @@ public class ActividadController {
 
 		actividad.setId_tipoActividad(idActividad);
 		actividad.setEstado("abierta");
+		actividad.setTextoCliente(" ");
 		
-		
-		System.out.println("HOLA tio esto es el ID actividad monitor: "+actividad.getId_actividad());
+
 		actividadDao.insertActividad(actividad);
         //actividadDao.addActividad(actividad);
 
