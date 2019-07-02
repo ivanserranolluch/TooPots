@@ -124,7 +124,7 @@ public class CertificacionMonitorController {
 	            e.printStackTrace();
 	        }
 	        	   
-	        certificacion.setId_monitor(Integer.parseInt(m.getId()));
+	        certificacion.setId_monitor(m.getId());
 	        certificacion.setEstado("pendiente");
 	        certificacion.setRutaCertificado(""+uploadDirectory + "pdfs/" 
 	        		+user.getEmail() +"/" +certificacion.getId_certificacion());

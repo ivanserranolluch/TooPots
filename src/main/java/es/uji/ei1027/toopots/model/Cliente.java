@@ -48,8 +48,8 @@ public class Cliente {
 	public void setStrFechaNacimiento(String strFechaNacimiento) {
 		this.strFechaNacimiento = strFechaNacimiento;
 		String[] date = strFechaNacimiento.split("-");
-		this.fechaNacimiento = new Date(Integer.valueOf(date[0]), 
-				Integer.valueOf(date[1]), 
+		this.fechaNacimiento = new Date(Integer.valueOf(date[0])-1900,
+				Integer.valueOf(date[1])-1,
 				Integer.valueOf(date[2]));
 	}
 	public String getPasswd() {
