@@ -147,6 +147,7 @@ public class ActividadController {
     @RequestMapping(value="/add", method=RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("actividad") Actividad actividad,
 								   @ModelAttribute("tipo") String t,
+								   @RequestParam("precioper") String precioper,
 								   @RequestParam("hora") String h,
 								   BindingResult bindingResult,
 								   @RequestParam("file") MultipartFile file,
@@ -193,6 +194,7 @@ public class ActividadController {
 		actividad.setId_tipoActividad(idActividad);
 		actividad.setEstado("abierta");
 		actividad.setTextoCliente(" ");
+		actividad.setPrecio(Float.valueOf(precioper));
 		
 
 		actividadDao.insertActividad(actividad);
@@ -234,7 +236,7 @@ public class ActividadController {
        	//mailService.sendMail("al342376@uji.es", monitor.getEmail(), "Aceptado como Monitor", "Su solicitud como monitor, ha sido aceptada.");
         	//System.out.println("Se ha enviado un correo al monitor");
 		//}
-        return "redirect:/actividad/list";
+        return "redirect:/actividad/listActividades";
     }
 
 
@@ -246,7 +248,7 @@ public class ActividadController {
         }catch (Exception e){
 	        return "/errores/monitorDeleteActividad";
         }
-        return "/actividad/list";
+        return "/actividad/listActividades";
     }
     
     //LISTAR ACTIVIDADES POR TIPO	

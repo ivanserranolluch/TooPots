@@ -1,5 +1,7 @@
 package es.uji.ei1027.toopots.model;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import java.sql.Date;
 import java.sql.Time;
 
@@ -63,7 +65,7 @@ public class Actividad {
 	public float getPrecio() {
 		return dm.getPriceWithDiscount(cliente, this.precio);
 	}
-	public void setPrecio(int precio) {
+	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
 	public int getMinAsistentes() {

@@ -3,7 +3,7 @@ package es.uji.ei1027.toopots.model;
 public class CertificacionMonitor {
 	private int id_certificacion;
 	private String estado;
-	private int id_monitor;
+	private String id_monitor;
 	private String nombre;
     private String domicilio;
     private String email;
@@ -21,10 +21,10 @@ public class CertificacionMonitor {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public int getId_monitor() {
+	public String getId_monitor() {
 		return id_monitor;
 	}
-	public void setId_monitor(int id_monitor) {
+	public void setId_monitor(String id_monitor) {
 		this.id_monitor = id_monitor;
 	}
 	public String getNombre() {

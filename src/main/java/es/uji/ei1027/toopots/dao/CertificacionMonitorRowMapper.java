@@ -14,7 +14,7 @@ public class CertificacionMonitorRowMapper implements RowMapper<CertificacionMon
 		CertificacionMonitor dev = new CertificacionMonitor();
 		dev.setId_certificacion(rs.getInt("id_certificacion"));
 		dev.setEstado(rs.getString("estado"));
-		dev.setId_monitor(rs.getInt("id_monitor"));
+		dev.setId_monitor(rs.getString("id_monitor"));
 		dev.setNombre(rs.getString("nombre"));
 		dev.setEmail(rs.getString("email"));
         dev.setIban(rs.getString("iban"));
